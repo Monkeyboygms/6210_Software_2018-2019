@@ -6,9 +6,9 @@ import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
 public class StrykeHardwareMap {
-    public DcMotor leftMotor = null;
-    public DcMotor rightMotor = null;
-    public Servo servo = null;
+    public DcMotor leftDrive = null;
+    public DcMotor rightDrive = null;
+    //public Servo servo = null;
 
     HardwareMap map = null;
 
@@ -21,21 +21,21 @@ public class StrykeHardwareMap {
     public void init(HardwareMap themap){
         map = themap;
 
-        leftMotor = map.dcMotor.get("LF");
-        rightMotor = map.dcMotor.get("RF");
+        leftDrive = map.dcMotor.get("LF");
+        rightDrive = map.dcMotor.get("RF");
         //servo = map.servo.get("servo");
 
-        leftMotor.setMode(initialMode);
-        rightMotor.setMode(initialMode);
+        leftDrive.setMode(initialMode);
+        rightDrive.setMode(initialMode);
 
-        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        servo.setPosition(0);
+        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        //servo.setPosition(0);
 
         stop();
     }
     public void stop(){
-        leftMotor.setPower(0);
-        rightMotor.setPower(0);
+        leftDrive.setPower(0);
+        rightDrive.setPower(0);
     }
 }

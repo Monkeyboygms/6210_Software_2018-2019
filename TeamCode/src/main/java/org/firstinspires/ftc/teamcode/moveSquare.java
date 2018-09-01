@@ -42,17 +42,17 @@ public class moveSquare extends LinearOpMode {
     public void moveForwardTime(double power, long time) throws InterruptedException{
         leftDrive.setPower(power);
         rightDrive.setPower(power);
-        Thread.sleep(time);
+        sleep(time);
     }
     public void turnLeftTime(double power, long time) throws InterruptedException{
         leftDrive.setPower(-power);
         rightDrive.setPower(power);
-        Thread.sleep(time);
+        sleep(time);
     }
     public void turnRightTime(double power, long time)throws InterruptedException{
         leftDrive.setPower(power);
         rightDrive.setPower(-power);
-        Thread.sleep(time);
+        sleep(time);
     }
     public void stopDrive(){
         leftDrive.setPower(0);

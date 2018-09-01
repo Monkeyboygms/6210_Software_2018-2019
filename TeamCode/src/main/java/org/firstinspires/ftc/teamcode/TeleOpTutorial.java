@@ -27,8 +27,8 @@ public class TeleOpTutorial extends OpMode{
     }
     @Override
     public void loop(){
-        robot.rightMotor.setPower(gamepad1.left_stick_y);
-        robot.leftMotor.setPower(gamepad1.right_stick_y);
-        robot.servo.setPosition(gamepad1.left_trigger);
+        robot.rightDrive.setPower(gamepad1.left_stick_y);
+        robot.leftDrive.setPower(gamepad1.right_stick_y);
+        //robot.servo.setPosition(gamepad1.left_trigger);
     }
 }
