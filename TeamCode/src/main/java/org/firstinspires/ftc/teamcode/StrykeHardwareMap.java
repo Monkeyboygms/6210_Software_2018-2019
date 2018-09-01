@@ -29,7 +29,7 @@ public class StrykeHardwareMap {
         rightMotor.setMode(initialMode);
 
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightMotor.setMode(DcMotorSimple.Direction.FORWARD);
+        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         servo.setPosition(0);
 
         stop();

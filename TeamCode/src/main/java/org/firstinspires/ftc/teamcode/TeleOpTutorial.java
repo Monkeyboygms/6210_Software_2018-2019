@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name = TeleOpTutorial, group = TeleOp)
+@TeleOp(name="TrollBotTeleOp_HM", group="Linear Opmode")
 public class TeleOpTutorial extends OpMode{
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -4,6 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -20,11 +21,11 @@ public class TrollBotTeleOp extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        leftDrive  = hardwareMap.get(DcMotor.class, "LF");
-        rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        DcMotor leftDrive = hardwareMap.get(DcMotor.class, "LF");
+        DcMotor rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.REVERSE);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         runtime.reset();
