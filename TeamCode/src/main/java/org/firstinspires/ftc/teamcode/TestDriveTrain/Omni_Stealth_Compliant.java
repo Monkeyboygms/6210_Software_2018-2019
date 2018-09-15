@@ -8,9 +8,9 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Basic: Linear OpMode", group="Linear Opmode")
-//@Disabled
-public class TrollBotTeleOp extends LinearOpMode {
+@TeleOp(name="Omni_Stealth_Compliant Test", group="Linear Opmode")
+@Disabled
+public class Omni_Stealth_Compliant extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftMotor = null;

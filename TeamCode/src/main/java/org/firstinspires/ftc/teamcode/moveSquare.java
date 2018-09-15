@@ -19,7 +19,7 @@ public class moveSquare extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //initialize
-        leftDrive = hardwareMap.dcMotor.get("LF");
+       /* leftDrive = hardwareMap.dcMotor.get("LF");
         rightDrive = hardwareMap.dcMotor.get("RF");
 
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -57,5 +57,7 @@ public class moveSquare extends LinearOpMode {
     public void stopDrive(){
         leftDrive.setPower(0);
         rightDrive.setPower(0);
-    }
+    }*/
+       telemetry.addData("Status", "Initialized");
+       telemetry.update();
 }
