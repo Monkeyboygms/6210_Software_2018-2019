@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @Autonomous(name="moveSquare")
-//@Disabled
+//@Disabled jf
 public class moveSquare extends LinearOpMode {
 
     private DcMotor leftDrive = null;
