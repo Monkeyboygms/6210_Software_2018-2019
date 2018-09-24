@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="moveSquare")
+@com.qualcomm.robotcore.eventloop.opmode.Autonomous(name="Autonomous")
 //@Disabled jf
 public class Autonomous extends LinearOpMode {
 
