@@ -1,13 +1,15 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@TeleOp(name="TrollBotTeleOp_HM", group="Linear Opmode")
-public class TeleOpTutorial extends OpMode{
+@TeleOp(name="Iterative_TeleOp", group="Iterative Opmode")
+//@Disabled
+public class Iterative_TeleOp extends OpMode{
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     private ElapsedTime runtime = new ElapsedTime();

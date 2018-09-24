@@ -1,18 +1,17 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Trollbot TeleOp", group="Linear Opmode")
-//@Disabled
-public class TrollBotTeleOp_HM extends LinearOpMode {
+@TeleOp(name="Omni_Stealth_Compliant Test", group="Linear Opmode")
+@Disabled
+public class Omni_Stealth_Compliant extends LinearOpMode {
 
-    StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     private ElapsedTime runtime = new ElapsedTime();
     private DcMotor leftMotor = null;
     private DcMotor rightMotor = null;
@@ -22,7 +21,11 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot.init(hardwareMap);
+        DcMotor leftDrive  = hardwareMap.get(DcMotor.class, "LF");
+        DcMotor rightDrive = hardwareMap.get(DcMotor.class, "RF");
+
+        leftDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.FORWARD);
 
         waitForStart();
         runtime.reset();
@@ -44,8 +47,8 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
                 rightPower = gamepad1.right_stick_y;
             }
 
-            robot.leftDrive.setPower(leftPower);
-            robot.rightDrive.setPower(rightPower);
+            leftDrive.setPower(leftPower);
+            rightDrive.setPower(rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

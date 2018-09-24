@@ -22,7 +22,7 @@ public class TrollBotTeleOp extends LinearOpMode {
         telemetry.update();
 
         DcMotor leftDrive  = hardwareMap.get(DcMotor.class, "LF");
-        DcMotor rightDrive = hardwareMap.get(DcMotor.class, "right_drive");
+        DcMotor rightDrive = hardwareMap.get(DcMotor.class, "RF");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
         rightDrive.setDirection(DcMotor.Direction.REVERSE);
@@ -32,23 +32,25 @@ public class TrollBotTeleOp extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double leftPower;
-            double rightPower;
+            double leftPower = 0.0;
+            double rightPower = 0.0;
 
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            //double drive = -gamepad1.left_stick_y;
+          //  double turn  =  gamepad1.right_stick_x;
+           // leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
+            //rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
 
             if(Math.abs(gamepad1.left_stick_y) > 0.05){
                 leftPower = gamepad1.left_stick_y;
+                leftDrive.setPower(leftPower);
             }
-            if(Math.abs(gamepad1.right_stick_x) > 0.05){
-                rightPower = gamepad1.right_stick_x;
-            }
+       /*     if(Math.abs(gamepad1.right_stick_y) > 0.05){
+                rightPower = gamepad1.right_stick_y;
+                rightDrive.setPower(rightPower);
+            }*/
 
-            leftDrive.setPower(leftPower);
-            rightDrive.setPower(rightPower);
+
+
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
