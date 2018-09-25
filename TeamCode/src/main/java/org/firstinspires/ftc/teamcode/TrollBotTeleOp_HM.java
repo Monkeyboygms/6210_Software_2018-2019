@@ -8,14 +8,14 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Trollbot TeleOp", group="Linear Opmode")
+@TeleOp(name="Trollbot TeleOp HM", group="Linear Opmode")
 //@Disabled
 public class TrollBotTeleOp_HM extends LinearOpMode {
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     private ElapsedTime runtime = new ElapsedTime();
-    private DcMotor leftMotor = null;
-    private DcMotor rightMotor = null;
+    private DcMotor leftDrive = null;
+    private DcMotor rightDrive = null;
 
     @Override
     public void runOpMode() {
@@ -29,13 +29,13 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
 
         while (opModeIsActive()) {
 
-            double leftPower;
-            double rightPower;
+            double leftPower = 0.0;
+            double rightPower = 0.0;
 
-            double drive = -gamepad1.left_stick_y;
+            /*double drive = -gamepad1.left_stick_y;
             double turn  =  gamepad1.right_stick_x;
             leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;
+            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;*/
 
             if(Math.abs(gamepad1.left_stick_y) > 0.05){
                 leftPower = gamepad1.left_stick_y;
@@ -44,8 +44,9 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
                 rightPower = gamepad1.right_stick_y;
             }
 
-            robot.leftDrive.setPower(leftPower);
-            robot.rightDrive.setPower(rightPower);
+            leftDrive.setPower(leftPower);
+            rightDrive.setPower(rightPower);
+
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

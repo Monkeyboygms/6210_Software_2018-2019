@@ -15,5 +15,11 @@
 apply from: '../build.common.gradle'
 
 android {
-    buildToolsVersion '27.0.3'
+    buildToolsVersion '28.0.2'
+
+    repositories {
+        // The order in which you list these repositories matter.
+        google()
+        jcenter()
+    }
 }
