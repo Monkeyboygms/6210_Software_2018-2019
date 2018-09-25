@@ -25,7 +25,7 @@ public class TrollBotTeleOp extends LinearOpMode {
         DcMotor rightDrive = hardwareMap.get(DcMotor.class, "RF");
 
         leftDrive.setDirection(DcMotor.Direction.FORWARD);
-        rightDrive.setDirection(DcMotor.Direction.FORWARD);
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);
 
         waitForStart();
         runtime.reset();
