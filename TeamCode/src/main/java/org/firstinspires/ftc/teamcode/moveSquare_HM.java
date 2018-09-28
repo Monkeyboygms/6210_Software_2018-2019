@@ -5,8 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@Autonomous(name="moveSquare")
-@Disabled
+@Autonomous(name="moveSquareHM")
+//@Disabled
 public class moveSquare_HM extends LinearOpMode {
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

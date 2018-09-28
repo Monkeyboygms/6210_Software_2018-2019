@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @TeleOp(name="Iterative_TeleOp", group="Iterative Opmode")
-//@Disabled
+@Disabled
 public class Iterative_TeleOp extends OpMode{
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);

@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name="TrollBot TeleOp1", group="Linear Opmode")
-//@Disabled
+@Disabled
 public class TrollBotTeleOp extends LinearOpMode {
 
     private ElapsedTime runtime = new ElapsedTime();
