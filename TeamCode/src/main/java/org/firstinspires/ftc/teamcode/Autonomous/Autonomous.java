@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 //@Disabled jf
 public class Autonomous extends LinearOpMode {
 
+    //StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     private DcMotor leftDrive = null;
     private DcMotor rightDrive = null;
 
@@ -14,8 +15,7 @@ public class Autonomous extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //initialize
-        leftDrive = hardwareMap.dcMotor.get("LF");
-        rightDrive = hardwareMap.dcMotor.get("RF");
+        //robot.init(hardwareMap);
 
         leftDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         rightDrive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
