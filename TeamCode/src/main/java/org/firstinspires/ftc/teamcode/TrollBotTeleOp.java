@@ -42,8 +42,7 @@ public class TrollBotTeleOp extends LinearOpMode {
 
             if(Math.abs(gamepad1.left_stick_y) > 0.05){
                 leftPower = gamepad1.left_stick_y;
-            }else{
-                leftPower = 0;
+                leftDrive.setPower(leftPower);
             }
             if(Math.abs(gamepad1.right_stick_y) > 0.05){
                 rightPower = gamepad1.right_stick_y;
