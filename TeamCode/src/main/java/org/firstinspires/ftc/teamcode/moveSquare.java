@@ -8,8 +8,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@Autonomous(name="moveSquare")
-//@Disabled jf
+@Autonomous(name="moveSquare1")
+@Disabled
 public class moveSquare extends LinearOpMode {
 
     private DcMotor leftDrive = null;
