@@ -61,7 +61,7 @@ public class MindySensor extends LinearOpMode
     // State
     //----------------------------------------------------------------------------------------------
 
-    // The IMU sensor object
+    // The IMU sensor object in case I need something changed.
     BNO055IMU imu;
 
     // State used for updating telemetry
