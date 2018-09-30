@@ -24,6 +24,8 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
 
         waitForStart();
         runtime.reset();
+        //robot.leftDrive.setMode(DcMotor.RunMode.RESET_ENCODERS);
+        //robot.rightDrive.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
         while (opModeIsActive()) {
 
@@ -47,6 +49,7 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("MotorPosition", "encoder position is: " + robot.leftDrive.getCurrentPosition());
             telemetry.update();
         }
     }
