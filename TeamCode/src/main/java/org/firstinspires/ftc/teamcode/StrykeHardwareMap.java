@@ -28,7 +28,7 @@ public class StrykeHardwareMap {
         leftDrive.setMode(initialMode);
         rightDrive.setMode(initialMode);
 
-        leftDrive.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         //servo.setPosition(0);
 
