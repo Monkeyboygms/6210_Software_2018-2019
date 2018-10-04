@@ -60,10 +60,10 @@ public class Vuforia extends LinearOpMode{
         parameters.cameraDirection = VuforiaLocalizer.CameraDirection.BACK; //change
         vuforiaLocalizer = ClassFactory.createVuforiaLocalizer(parameters);
 
-        visionTargets = vuforiaLocalizer.loadTrackablesFromAsset("FTC_2016-17");
+        visionTargets = vuforiaLocalizer.loadTrackablesFromAsset("RoverRuckus");
 
         target = visionTargets.get(0);
-        target.setName("Wheels Target");
+        target.setName("Footprint RA");
         target.setLocation(createMatrix(0,0,0,0,0,0));
 
         phoneLocation = createMatrix(0,0,0,0,0, 0);
