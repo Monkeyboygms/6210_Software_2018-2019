@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -117,10 +118,13 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
 
     // Select which camera you want use.  The FRONT camera is the one on the same side as the screen.
     // Valid choices are:  BACK or FRONT
-    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = FRONT;
+    private static final VuforiaLocalizer.CameraDirection CAMERA_CHOICE = BACK;
 
     private OpenGLMatrix lastLocation = null;
     private boolean targetVisible = false;
+
+    //StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_USING_ENCODER);
+    EncoderTutorial ec = new EncoderTutorial();
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -301,10 +305,16 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
+
+                //Drive to target
+                ec.DriveForwardDistance(0.5, translation.get(1));
+
+
             }
             else {
                 telemetry.addData("Visible Target", "none");
             }
+
             telemetry.update();
         }
     }

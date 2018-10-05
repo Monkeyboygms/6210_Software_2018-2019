@@ -11,6 +11,7 @@ public class moveSquare_HM extends LinearOpMode {
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
+
     @Override
     public void runOpMode() throws InterruptedException {
 
