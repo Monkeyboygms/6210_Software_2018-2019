@@ -54,7 +54,6 @@ public class SensorMRRangeSensor extends LinearOpMode {
 
     ModernRoboticsI2cRangeSensor rangeSensor;
     EncoderTutorial ec = new EncoderTutorial();
-    StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_USING_ENCODER);
 
     @Override public void runOpMode() {
 
