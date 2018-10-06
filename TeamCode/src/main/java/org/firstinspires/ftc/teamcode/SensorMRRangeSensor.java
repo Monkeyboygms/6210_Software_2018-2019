@@ -70,6 +70,7 @@ public class SensorMRRangeSensor extends LinearOpMode {
             //telemetry.addData("cm optical", "%.2f cm", rangeSensor.cmOptical());
             telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
             ec.DriveForwardDistance(0.5, rangeSensor.getDistance(DistanceUnit.INCH));
+            //^^^ code doesn't work when this is put in ^^^
             telemetry.update();
         }
     }

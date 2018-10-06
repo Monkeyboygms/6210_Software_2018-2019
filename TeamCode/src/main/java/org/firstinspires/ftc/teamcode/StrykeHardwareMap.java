@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -8,6 +9,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 public class StrykeHardwareMap {
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;
+    public ModernRoboticsI2cRangeSensor rangeSensor = null;
     //public Servo servo = null;
 
     HardwareMap map = null;
@@ -31,6 +33,8 @@ public class StrykeHardwareMap {
         leftDrive.setDirection(DcMotorSimple.Direction.REVERSE);
         rightDrive.setDirection(DcMotorSimple.Direction.FORWARD);
         //servo.setPosition(0);
+
+        rangeSensor = map.get(ModernRoboticsI2cRangeSensor.class, "sensor_range");
 
         stop();
     }
