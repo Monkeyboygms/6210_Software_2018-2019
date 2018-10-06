@@ -27,12 +27,10 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.RandomTests;
 
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -92,7 +90,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * is explained below.
  */
 
-@TeleOp(name="Concept: Vuforia Rover Nav",group = "Sample Code")
+@Autonomous(name="Concept: Vuforia Rover Nav",group = "Sample Code")
 //@Disabled
 public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
 
@@ -123,7 +121,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
     private OpenGLMatrix lastLocation = null;
     private boolean targetVisible = false;
 
-    StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_USING_ENCODER);
+    //StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_USING_ENCODER);
     EncoderTutorial ec = new EncoderTutorial();
 
     /**
@@ -133,8 +131,7 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
     VuforiaLocalizer vuforia;
 
     @Override public void runOpMode() {
-
-        robot.init(hardwareMap);
+        ec.robot.init(hardwareMap);
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -307,17 +304,20 @@ public class ConceptVuforiaNavRoverRuckus extends LinearOpMode {
                 // express the rotation of the robot in degrees.
                 Orientation rotation = Orientation.getOrientation(lastLocation, EXTRINSIC, XYZ, DEGREES);
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
-
+                telemetry.addData("encoder move value", translation.get(1)/mmPerInch);
+                telemetry.update();
                 //Drive to target
-                ec.DriveForwardDistance(0.5, translation.get(1));
+                ec.DriveForwardDistance(0.5, translation.get(1)*36 /mmPerInch );
 
+                sleep(100000);
 
             }
             else {
                 telemetry.addData("Visible Target", "none");
+                telemetry.update();
             }
 
-            telemetry.update();
+
         }
     }
 }
