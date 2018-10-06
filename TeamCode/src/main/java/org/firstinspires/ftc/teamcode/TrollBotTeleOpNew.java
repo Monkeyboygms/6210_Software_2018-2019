@@ -9,32 +9,30 @@ import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
 @TeleOp(name="Trollbot TeleOpHM", group="Linear Opmode")
 //@Disabled
-public class TrollBotTeleOp_HM extends LinearOpMode {
-
-    StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-    private ElapsedTime runtime = new ElapsedTime();
+public class TrollBotTeleOpNew extends StrykeLinearOpMode {
 
     @Override
     public void runOpMode() {
+
+        init(hardwareMap);
+
+        //delete if needed
+        try {
+            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
-        robot.init(hardwareMap);
-
         waitForStart();
         runtime.reset();
-        //robot.leftDrive.setMode(DcMotor.RunMode.RESET_ENCODERS);
-        //robot.rightDrive.setMode(DcMotor.RunMode.RESET_ENCODERS);
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !isStopRequested()) {
 
             double leftPower = 0;
             double rightPower = 0;
-
-            /*double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
-            leftPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightPower   = Range.clip(drive - turn, -1.0, 1.0) ;*/
 
             if(Math.abs(gamepad1.left_stick_y) > 0.05){
                 leftPower = gamepad1.left_stick_y;
@@ -43,12 +41,12 @@ public class TrollBotTeleOp_HM extends LinearOpMode {
                 rightPower = gamepad1.right_stick_y;
             }
 
-            robot.leftDrive.setPower(leftPower);
-            robot.rightDrive.setPower(rightPower);
+            setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.addData("MotorPosition", "encoder position is: " + robot.leftDrive.getCurrentPosition());
+            telemetry.addData("LeftMotorPosition", "encoder position is: " + leftMotor.getCurrentPosition());
+            telemetry.addData("RightMotorPosition", "encoder position is: " + rightMotor.getCurrentPosition());
             telemetry.update();
         }
     }

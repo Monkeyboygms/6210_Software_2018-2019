@@ -1,41 +1,33 @@
 package org.firstinspires.ftc.teamcode.RandomTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.teamcode.IMU;
 
 @Autonomous(name="moveSquareHM")
-//@Disabled
+@Disabled
 public class moveSquare_HM extends LinearOpMode {
 
-    SensorBNO055IMU gyro = new SensorBNO055IMU();
+    StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         //initialize
 
-        double wantAngle = 90.0;
-        String currAngle = gyro.formatAngle(gyro.angles.angleUnit, gyro.angles.firstAngle);
-
         waitForStart();
         //begin program
-        //turnLeftAngle(0.2,3000);
-       // telemetry.addData("cali stat", robot.imu.getCalibrationStatus());
-        //telemetry.update();
-        while(opModeIsActive()){
-            if(Double.valueOf(currAngle) >= wantAngle){
-                telemetry.addData("state: ", "passed or at");
-            }else{
-                telemetry.addData("state ", "approaching " + wantAngle);
-                telemetry.addData("currangle: ", currAngle);
-            }
-            telemetry.update();
-        }
+        turnLeftAngle(0.2,3000);
+        telemetry.addData("cali stat", robot.imu.getCalibrationStatus());
+        telemetry.update();
 
-        //stopDrive();
+        stopDrive();
     }
 
-    /*
+
     public void moveForwardTime(double power, long time) throws InterruptedException{
         robot.leftDrive.setPower(power);
         robot.rightDrive.setPower(power);
@@ -54,5 +46,5 @@ public class moveSquare_HM extends LinearOpMode {
     public void stopDrive(){
         robot.leftDrive.setPower(0);
         robot.rightDrive.setPower(0);
-    }*/
+    }
 }

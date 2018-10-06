@@ -27,13 +27,12 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-package org.firstinspires.ftc.teamcode.RandomTests;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.hardware.DcMotor;
+
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -46,24 +45,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 import java.util.Locale;
 
-/**
- * {@link SensorBNO055IMU} gives a short demo on how to use the BNO055 Inertial Motion Unit (IMU) from AdaFruit.
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- *
- * @see <a href="http://www.adafruit.com/products/2472">Adafruit IMU</a>
- */
-@Autonomous(name = "Sensor: BNO055 IMU", group = "Sensor")
+@Autonomous(name = "IMU", group = "Sensor")
 //@Disabled                            // Comment this out to add to the opmode list
-public class SensorBNO055IMU extends LinearOpMode
-    {
+public class IMU extends StrykeLinearOpMode {
     //----------------------------------------------------------------------------------------------
     // State
     //----------------------------------------------------------------------------------------------
 
     // The IMU sensor object
-    StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
     // State used for updating telemetry
     public Orientation angles;
@@ -75,7 +64,7 @@ public class SensorBNO055IMU extends LinearOpMode
 
     @Override public void runOpMode() {
 
-        robot.init(hardwareMap);
+        init(hardwareMap);
         // Set up the parameters with which we will use our IMU. Note that integration
         // algorithm here just reports accelerations to the logcat log; it doesn't actually
         // provide positional information.
@@ -91,7 +80,7 @@ public class SensorBNO055IMU extends LinearOpMode
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
         // and named "imu".
         //imu = hardwareMap.get(BNO055IMU.class, "imu");
-        robot.imu.initialize(parameters);
+        imu.initialize(parameters);
 
         // Set up our telemetry dashboard
         composeTelemetry();
@@ -100,7 +89,7 @@ public class SensorBNO055IMU extends LinearOpMode
         waitForStart();
 
         // Start the logging of measured acceleration
-        robot.imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
+        imu.startAccelerationIntegration(new Position(), new Velocity(), 1000);
 
         // Loop and update the dashboard
         while (opModeIsActive()) {
@@ -121,20 +110,20 @@ public class SensorBNO055IMU extends LinearOpMode
                 // Acquiring the angles is relatively expensive; we don't want
                 // to do that in each of the three items that need that info, as that's
                 // three times the necessary expense.
-                angles   = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-                gravity  = robot.imu.getGravity();
+                angles   = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                gravity  = imu.getGravity();
                 }
             });
 
         telemetry.addLine()
             .addData("status", new Func<String>() {
                 @Override public String value() {
-                    return robot.imu.getSystemStatus().toShortString();
+                    return imu.getSystemStatus().toShortString();
                     }
                 })
             .addData("calib", new Func<String>() {
                 @Override public String value() {
-                    return robot.imu.getCalibrationStatus().toString();
+                    return imu.getCalibrationStatus().toString();
                     }
                 });
 

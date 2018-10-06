@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode.RandomTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="EncoderTutorial")
-//@Disabled
+@Disabled
 public class EncoderTutorial extends LinearOpMode {
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_USING_ENCODER);
