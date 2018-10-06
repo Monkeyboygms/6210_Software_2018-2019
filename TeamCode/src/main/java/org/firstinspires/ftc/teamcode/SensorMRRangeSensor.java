@@ -58,6 +58,8 @@ public class SensorMRRangeSensor extends LinearOpMode {
 
     @Override public void runOpMode() {
 
+        robot.init(hardwareMap); // should fix nullpoint runmode error
+
         // get a reference to our compass
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
 
