@@ -23,15 +23,16 @@ public class AutoLinearOpMode extends LinearOpMode{
     // DECLARE VARIABLES TO BE USED
     ElapsedTime runtime;
 
+    //motors and sensors
     public DcMotor leftMotor;
     public DcMotor rightMotor;
     public ModernRoboticsI2cRangeSensor rangeSensor;
-    public ColorSensor colorSensor;
+    //public ColorSensor colorSensor;
     public BNO055IMU imu;
 
+    //gyro variables
     Orientation lastAngles;
     double globalAngle;
-    double power;
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // REV Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
@@ -57,7 +58,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         //SET UP GYRO
 
         lastAngles = new Orientation();
-        power = .30; // CHANGE LATER ON
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                 = BNO055IMU.SensorMode.IMU;
@@ -138,17 +138,6 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
 //comment out
-    public void gyroTurn(int deg, double pow){
-        telemetry.addData("imu heading", lastAngles.firstAngle);
-        telemetry.addData("global heading", globalAngle);
-        telemetry.update();
-
-        rotate(deg, pow);
-
-        //Possibly add boolean return statement?
-        //Also might get rid of this method if telemetry isn't needed
-    }
-
     public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -171,8 +160,12 @@ public class AutoLinearOpMode extends LinearOpMode{
         return globalAngle;
     }
 
-    private void rotate(int degrees, double power)
+    public void rotate(int degrees, double power)
     {
+        telemetry.addData("imu heading", lastAngles.firstAngle);
+        telemetry.addData("global heading", globalAngle);
+        telemetry.update();
+
         double leftPower, rightPower;
         resetAngle();
 
