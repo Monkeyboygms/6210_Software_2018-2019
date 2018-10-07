@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -27,7 +28,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor leftMotor;
     public DcMotor rightMotor;
     public ModernRoboticsI2cRangeSensor rangeSensor;
-    //public ColorSensor colorSensor;
+    //public DistanceSensor distanceSensor;
     public BNO055IMU imu;
 
     //gyro variables
@@ -47,7 +48,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         rightMotor  = map.dcMotor.get("RF");
         imu         = map.get(BNO055IMU.class, "imu");
         rangeSensor = map.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
-        //colorSensor = map.get(ColorSensor.class, "colorSensor");
+        //distanceSensor = map.get(DistanceSensor.class, "distanceSensor");
 
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -203,7 +204,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 //comment out
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
 
     }
 }

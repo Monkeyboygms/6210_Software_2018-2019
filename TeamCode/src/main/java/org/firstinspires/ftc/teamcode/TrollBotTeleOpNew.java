@@ -3,46 +3,39 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name="Trollbot TeleOpHM", group="Linear Opmode")
+@TeleOp(name="TrollbotTeleOpNew", group="teleop")
 //@Disabled
-public class TrollBotTeleOpNew extends AutoLinearOpMode {
+public class TrollBotTeleOpNew extends TeleOpMode {
 
     @Override
-    public void runOpMode() {
+    public void runOpMode() throws InterruptedException {
 
         init(hardwareMap);
 
-        //delete if needed
-        try {
-            setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        double leftPower = 0, rightPower = 0, scale = 1;
 
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
+
         runtime.reset();
 
         while (opModeIsActive() && !isStopRequested()) {
 
-            double leftPower = 0;
-            double rightPower = 0;
-
             if(Math.abs(gamepad1.left_stick_y) > 0.05){
-                leftPower = gamepad1.left_stick_y;
+                leftPower = gamepad1.left_stick_y * scale;
             }
             if(Math.abs(gamepad1.right_stick_y) > 0.05){
-                rightPower = gamepad1.right_stick_y;
+                rightPower = gamepad1.right_stick_y * scale;
             }
 
             setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
-            telemetry.addData("LeftMotorPosition", "encoder position is: " + leftMotor.getCurrentPosition());
-            telemetry.addData("RightMotorPosition", "encoder position is: " + rightMotor.getCurrentPosition());
             telemetry.update();
         }
     }
