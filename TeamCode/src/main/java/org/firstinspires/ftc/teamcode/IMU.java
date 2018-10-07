@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 import org.firstinspires.ftc.robotcore.external.Func;
@@ -46,7 +47,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 import java.util.Locale;
 
 @Autonomous(name = "IMU", group = "Sensor")
-//@Disabled                            // Comment this out to add to the opmode list
+@Disabled //Probably might end up deleting this
 public class IMU extends AutoLinearOpMode {
     //----------------------------------------------------------------------------------------------
     // State

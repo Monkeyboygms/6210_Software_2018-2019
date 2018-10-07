@@ -64,7 +64,7 @@ public class GyroTurn extends AutoLinearOpMode {
 
     }
 
-    private void resetAngle()
+    public void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
