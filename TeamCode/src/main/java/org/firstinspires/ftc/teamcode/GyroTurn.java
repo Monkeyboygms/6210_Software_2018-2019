@@ -89,7 +89,7 @@ public class GyroTurn extends AutoLinearOpMode {
         return globalAngle;
     }
 
-    private void rotate(int degrees, double power)
+    public void rotate(int degrees, double power)
     {
         double leftPower, rightPower;
 
