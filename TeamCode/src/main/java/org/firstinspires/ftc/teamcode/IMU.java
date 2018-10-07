@@ -47,7 +47,7 @@ import java.util.Locale;
 
 @Autonomous(name = "IMU", group = "Sensor")
 //@Disabled                            // Comment this out to add to the opmode list
-public class IMU extends StrykeLinearOpMode {
+public class IMU extends AutoLinearOpMode {
     //----------------------------------------------------------------------------------------------
     // State
     //----------------------------------------------------------------------------------------------

@@ -1,15 +1,11 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.util.ElapsedTime;
-
-import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
 @TeleOp(name="Trollbot TeleOpHM", group="Linear Opmode")
 //@Disabled
-public class TrollBotTeleOpNew extends StrykeLinearOpMode {
+public class TrollBotTeleOpNew extends AutoLinearOpMode {
 
     @Override
     public void runOpMode() {

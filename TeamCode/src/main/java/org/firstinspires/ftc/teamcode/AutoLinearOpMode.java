@@ -11,11 +11,11 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-public class StrykeLinearOpMode extends LinearOpMode{
+import static java.lang.Double.isNaN;
+
+public class AutoLinearOpMode extends LinearOpMode{
 
     // DECLARE VARIABLES TO BE USED
-
-
     ElapsedTime runtime;
 
     public DcMotor leftMotor;
@@ -39,6 +39,9 @@ public class StrykeLinearOpMode extends LinearOpMode{
 
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+
+        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
     //SET POWER TO DRIVE MOTORS
@@ -89,10 +92,14 @@ public class StrykeLinearOpMode extends LinearOpMode{
     // GET DISTANCE TO OBJECT USING RANGE SENSOR
     public double getDist() {
         double dist = rangeSensor.getDistance(DistanceUnit.INCH);
-        while (dist > 1000 || Double.isNaN(dist) && opModeIsActive()) {
-            dist = rangeSensor.getDistance(DistanceUnit.CM);
+        while (dist > 1000 || isNaN(dist) && opModeIsActive()) {
+            dist = rangeSensor.getDistance(DistanceUnit.INCH);
         }
         return dist;
+    }
+
+    public boolean gyroTurn(){
+        return true;
     }
 
     @Override

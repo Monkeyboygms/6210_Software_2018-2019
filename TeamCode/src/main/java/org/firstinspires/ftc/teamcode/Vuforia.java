@@ -30,7 +30,6 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.matrices.OpenGLMatrix;
@@ -40,7 +39,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackable;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackableDefaultListener;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaTrackables;
-import org.firstinspires.ftc.teamcode.RandomTests.EncoderTutorial;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,9 +89,9 @@ import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocaliz
  * is explained below.
  */
 
-@Autonomous(name="Concept: Vuforia Rover Nav",group = "Sample Code")
+@Autonomous(name="Concept: Vuforia Rover Nav",group = "Sensors")
 //@Disabled
-public class Vuforia extends LinearOpMode {
+public class Vuforia extends AutoLinearOpMode {
 
     /*
      * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -122,9 +120,6 @@ public class Vuforia extends LinearOpMode {
     private OpenGLMatrix lastLocation = null;
     private boolean targetVisible = false;
 
-    //StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_USING_ENCODER);
-    EncoderTutorial ec = new EncoderTutorial();
-
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
      * localization engine.
@@ -132,7 +127,7 @@ public class Vuforia extends LinearOpMode {
     VuforiaLocalizer vuforia;
 
     @Override public void runOpMode() {
-        ec.robot.init(hardwareMap);
+
         /*
          * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
          * We can pass Vuforia the handle to a camera preview resource (on the RC phone);
@@ -307,11 +302,6 @@ public class Vuforia extends LinearOpMode {
                 telemetry.addData("Rot (deg)", "{Roll, Pitch, Heading} = %.0f, %.0f, %.0f", rotation.firstAngle, rotation.secondAngle, rotation.thirdAngle);
                 telemetry.addData("encoder move value", translation.get(1)/mmPerInch);
                 telemetry.update();
-                //Drive to target
-                ec.DriveForwardDistance(0.5, translation.get(1)*36 /mmPerInch );
-
-                sleep(100000);
-
             }
             else {
                 telemetry.addData("Visible Target", "none");
