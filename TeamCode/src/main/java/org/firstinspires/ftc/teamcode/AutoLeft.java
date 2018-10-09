@@ -26,10 +26,21 @@ public class AutoLeft extends AutoLinearOpMode {
 
         // turn to the left, hit the cube, back up, return to original orientation.
         rotate(30, 1);
+        sleep(1000);
         driveDistance(1, 12);
         sleep(1000);
         driveDistance(-1, 12);
-        rotate(-30, 1);
+        sleep(1000);
+        rotate(60, 1);
+        sleep(1000);
+        driveDistance(1, 36);
+        sleep(1000);
+        rotate(60, 1);
+        sleep(1000);
+        driveDistance(1, 36);
+        sleep(1000);
+        driveDistance(-1, 48);
+
 
 
         //while (opModeIsActive() && !isStopRequested()){
