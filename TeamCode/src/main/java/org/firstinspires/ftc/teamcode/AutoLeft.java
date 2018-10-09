@@ -18,18 +18,19 @@ public class AutoLeft extends AutoLinearOpMode {
 
         //Use gamepad buttons to determine wait time
 
-        // turn to the left, hit the cube, back up, return to original orientation.
-        rotate(30, 1);
-        driveTime(1, 1);
-        sleep(1000);
-        driveTime(-1, 1);
-        rotate(-30, 1);
-
         telemetry.addData("Wait time: ", "WAIT TIME HERE");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
+
+        // turn to the left, hit the cube, back up, return to original orientation.
+        rotate(30, 1);
+        driveDistance(1, 12);
+        sleep(1000);
+        driveDistance(-1, 12);
+        rotate(-30, 1);
+
 
         //while (opModeIsActive() && !isStopRequested()){
 
