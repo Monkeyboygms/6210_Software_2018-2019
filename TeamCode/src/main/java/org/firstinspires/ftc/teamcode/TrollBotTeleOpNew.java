@@ -25,14 +25,15 @@ public class TrollBotTeleOpNew extends TeleOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
 
-            if(Math.abs(gamepad1.left_stick_y) > 0.05){
+            if(Math.abs(gamepad1.left_stick_y) > 0.5){
                 leftPower = gamepad1.left_stick_y * scale;
             }
-            if(Math.abs(gamepad1.right_stick_y) > 0.05){
+            if(Math.abs(gamepad1.right_stick_y) > 0.5){
                 rightPower = gamepad1.right_stick_y * scale;
             }
 
-            setMotorPowers(leftPower, rightPower);
+            leftMotor.setPower(leftPower);
+            rightMotor.setPower(rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

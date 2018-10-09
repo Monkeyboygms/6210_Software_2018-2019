@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QCARConfig>
+    <Tracking>
+        <ImageTarget name="GoldCube.Left" size="5.080000 5.082581"/>
+        <ImageTarget name="GoldCube.Back" size="5.080000 5.080000"/>
+        <ImageTarget name="GoldCube.Top" size="5.080000 5.082581"/>
+        <ImageTarget name="GoldCube.Bottom" size="5.080000 5.082581"/>
+        <ImageTarget name="GoldCube.Right" size="5.080000 5.082581"/>
+        <ImageTarget name="GoldCube.Front" size="5.080000 5.080000"/>
+    </Tracking>
+</QCARConfig>

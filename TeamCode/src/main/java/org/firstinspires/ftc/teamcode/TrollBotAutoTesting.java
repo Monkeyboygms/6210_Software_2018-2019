@@ -21,14 +21,14 @@ public class TrollBotAutoTesting extends AutoLinearOpMode {
 
         waitForStart();
 
-        for(int i = 0; i< 4; i++){
-            driveDistance(0.5,12);
-            rotate(90,0.3);
+        while (getDist() > 4){
+            setMotorPowers(0.3,0.3);
+            telemetry.addData("Distance: ", String.valueOf(getDist()));
+            telemetry.update();
         }
+        rotate(85,0.3);
 
         stopMotors();
 
-        telemetry.addData("Distance: ", String.valueOf(getDist()));
-        telemetry.update();
     }
 }
