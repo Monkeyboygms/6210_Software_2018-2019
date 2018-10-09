@@ -1,12 +1,14 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.RandomTests;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
+import org.firstinspires.ftc.teamcode.IMU;
+
 @Autonomous(name="moveSquareHM")
-//@Disabled
+@Disabled
 public class moveSquare_HM extends LinearOpMode {
 
     StrykeHardwareMap robot = new StrykeHardwareMap(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -15,33 +17,28 @@ public class moveSquare_HM extends LinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         //initialize
-        robot.init(hardwareMap);
 
         waitForStart();
         //begin program
-        moveForwardTime(0.2, 3000);
-        turnLeftTime(0.2,3000);
-        moveForwardTime(0.2,3000);
-        Thread.sleep(1000);
-        turnLeftTime(0.2,3000);
-        moveForwardTime(0.2, 3000);
-        turnLeftTime(0.2,3000);
-        moveForwardTime(0.2,3000);
-        turnLeftTime(0.2,3000);
+        turnLeftAngle(0.2,3000);
+        telemetry.addData("cali stat", robot.imu.getCalibrationStatus());
+        telemetry.update();
+
         stopDrive();
     }
-    //methods
+
+
     public void moveForwardTime(double power, long time) throws InterruptedException{
         robot.leftDrive.setPower(power);
         robot.rightDrive.setPower(power);
         sleep(time);
     }
-    public void turnLeftTime(double power, long time) throws InterruptedException{
+    public void turnLeftAngle(double power, long time) throws InterruptedException{
         robot.leftDrive.setPower(-power);
         robot.rightDrive.setPower(power);
         sleep(time);
     }
-    public void turnRightTime(double power, long time)throws InterruptedException{
+    public void turnRightAngle(double power, long time)throws InterruptedException{
         robot.leftDrive.setPower(power);
         robot.rightDrive.setPower(-power);
         sleep(time);

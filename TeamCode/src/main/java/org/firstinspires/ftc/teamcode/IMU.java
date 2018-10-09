@@ -33,7 +33,7 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+
 
 import org.firstinspires.ftc.robotcore.external.Func;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -46,28 +46,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
 import java.util.Locale;
 
-/**
- * {@link SensorBNO055IMU} gives a short demo on how to use the BNO055 Inertial Motion Unit (IMU) from AdaFruit.
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- *
- * @see <a href="http://www.adafruit.com/products/2472">Adafruit IMU</a>
- */
-@Autonomous(name = "Sensor: BNO055 IMU", group = "Sensor")
-//@Disabled                            // Comment this out to add to the opmode list
-public class SensorBNO055IMU extends LinearOpMode
-    {
+@Autonomous(name = "IMU", group = "Sensor")
+@Disabled //Probably might end up deleting this
+public class IMU extends AutoLinearOpMode {
     //----------------------------------------------------------------------------------------------
     // State
     //----------------------------------------------------------------------------------------------
 
     // The IMU sensor object
-    BNO055IMU imu;
 
     // State used for updating telemetry
-    Orientation angles;
-    Acceleration gravity;
+    public Orientation angles;
+    public Acceleration gravity;
 
     //----------------------------------------------------------------------------------------------
     // Main logic
@@ -75,6 +65,7 @@ public class SensorBNO055IMU extends LinearOpMode
 
     @Override public void runOpMode() {
 
+        init(hardwareMap);
         // Set up the parameters with which we will use our IMU. Note that integration
         // algorithm here just reports accelerations to the logcat log; it doesn't actually
         // provide positional information.
@@ -89,7 +80,7 @@ public class SensorBNO055IMU extends LinearOpMode
         // Retrieve and initialize the IMU. We expect the IMU to be attached to an I2C port
         // on a Core Device Interface Module, configured to be a sensor of type "AdaFruit IMU",
         // and named "imu".
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        //imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
         // Set up our telemetry dashboard

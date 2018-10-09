@@ -30,32 +30,20 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-/**
- * {@link SensorMRRangeSensor} illustrates how to use the Modern Robotics
- * Range Sensor.
- *
- * The op mode assumes that the range sensor is configured with a name of "sensor_range".
- *
- * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
- * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
- *
- * @see <a href="http://modernroboticsinc.com/range-sensor">MR Range Sensor</a>
- */
-@TeleOp(name = "Sensor: MR range sensor", group = "Sample Code")
-//@Disabled   // comment out or remove this line to enable this opmode
-public class SensorMRRangeSensor extends LinearOpMode {
-
-    ModernRoboticsI2cRangeSensor rangeSensor;
-    EncoderTutorial ec = new EncoderTutorial();
+@Autonomous(name = "RangeSensor", group = "Sensor")
+//@Disabled
+public class RangeSensor extends AutoLinearOpMode {
 
     @Override public void runOpMode() {
+
+        init(hardwareMap);
+
+        telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
+        telemetry.update();
 
         // get a reference to our compass
         rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
@@ -68,7 +56,6 @@ public class SensorMRRangeSensor extends LinearOpMode {
             //telemetry.addData("raw optical", rangeSensor.rawOptical());
             //telemetry.addData("cm optical", "%.2f cm", rangeSensor.cmOptical());
             telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
-            ec.DriveForwardDistance(0.5, rangeSensor.getDistance(DistanceUnit.INCH));
             telemetry.update();
         }
     }
