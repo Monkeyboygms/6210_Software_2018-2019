@@ -18,13 +18,20 @@ public class AutoLeft extends AutoLinearOpMode {
 
         //Use gamepad buttons to determine wait time
 
+        // turn to the left, hit the cube, back up, return to original orientation.
+        rotate(30, 1);
+        driveTime(1, 1);
+        sleep(1000);
+        driveTime(-1, 1);
+        rotate(-30, 1);
+
         telemetry.addData("Wait time: ", "WAIT TIME HERE");
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
         waitForStart();
 
-        while (opModeIsActive() && !isStopRequested()){
+        //while (opModeIsActive() && !isStopRequested()){
 
             //lower robot
             //turn left to right while scanning for gold (tbd)
@@ -38,4 +45,4 @@ public class AutoLeft extends AutoLinearOpMode {
 
         }
     }
-}
+
