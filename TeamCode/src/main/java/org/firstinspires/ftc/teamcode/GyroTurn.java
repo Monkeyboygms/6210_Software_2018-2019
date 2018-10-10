@@ -31,19 +31,18 @@ public class GyroTurn extends AutoLinearOpMode {
 
         sleep(1000);
 
+        // Turn 90 degrees
+        rotate(90, power);
+
+
         while (opModeIsActive() && !isStopRequested()){
 
             telemetry.addData("imu heading", lastAngles.firstAngle);
             telemetry.addData("global heading", globalAngle);
             telemetry.update();
 
-            // turn 90 degrees left.
-            rotate(30, power);
-            setMotorPowers(1, 1);
-            sleep(1000);
-            setMotorPowers(-1, -1);
-            rotate(-30, power);
         }
+
 
         stopMotors();
 

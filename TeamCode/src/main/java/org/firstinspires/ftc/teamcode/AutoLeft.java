@@ -24,7 +24,15 @@ public class AutoLeft extends AutoLinearOpMode {
 
         waitForStart();
 
-        while (opModeIsActive() && !isStopRequested()){
+        // turn to the left, hit the cube, back up, return to original orientation.
+        rotate(30, 1);
+        driveDistance(1, 12);
+        sleep(1000);
+        driveDistance(-1, 12);
+        rotate(-30, 1);
+
+
+        //while (opModeIsActive() && !isStopRequested()){
 
             //lower robot
             //turn left to right while scanning for gold (tbd)
@@ -38,4 +46,4 @@ public class AutoLeft extends AutoLinearOpMode {
 
         }
     }
-}
+
