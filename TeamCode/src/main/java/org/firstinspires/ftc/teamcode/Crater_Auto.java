@@ -24,18 +24,16 @@ public class Crater_Auto extends AutoLinearOpMode {
 
         waitForStart();
 
-        // If the cube is on the left side
-        //turn towards cube
-        rotate(30, 1);
-        sleep(1000);
+        // Turn and search until facing cube
         //Push cube
         driveDistance(1, 12);
         sleep(1000);
         //Backup
         driveDistance(-1, 12);
         sleep(1000);
-        //Turn towards wall
+        //Turn towards wall *Need to edit based on which cube we turn towards
         rotate(60, 1);
+        //Can put a option for a longer wait time if we want to wait for our teammate to go before we do
         sleep(1000);
         //Move towards wall
         driveDistance(1, 36);
@@ -50,7 +48,7 @@ public class Crater_Auto extends AutoLinearOpMode {
         //Back up into crater
         driveDistance(-1, 48);
 
-
+/* Don't need this if we can adjust our turn towards to the wall based on where the gold is
         //If the cube is on the right
         rotate(30, 1);
         sleep(1000);
@@ -58,7 +56,7 @@ public class Crater_Auto extends AutoLinearOpMode {
         driveDistance(1, 12);
         sleep(1000);
         //turn towards the depot
-
+*/
 
 
 
