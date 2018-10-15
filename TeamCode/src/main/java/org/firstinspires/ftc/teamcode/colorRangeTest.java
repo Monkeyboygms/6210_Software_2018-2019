@@ -54,7 +54,7 @@ import java.util.Locale;
  */
 @TeleOp(name = "Sensor: REVColorDistance", group = "Sensor")
 //@Disabled                            // Comment this out to add to the opmode list
-public class SensorREVColorDistance extends LinearOpMode {
+public class colorRangeTest extends LinearOpMode {
 
     /**
      * Note that the REV Robotics Color-Distance incorporates two sensors into one device.
