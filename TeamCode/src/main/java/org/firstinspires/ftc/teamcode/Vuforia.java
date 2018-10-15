@@ -50,7 +50,7 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.FRONT;
 
-@Autonomous(name="Vuforia",group = "Sensors")
+@Autonomous(name="VuforiaPics",group = "Sensors")
 //@Disabled
 public class Vuforia extends AutoLinearOpMode {
 
@@ -91,22 +91,17 @@ public class Vuforia extends AutoLinearOpMode {
 
         // Load the data sets that for the trackable objects. These particular data
         // sets are stored in the 'assets' part of our application.
-        VuforiaTrackables targetsRoverRuckus = this.vuforia.loadTrackablesFromAsset("RoverRuckusGold");
-        VuforiaTrackable left = targetsRoverRuckus.get(0);
-        left.setName("left");
-        VuforiaTrackable back = targetsRoverRuckus.get(1);
-        back.setName("back");
-        VuforiaTrackable top = targetsRoverRuckus.get(2);
-        top.setName("top");
-        VuforiaTrackable bottom = targetsRoverRuckus.get(3);
-        bottom.setName("bottom");
-        VuforiaTrackable right = targetsRoverRuckus.get(4);
-        right.setName("right");
-        VuforiaTrackable front = targetsRoverRuckus.get(5);
-        front.setName("front");
+        VuforiaTrackables targetsRoverRuckus = this.vuforia.loadTrackablesFromAsset("RoverRuckus");
+        VuforiaTrackable blueRover = targetsRoverRuckus.get(0);
+        blueRover.setName("Blue-Rover");
+        VuforiaTrackable redFootprint = targetsRoverRuckus.get(1);
+        redFootprint.setName("Red-Footprint");
+        VuforiaTrackable frontCraters = targetsRoverRuckus.get(2);
+        frontCraters.setName("Front-Craters");
+        VuforiaTrackable backSpace = targetsRoverRuckus.get(3);
+        backSpace.setName("Back-Space");
 
-
-        // For convenience, gather together all the trackable objects in one easily-iterable collection
+        // For convenience, gather together all the trackable objects in one easily-iterable collection */
         List<VuforiaTrackable> allTrackables = new ArrayList<VuforiaTrackable>();
         allTrackables.addAll(targetsRoverRuckus);
 
@@ -114,25 +109,25 @@ public class Vuforia extends AutoLinearOpMode {
         OpenGLMatrix blueRoverLocationOnField = OpenGLMatrix
                 .translation(0, mmFTCFieldWidth, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 0));
-        front.setLocation(blueRoverLocationOnField);
+        blueRover.setLocation(blueRoverLocationOnField);
 
 
         OpenGLMatrix redFootprintLocationOnField = OpenGLMatrix
                 .translation(0, -mmFTCFieldWidth, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, 180));
-        back.setLocation(redFootprintLocationOnField);
+        redFootprint.setLocation(redFootprintLocationOnField);
 
 
         OpenGLMatrix frontCratersLocationOnField = OpenGLMatrix
                 .translation(-mmFTCFieldWidth, 0, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0 , 90));
-        left.setLocation(frontCratersLocationOnField);
+        frontCraters.setLocation(frontCratersLocationOnField);
 
 
         OpenGLMatrix backSpaceLocationOnField = OpenGLMatrix
                 .translation(mmFTCFieldWidth, 0, mmTargetHeight)
                 .multiplied(Orientation.getRotationMatrix(EXTRINSIC, XYZ, DEGREES, 90, 0, -90));
-        right.setLocation(backSpaceLocationOnField);
+        backSpace.setLocation(backSpaceLocationOnField);
 
 
         final int CAMERA_FORWARD_DISPLACEMENT  = 110;   // eg: Camera is 110 mm in front of robot center
