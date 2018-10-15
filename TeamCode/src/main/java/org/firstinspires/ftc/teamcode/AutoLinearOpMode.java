@@ -33,7 +33,6 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor rightMotor;
     public DcMotor leftBackMotor;
     public DcMotor rightBackMotor;
-    public ModernRoboticsI2cRangeSensor rangeSensor;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
     DistanceSensor sensorDistance = null;
@@ -51,8 +50,8 @@ public class AutoLinearOpMode extends LinearOpMode{
     float hsvValues[] = {0F, 0F, 0F};
     final float values[] = hsvValues;
     final double SCALE_FACTOR = 255;
-    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+//    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+//   final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
     int color = 0;
 
     // INITIALIZE
@@ -63,7 +62,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         leftBackMotor   = map.dcMotor.get("LB");
         rightBackMotor  = map.dcMotor.get("RB");
         imu         = map.get(BNO055IMU.class, "imu");
-        rangeSensor = map.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
         goldSensor = map.get(ColorSensor.class, "colorRange");
         sensorDistance = map.get(DistanceSensor.class, "colorRange");
 
@@ -73,35 +71,21 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-
-        telemetry.addData("Before Init 2", " got set direction");
-        telemetry.update();
-        sleep(1000);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        telemetry.addData("Before Init 3", " before enable LED");
-        telemetry.update();
-        sleep(1000);
+        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);;
 
         goldSensor.enableLed(true); // Turn light on
-
-        telemetry.addData("Before Init 4", " after enable LED");
-        telemetry.update();
 
         sleep(1000);
 
         //SET UP GYRO
 
         lastAngles = new Orientation();
-
-        telemetry.addData("get "," last angle");
-        telemetry.update();
 
         sleep(1000);
 
@@ -183,13 +167,13 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     // GET DISTANCE TO OBJECT USING RANGE SENSOR
     //Possibly use color/distance sensor instead of MR range sensor
-    public double getDist() {
+   /* public double getDist() {
         double dist = rangeSensor.getDistance(DistanceUnit.INCH);
         while (dist > 1000 || isNaN(dist) && opModeIsActive()) {
             dist = rangeSensor.getDistance(DistanceUnit.INCH);
         }
         return dist;
-    }
+    }*/
 
     public void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

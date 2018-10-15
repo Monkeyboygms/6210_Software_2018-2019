@@ -25,13 +25,14 @@ public class MainTeleOp extends AutoLinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
 
-            if(Math.abs(gamepad1.left_stick_y) > 0.5){
+            if(Math.abs(gamepad1.left_stick_y) > 0.05){
                 leftPower = gamepad1.left_stick_y * scale;
-            }
-            if(Math.abs(gamepad1.right_stick_y) > 0.5){
-                rightPower = gamepad1.right_stick_y * scale;
             }else{
                 leftPower = 0;
+            }
+            if(Math.abs(gamepad1.right_stick_y) > 0.05){
+                rightPower = gamepad1.right_stick_y * scale;
+            }else{
                 rightPower = 0;
             }
 

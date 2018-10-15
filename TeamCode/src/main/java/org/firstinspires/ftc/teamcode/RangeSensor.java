@@ -42,11 +42,11 @@ public class RangeSensor extends AutoLinearOpMode {
 
         init(hardwareMap);
 
-        telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
+        //telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
         telemetry.update();
 
         // get a reference to our compass
-        rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
+       // rangeSensor = hardwareMap.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
 
         // wait for the start button to be pressed
         waitForStart();
@@ -55,7 +55,7 @@ public class RangeSensor extends AutoLinearOpMode {
             //telemetry.addData("raw ultrasonic", rangeSensor.rawUltrasonic());
             //telemetry.addData("raw optical", rangeSensor.rawOptical());
             //telemetry.addData("cm optical", "%.2f cm", rangeSensor.cmOptical());
-            telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
+         //   telemetry.addData("inch", "%.2f inch", rangeSensor.getDistance(DistanceUnit.INCH));
             telemetry.update();
         }
     }
