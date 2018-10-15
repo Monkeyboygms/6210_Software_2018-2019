@@ -1,5 +1,9 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.app.Activity;
+import android.graphics.Color;
+import android.view.View;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -28,8 +32,9 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor leftMotor;
     public DcMotor rightMotor;
     public ModernRoboticsI2cRangeSensor rangeSensor;
-    //public DistanceSensor distanceSensor;
     public BNO055IMU imu;
+    ColorSensor goldSensor = null;
+    DistanceSensor sensorDistance = null;
 
     //gyro variables
     Orientation lastAngles;
@@ -41,6 +46,13 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     public double encoderToInches = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI); //Multiply desired distance (inches)
 
+    float hsvValues[] = {0F, 0F, 0F};
+    final float values[] = hsvValues;
+    final double SCALE_FACTOR = 255;
+    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
+    final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
+    int color = 0;
+
     // INITIALIZE
     public void init(HardwareMap map){
         runtime     = new ElapsedTime();
@@ -48,13 +60,16 @@ public class AutoLinearOpMode extends LinearOpMode{
         rightMotor  = map.dcMotor.get("RF");
         imu         = map.get(BNO055IMU.class, "imu");
         rangeSensor = map.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
-        //distanceSensor = map.get(DistanceSensor.class, "distanceSensor");
+        goldSensor = map.get(ColorSensor.class, "colorRange");
+        sensorDistance = map.get(DistanceSensor.class, "colorRange");
 
         leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
         rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        goldSensor.enableLed(true); // Turn light on
 
         //SET UP GYRO
 
@@ -79,6 +94,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         telemetry.addData("Mode", "waiting for start");
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
+        telemetry.addData("color sensor ", "LED on");
         telemetry.update();
 
     }
@@ -123,7 +139,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         while (leftMotor.isBusy() && rightMotor.isBusy()){
             idle();
         }
-
         stopMotors();
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
@@ -138,15 +153,12 @@ public class AutoLinearOpMode extends LinearOpMode{
         return dist;
     }
 
-//comment out
-    public void resetAngle()
-    {
+    public void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         globalAngle = 0;
     }
 
-    public double getAngle()
-    {
+    public double getAngle() {
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
@@ -161,8 +173,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         return globalAngle;
     }
 
-    public void rotate(int degrees, double power)
-    {
+    public void rotate(int degrees, double power) {
         telemetry.addData("imu heading", lastAngles.firstAngle);
         telemetry.addData("global heading", globalAngle);
         telemetry.update();
@@ -201,7 +212,14 @@ public class AutoLinearOpMode extends LinearOpMode{
         sleep(1000);
         resetAngle();
     }
-//comment out
+
+    public float[] getAutoColor() {
+        Color.RGBToHSV((int) (goldSensor.red() * SCALE_FACTOR),
+                (int) (goldSensor.green() * SCALE_FACTOR),
+                (int) (goldSensor.blue() * SCALE_FACTOR),
+                hsvValues);
+        return hsvValues;
+    }
 
     @Override
     public void runOpMode() throws InterruptedException {
