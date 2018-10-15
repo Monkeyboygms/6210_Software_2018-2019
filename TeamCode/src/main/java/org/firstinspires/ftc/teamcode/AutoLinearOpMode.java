@@ -31,6 +31,8 @@ public class AutoLinearOpMode extends LinearOpMode{
     //motors and sensors
     public DcMotor leftMotor;
     public DcMotor rightMotor;
+    public DcMotor leftBackMotor;
+    public DcMotor rightBackMotor;
     public ModernRoboticsI2cRangeSensor rangeSensor;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
@@ -58,22 +60,50 @@ public class AutoLinearOpMode extends LinearOpMode{
         runtime     = new ElapsedTime();
         leftMotor   = map.dcMotor.get("LF");
         rightMotor  = map.dcMotor.get("RF");
+        leftBackMotor   = map.dcMotor.get("LB");
+        rightBackMotor  = map.dcMotor.get("RB");
         imu         = map.get(BNO055IMU.class, "imu");
         rangeSensor = map.get(ModernRoboticsI2cRangeSensor.class, "rangeSensor");
         goldSensor = map.get(ColorSensor.class, "colorRange");
         sensorDistance = map.get(DistanceSensor.class, "colorRange");
 
-        leftMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        telemetry.addData("Before Init", " got hw");
+        telemetry.update();
+        sleep(1000);
+
+        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+        rightBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        leftBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
+
+        telemetry.addData("Before Init 2", " got set direction");
+        telemetry.update();
+        sleep(1000);
 
         leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        telemetry.addData("Before Init 3", " before enable LED");
+        telemetry.update();
+        sleep(1000);
 
         goldSensor.enableLed(true); // Turn light on
+
+        telemetry.addData("Before Init 4", " after enable LED");
+        telemetry.update();
+
+        sleep(1000);
 
         //SET UP GYRO
 
         lastAngles = new Orientation();
+
+        telemetry.addData("get "," last angle");
+        telemetry.update();
+
+        sleep(1000);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                 = BNO055IMU.SensorMode.IMU;
@@ -103,6 +133,8 @@ public class AutoLinearOpMode extends LinearOpMode{
     public void setMotorPowers(double leftPower, double rightPower) {
         leftMotor.setPower(Range.clip(leftPower, -1, 1));
         rightMotor.setPower(Range.clip(rightPower, -1, 1));
+        leftBackMotor.setPower(Range.clip(leftPower, -1, 1));
+        rightBackMotor.setPower(Range.clip(rightPower, -1, 1));
     }
 
     // TIME BASED MOVEMENT
@@ -116,6 +148,10 @@ public class AutoLinearOpMode extends LinearOpMode{
         leftMotor.setMode(runMode);
         idle();
         rightMotor.setMode(runMode);
+        idle();
+        leftBackMotor.setMode(runMode);
+        idle();
+        rightBackMotor.setMode(runMode);
         idle();
     }
 
@@ -132,11 +168,13 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         leftMotor.setTargetPosition((int)distance);
         rightMotor.setTargetPosition((int)distance);
+        leftBackMotor.setTargetPosition((int)distance);
+        rightBackMotor.setTargetPosition((int)distance);
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
         setMotorPowers(power, power);
 
-        while (leftMotor.isBusy() && rightMotor.isBusy()){
+        while (leftMotor.isBusy() && rightMotor.isBusy() && leftBackMotor.isBusy() && rightBackMotor.isBusy()){
             idle();
         }
         stopMotors();

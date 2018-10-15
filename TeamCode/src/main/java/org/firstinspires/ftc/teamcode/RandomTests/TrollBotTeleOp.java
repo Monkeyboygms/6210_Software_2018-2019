@@ -51,9 +51,7 @@ public class TrollBotTeleOp extends LinearOpMode {
             }
 
             leftDrive.setPower(leftPower);
-            rightDrive.setPower(-rightPower);
-
-
+            rightDrive.setPower(rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
