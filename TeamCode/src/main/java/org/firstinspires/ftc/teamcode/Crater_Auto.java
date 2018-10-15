@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
 @Autonomous(name="AutoLeft", group = "auto")
 @Disabled
-public class AutoLeft extends AutoLinearOpMode {
+public class Crater_Auto extends AutoLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -24,22 +24,41 @@ public class AutoLeft extends AutoLinearOpMode {
 
         waitForStart();
 
-        // turn to the left, hit the cube, back up, return to original orientation.
+        // If the cube is on the left side
+        //turn towards cube
         rotate(30, 1);
         sleep(1000);
+        //Push cube
         driveDistance(1, 12);
         sleep(1000);
+        //Backup
         driveDistance(-1, 12);
         sleep(1000);
+        //Turn towards wall
         rotate(60, 1);
         sleep(1000);
+        //Move towards wall
         driveDistance(1, 36);
         sleep(1000);
+        //Turn to face depot
         rotate(60, 1);
         sleep(1000);
+        //Drive into depot
         driveDistance(1, 36);
+        //Drop marker
         sleep(1000);
+        //Back up into crater
         driveDistance(-1, 48);
+
+
+        //If the cube is on the right
+        rotate(30, 1);
+        sleep(1000);
+        //Push cube
+        driveDistance(1, 12);
+        sleep(1000);
+        //turn towards the depot
+
 
 
 
