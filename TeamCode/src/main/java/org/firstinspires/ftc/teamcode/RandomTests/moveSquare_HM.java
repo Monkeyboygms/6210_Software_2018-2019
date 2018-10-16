@@ -5,8 +5,6 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.IMU;
-
 @Autonomous(name="moveSquareHM")
 @Disabled
 public class moveSquare_HM extends LinearOpMode {

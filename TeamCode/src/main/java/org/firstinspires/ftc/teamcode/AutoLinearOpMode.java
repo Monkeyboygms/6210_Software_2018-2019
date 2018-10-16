@@ -29,10 +29,10 @@ public class AutoLinearOpMode extends LinearOpMode{
     ElapsedTime runtime;
 
     //motors and sensors
-    public DcMotor leftMotor;
-    public DcMotor rightMotor;
-    public DcMotor leftBackMotor;
-    public DcMotor rightBackMotor;
+    public DcMotor LF;
+    public DcMotor RF;
+    public DcMotor LB;
+    public DcMotor RB;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
     DistanceSensor sensorDistance = null;
@@ -50,17 +50,14 @@ public class AutoLinearOpMode extends LinearOpMode{
     float hsvValues[] = {0F, 0F, 0F};
     final float values[] = hsvValues;
     final double SCALE_FACTOR = 255;
-//    int relativeLayoutId = hardwareMap.appContext.getResources().getIdentifier("RelativeLayout", "id", hardwareMap.appContext.getPackageName());
-//   final View relativeLayout = ((Activity) hardwareMap.appContext).findViewById(relativeLayoutId);
-    int color = 0;
 
     // INITIALIZE
     public void init(HardwareMap map){
         runtime     = new ElapsedTime();
-        leftMotor   = map.dcMotor.get("LF");
-        rightMotor  = map.dcMotor.get("RF");
-        leftBackMotor   = map.dcMotor.get("LB");
-        rightBackMotor  = map.dcMotor.get("RB");
+        LF  = map.dcMotor.get("LF");
+        RF  = map.dcMotor.get("RF");
+        LB  = map.dcMotor.get("LB");
+        RB  = map.dcMotor.get("RB");
         imu         = map.get(BNO055IMU.class, "imu");
         goldSensor = map.get(ColorSensor.class, "colorRange");
         sensorDistance = map.get(DistanceSensor.class, "colorRange");
@@ -69,15 +66,15 @@ public class AutoLinearOpMode extends LinearOpMode{
         telemetry.update();
         sleep(1000);
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RF.setDirection(DcMotorSimple.Direction.FORWARD);
+        RB.setDirection(DcMotorSimple.Direction.FORWARD);
+        LB.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);;
+        LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);;
 
         goldSensor.enableLed(true); // Turn light on
 
@@ -115,10 +112,10 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     //SET POWER TO DRIVE MOTORS
     public void setMotorPowers(double leftPower, double rightPower) {
-        leftMotor.setPower(Range.clip(leftPower, -1, 1));
-        rightMotor.setPower(Range.clip(rightPower, -1, 1));
-        leftBackMotor.setPower(Range.clip(leftPower, -1, 1));
-        rightBackMotor.setPower(Range.clip(rightPower, -1, 1));
+        LF.setPower(Range.clip(leftPower, -1, 1));
+        RF.setPower(Range.clip(rightPower, -1, 1));
+        LB.setPower(Range.clip(leftPower, -1, 1));
+        RB.setPower(Range.clip(rightPower, -1, 1));
     }
 
     // TIME BASED MOVEMENT
@@ -129,13 +126,13 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     // SET RUNMODE TO DRIVE MOTORS
     public void setMode(DcMotor.RunMode runMode) throws InterruptedException {
-        leftMotor.setMode(runMode);
+        LF.setMode(runMode);
         idle();
-        rightMotor.setMode(runMode);
+        RF.setMode(runMode);
         idle();
-        leftBackMotor.setMode(runMode);
+        LB.setMode(runMode);
         idle();
-        rightBackMotor.setMode(runMode);
+        RB.setMode(runMode);
         idle();
     }
 
@@ -150,15 +147,15 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         distance = distance * encoderToInches;
 
-        leftMotor.setTargetPosition((int)distance);
-        rightMotor.setTargetPosition((int)distance);
-        leftBackMotor.setTargetPosition((int)distance);
-        rightBackMotor.setTargetPosition((int)distance);
+        LF.setTargetPosition((int)distance);
+        LB.setTargetPosition((int)distance);
+        RF.setTargetPosition((int)distance);
+        RB.setTargetPosition((int)distance);
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
         setMotorPowers(power, power);
 
-        while (leftMotor.isBusy() && rightMotor.isBusy() && leftBackMotor.isBusy() && rightBackMotor.isBusy()){
+        while (LF.isBusy() && RF.isBusy() && LB.isBusy() && RB.isBusy()){
             idle();
         }
         stopMotors();
@@ -167,13 +164,13 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     // GET DISTANCE TO OBJECT USING RANGE SENSOR
     //Possibly use color/distance sensor instead of MR range sensor
-   /* public double getDist() {
-        double dist = rangeSensor.getDistance(DistanceUnit.INCH);
+    public double getDist() {
+        double dist = sensorDistance.getDistance(DistanceUnit.INCH);
         while (dist > 1000 || isNaN(dist) && opModeIsActive()) {
-            dist = rangeSensor.getDistance(DistanceUnit.INCH);
+            dist = sensorDistance.getDistance(DistanceUnit.INCH);
         }
         return dist;
-    }*/
+    }
 
     public void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);

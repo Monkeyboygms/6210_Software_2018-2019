@@ -8,9 +8,6 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.teamcode.RangeSensor;
-import org.firstinspires.ftc.teamcode.colorRangeTest;
-
 public class StrykeHardwareMap {
     public DcMotor leftDrive = null;
     public DcMotor rightDrive = null;

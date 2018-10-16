@@ -36,10 +36,7 @@ public class MainTeleOp extends AutoLinearOpMode {
                 rightPower = 0;
             }
 
-            leftMotor.setPower(leftPower);
-            rightMotor.setPower(rightPower);
-            leftBackMotor.setPower(leftPower);
-            rightBackMotor.setPower(rightPower);
+            setMotorPowers(leftPower,  rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);

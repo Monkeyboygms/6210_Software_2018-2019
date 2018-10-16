@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
 @Autonomous(name="AutoLeft", group = "auto")
 @Disabled
-public class Crater_Auto extends AutoLinearOpMode {
+public class AutoLeft extends AutoLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
