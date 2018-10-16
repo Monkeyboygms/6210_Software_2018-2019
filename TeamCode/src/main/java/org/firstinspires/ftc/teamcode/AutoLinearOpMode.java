@@ -140,7 +140,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public void driveDistance(double power, double distance) throws InterruptedException {
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        distance = distance * encoderToInches;
+        distance = -1 * distance * encoderToInches;
 
         LF.setTargetPosition((int)distance);
         LB.setTargetPosition((int)distance);

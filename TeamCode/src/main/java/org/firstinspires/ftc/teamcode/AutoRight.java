@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name="AutoRight", group = "auto")
-@Disabled
+//@Disabled
 public class AutoRight extends AutoLinearOpMode {
 
     @Override
