@@ -41,6 +41,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     Orientation lastAngles;
     double globalAngle;
 
+
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // REV Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
@@ -58,13 +59,9 @@ public class AutoLinearOpMode extends LinearOpMode{
         RF  = map.dcMotor.get("RF");
         LB  = map.dcMotor.get("LB");
         RB  = map.dcMotor.get("RB");
-        imu         = map.get(BNO055IMU.class, "imu");
-        goldSensor = map.get(ColorSensor.class, "colorRange");
+        imu            = map.get(BNO055IMU.class, "imu");
+        goldSensor     = map.get(ColorSensor.class, "colorRange");
         sensorDistance = map.get(DistanceSensor.class, "colorRange");
-
-        telemetry.addData("Before Init", " got hw");
-        telemetry.update();
-        sleep(1000);
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -74,17 +71,16 @@ public class AutoLinearOpMode extends LinearOpMode{
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);;
+        RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         goldSensor.enableLed(true); // Turn light on
 
-        sleep(1000);
+        int relativeLayoutId = map.appContext.getResources().getIdentifier("RelativeLayout", "id", map.appContext.getPackageName());
+        final View relativeLayout = ((Activity) map.appContext).findViewById(relativeLayoutId);
 
         //SET UP GYRO
 
         lastAngles = new Orientation();
-
-        sleep(1000);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                 = BNO055IMU.SensorMode.IMU;
@@ -107,7 +103,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
         telemetry.addData("color sensor ", "LED on");
         telemetry.update();
-
     }
 
     //SET POWER TO DRIVE MOTORS
@@ -163,7 +158,6 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     // GET DISTANCE TO OBJECT USING RANGE SENSOR
-    //Possibly use color/distance sensor instead of MR range sensor
     public double getDist() {
         double dist = sensorDistance.getDistance(DistanceUnit.INCH);
         while (dist > 1000 || isNaN(dist) && opModeIsActive()) {

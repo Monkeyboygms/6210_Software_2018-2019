@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import android.app.Activity;
+import android.view.View;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
@@ -18,32 +21,35 @@ public class TeleOpMode extends LinearOpMode{
     ElapsedTime runtime;
 
     //motors and sensors
-    public DcMotor leftMotor;
-    public DcMotor rightMotor;
-    public DcMotor leftBackMotor;
-    public DcMotor rightBackMotor;
+    public DcMotor LF;
+    public DcMotor RF;
+    public DcMotor LB;
+    public DcMotor RB;
     ColorSensor mineralColor = null;
 
     // INITIALIZE
     public void init(HardwareMap map){
         runtime     = new ElapsedTime();
-        leftMotor   = map.dcMotor.get("LF");
-        rightMotor  = map.dcMotor.get("RF");
-        leftBackMotor   = map.dcMotor.get("LB");
-        rightBackMotor  = map.dcMotor.get("RB");
-        mineralColor = map.get(ColorSensor.class, "minColor");
+        LF  = map.dcMotor.get("LF");
+        RF  = map.dcMotor.get("RF");
+        LB  = map.dcMotor.get("LB");
+        RB  = map.dcMotor.get("RB");
+        mineralColor = map.get(ColorSensor.class, "colorRange");
 
-        leftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
-        rightMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        rightBackMotor.setDirection(DcMotorSimple.Direction.FORWARD);
-        leftBackMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        LF.setDirection(DcMotorSimple.Direction.REVERSE);
+        RF.setDirection(DcMotorSimple.Direction.FORWARD);
+        RB.setDirection(DcMotorSimple.Direction.FORWARD);
+        LB.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        leftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        leftBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        rightBackMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);;
+        LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         mineralColor.enableLed(true); // Turn light on
+
+        int relativeLayoutId = map.appContext.getResources().getIdentifier("RelativeLayout", "id", map.appContext.getPackageName());
+        final View relativeLayout = ((Activity) map.appContext).findViewById(relativeLayoutId);
 
         telemetry.addData("Mode", "waiting for start");
         telemetry.addData("color sensor ", "LED on");
@@ -53,10 +59,21 @@ public class TeleOpMode extends LinearOpMode{
 
     //SET POWER TO DRIVE MOTORS
     public void setMotorPowers(double leftPower, double rightPower) {
-        leftMotor.setPower(Range.clip(leftPower, -1, 1));
-        rightMotor.setPower(Range.clip(rightPower, -1, 1));
-        leftBackMotor.setPower(Range.clip(leftPower, -1, 1));
-        rightBackMotor.setPower(Range.clip(rightPower, -1, 1));
+        LF.setPower(Range.clip(leftPower, -1, 1));
+        RF.setPower(Range.clip(rightPower, -1, 1));
+        LB.setPower(Range.clip(leftPower, -1, 1));
+        RB.setPower(Range.clip(rightPower, -1, 1));
+    }
+
+    public void setMode(DcMotor.RunMode runMode) throws InterruptedException {
+        LF.setMode(runMode);
+        idle();
+        RF.setMode(runMode);
+        idle();
+        LB.setMode(runMode);
+        idle();
+        RB.setMode(runMode);
+        idle();
     }
     @Override
     public void runOpMode() throws InterruptedException{

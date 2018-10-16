@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="MainTeleOp", group="teleop")
 //@Disabled
-public class MainTeleOp extends AutoLinearOpMode {
+public class MainTeleOp extends TeleOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -36,7 +36,7 @@ public class MainTeleOp extends AutoLinearOpMode {
                 rightPower = 0;
             }
 
-            setMotorPowers(leftPower,  rightPower);
+            setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
