@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
 @Autonomous(name="AutoLeft", group = "auto")
-@Disabled
+//@Disabled
 public class AutoLeft extends AutoLinearOpMode {
 
     @Override
@@ -26,13 +26,13 @@ public class AutoLeft extends AutoLinearOpMode {
 
         // If the cube is on the left side
         //turn towards cube
-        rotate(30, 1);
         sleep(1000);
         //Push cube
-        driveDistance(1, 12);
+        driveDistance(1, 20);
         sleep(1000);
+        rotate(90, .3);
         //Backup
-        driveDistance(-1, 12);
+        /*driveDistance(-1, 12);
         sleep(1000);
         //Turn towards wall
         rotate(60, 1);
@@ -59,20 +59,7 @@ public class AutoLeft extends AutoLinearOpMode {
         sleep(1000);
         //turn towards the depot
 
-
-
-
-        //while (opModeIsActive() && !isStopRequested()){
-
-            //lower robot
-            //turn left to right while scanning for gold (tbd)
-            //when find gold stop and get angle to gold
-            //move forward and knock off gold
-            //back up and turn left
-            //move until lines up with wall
-            //determine wait time
-            //move forward to push in team marker
-            //back up to crater and park
+            */
 
         }
     }
