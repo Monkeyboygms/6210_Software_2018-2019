@@ -26,13 +26,15 @@ public class AutoLeft extends AutoLinearOpMode {
 
         // If the cube is on the left side
         //turn towards cube
-        rotate(-30, .1);
-        sleep(1000);
+        rotate(30, .3);
+        sleep(5000);
         //Push cube
         driveDistance(0.3, 10);
-        sleep(1000);
-        /*rotate(75, .1);
+        sleep(5000);
 
+        rotate(-30, .3);
+        sleep(5000);
+        /*
         driveDistance(0.3, -5);
         driveDistance(0.3,10);
         //Backup
