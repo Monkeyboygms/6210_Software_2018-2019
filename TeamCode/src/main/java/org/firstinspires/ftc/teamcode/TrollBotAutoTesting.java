@@ -21,11 +21,11 @@ public class TrollBotAutoTesting extends AutoLinearOpMode {
 
         waitForStart();
 
-        /*while (7 > 4){
+        while (getDist() > 4){
             setMotorPowers(0.3,0.3);
-            telemetry.addData("Distance: ", 9);
+            telemetry.addData("Distance: ", String.valueOf(getDist()));
             telemetry.update();
-        }*/
+        }
         rotate(85,0.3);
 
         stopMotors();

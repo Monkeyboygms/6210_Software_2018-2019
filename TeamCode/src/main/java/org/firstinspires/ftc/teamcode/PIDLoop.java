@@ -18,7 +18,7 @@ public class PIDLoop extends AutoLinearOpMode {
             double currTime = getRuntime();
             double deltaTime = currTime - prevTime;
             prevTime = currTime;
-            double currPosition = rightMotor.getCurrentPosition();
+            double currPosition = RF.getCurrentPosition();
             error = 12 - currPosition;
             totalError += error*deltaTime;
             double pTerm = Kp*error;    // This term is proportional to the error

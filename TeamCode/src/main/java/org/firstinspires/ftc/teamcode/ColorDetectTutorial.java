@@ -13,7 +13,7 @@ public class ColorDetectTutorial extends AutoLinearOpMode{
 
         waitForStart();
 
-        while (opModeIsActive()){
+        while (opModeIsActive() && !isStopRequested()){
 
             telemetry.addData("All ", getAutoColor());
             telemetry.addData("Hue: ", getAutoColor()[0]);
