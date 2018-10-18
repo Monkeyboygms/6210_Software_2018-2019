@@ -28,7 +28,7 @@ public class AutoLeft extends AutoLinearOpMode {
         //Turn towards cube
         rotate(20, .3);
         sleep(3000);
-        //Push cube
+        //Move and Push cube
         driveDistance(0.3, 10);
         sleep(5000);
         //Rotate
