@@ -24,15 +24,18 @@ public class AutoLeft extends AutoLinearOpMode {
 
         waitForStart();
 
-        // If the cube is on the left side
-        //turn towards cube
+        // --------------If the cube is on the left side--------------
+        //Turn towards cube
         rotate(20, .3);
         sleep(3000);
         //Push cube
         driveDistance(0.3, 10);
         sleep(5000);
-
+        //Rotate
         rotate(-30, .3);
+        sleep(5000);
+        //Parking backwards
+        driveDistance(0.3, 10);
         sleep(5000);
         /*
         driveDistance(0.3, -5);
