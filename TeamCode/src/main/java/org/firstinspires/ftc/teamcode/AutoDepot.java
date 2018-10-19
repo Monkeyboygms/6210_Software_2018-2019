@@ -7,9 +7,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
-@Autonomous(name="AutoLeft", group = "auto")
+@Autonomous(name="AutoDepot", group = "auto")
 //@Disabled
-public class AutoLeft extends AutoLinearOpMode {
+public class AutoDepot extends AutoLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
