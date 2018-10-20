@@ -19,8 +19,27 @@ public class AutoCrater extends AutoLinearOpMode {
         telemetry.update();
 
         waitForStart();
+            // If the cube is on the left side
+            //turn towards cube
+            rotate(20, 0.3);
+            sleep(1000);
+            //Push cube
+            driveDistance(0.3, 16);
+            sleep(1000);
+            driveDistance(0.3, -4);
+            //turn towards wall
+            rotate(55, 0.3);
+            sleep(1000);
+            /*
+            //move towards wall
+            driveDistance(0.3, 25);
+            sleep(1000);
+            //turn towards depot
+            rotate(37, 0.3);
+*/
 
-        while (opModeIsActive() && !isStopRequested()){
+            driveDistance(0.3, -5);
+            driveDistance(0.3,10);
 
             //lower robot
             //turn left to right while scanning for gold (tbd)
@@ -32,4 +51,4 @@ public class AutoCrater extends AutoLinearOpMode {
 
         }
     }
-}
+

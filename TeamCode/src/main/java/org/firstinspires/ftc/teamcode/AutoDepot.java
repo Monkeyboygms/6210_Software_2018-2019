@@ -24,18 +24,24 @@ public class AutoDepot extends AutoLinearOpMode {
 
         waitForStart();
 
-        // If the cube is on the left side
-        //turn towards cube
-        sleep(1000);
-        //Push cube
+        // --------------If the cube is on the left side--------------
+        //Turn towards cube
+        rotate(20, .3);
+        sleep(3000);
+        //Move and Push cube
         driveDistance(0.3, 10);
-        sleep(1000);
-        rotate(75, .1);
-
+        sleep(5000);
+        //Rotate
+        rotate(-30, .3);
+        sleep(5000);
+        //Parking backwards
+        driveDistance(0.3, 10);
+        sleep(5000);
+        /*
         driveDistance(0.3, -5);
         driveDistance(0.3,10);
         //Backup
-        /*driveDistance(-1, 12);
+        driveDistance(-1, 12);
         sleep(1000);
         //Turn towards wall
         rotate(60, 1);
