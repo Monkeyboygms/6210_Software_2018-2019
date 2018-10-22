@@ -25,7 +25,7 @@ public class AutoCrater extends AutoLinearOpMode {
            //move forward
            driveDistance(0.3,10);
             //Turn 90
-           rotate(90,0.3);
+           rotate(90,0.1);
             //Back up
            driveDistance(0.3, -7);
             if(isGold() && !hit)
@@ -36,6 +36,7 @@ public class AutoCrater extends AutoLinearOpMode {
                 knockGold();
                 hit = true;
             driveDistance(0.3, 7);
+            if(isGold() && !hit)
                 knockGold();
                 hit = true;
 

@@ -196,7 +196,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
 
-        degrees = degrees - 15;
+        degrees = degrees - 30;
 
         if (degrees < 0)
         {   // turn right.
