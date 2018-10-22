@@ -234,6 +234,25 @@ public class AutoLinearOpMode extends LinearOpMode{
         return hsvValues;
     }
 
+    public boolean isGold(){
+        if ((getAutoColor()[0] > 30 && getAutoColor()[0] < 50) && (getAutoColor()[1] > .35)) {
+            telemetry.addData("Gold ", "Detected");
+            telemetry.update();
+            return true;
+        }else {
+            telemetry.addData("Gold", "Not found");
+            telemetry.update();
+            return false;
+        }
+    }
+
+    public void knockGold(){
+        //move servo
+        telemetry.addData("status ", "knocking gold");
+        telemetry.update();
+        sleep(2000);
+    }
+
     @Override
     public void runOpMode() throws InterruptedException {
 

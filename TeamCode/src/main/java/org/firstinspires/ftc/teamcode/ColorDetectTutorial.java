@@ -21,7 +21,7 @@ public class ColorDetectTutorial extends AutoLinearOpMode{
             telemetry.addData("Hue: ", getAutoColor()[0]);
             telemetry.addData("Saturation: ", getAutoColor()[1]);
 
-            if ((getAutoColor()[0] > 35 && getAutoColor()[0] < 50) && (getAutoColor()[1] < 50)) // Change values later
+            if ((getAutoColor()[0] > 30 && getAutoColor()[0] < 50) && (getAutoColor()[1] > .3)) // Change values later
                 telemetry.addData("Gold ", "Detected");
             else
                 telemetry.addData("Gold", "Not found");
