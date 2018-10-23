@@ -28,7 +28,7 @@ public class EncoderTutorial extends LinearOpMode {
         robot.leftDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         robot.rightDrive.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        distance = distance * 1120/(4*3.1415926535897932384626433832795028841971693993751);
+        distance = distance * 1120/(4*Math.PI);
 
         robot.leftDrive.setTargetPosition((int)distance);
         robot.rightDrive.setTargetPosition((int)distance);
