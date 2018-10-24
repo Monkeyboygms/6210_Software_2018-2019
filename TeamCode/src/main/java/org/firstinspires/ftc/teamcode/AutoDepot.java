@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
-@Autonomous(name="Autoepot", group = "auto")
+@Autonomous(name="AutoDepot", group = "auto")
 //@Disabled
 public class AutoDepot extends AutoLinearOpMode {
 

@@ -21,6 +21,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
+import static java.lang.Double.doubleToLongBits;
 import static java.lang.Double.isNaN;
 
 public class AutoLinearOpMode extends LinearOpMode{
@@ -99,9 +100,8 @@ public class AutoLinearOpMode extends LinearOpMode{
             idle();
         }
 
-        telemetry.addData("Mode", "waiting for start");
+        telemetry.addData("Status: ", "Initialized");
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
-        telemetry.addData("color sensor ", "LED on");
         telemetry.update();
     }
 
@@ -166,11 +166,13 @@ public class AutoLinearOpMode extends LinearOpMode{
         return dist;
     }
 
+    //RESET ANGLE
     public void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         globalAngle = 0;
     }
 
+    //GET CURRENT IMU HEADING
     public double getAngle() {
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
@@ -186,48 +188,54 @@ public class AutoLinearOpMode extends LinearOpMode{
         return globalAngle;
     }
 
+    //ROTATE USING GYRO
     public void rotate(int degrees, double power) {
-        telemetry.addData("imu heading", lastAngles.firstAngle);
-        telemetry.addData("global heading", globalAngle);
-        telemetry.update();
+        runtime.reset();
+        double reduction = 1;
+        double leftPower = 0;
+        double rightPower = 0;
+        double heading = degrees;
+        double dheading = 0;
 
-        double leftPower, rightPower;
-        resetAngle();
+        do {
+            resetAngle();
+            // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
+            heading = heading - dheading;
+            reduction = Math.abs(dheading/heading);
+            if (heading < 0)
+            {   // turn right.
+                leftPower = -power;
+                rightPower = power;
+            }
+            else if (heading > 0)
+            {   // turn left.
+                leftPower = power;
+                rightPower = -power;
+            }
 
-        // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
+            setMotorPowers(leftPower * reduction,rightPower * reduction);
 
-        degrees = degrees - 30;
+            // rotate until turn is completed.
+            if (degrees < 0)
+            {
+                // On right turn we have to get off zero first.
+                while (opModeIsActive() && getAngle() == 0) {}
 
-        if (degrees < 0)
-        {   // turn right.
-            leftPower = -power;
-            rightPower = power;
-        }
-        else if (degrees > 0)
-        {   // turn left.
-            leftPower = power;
-            rightPower = -power;
-        }
-        else return;
+                while (opModeIsActive() && getAngle() > degrees) {}
+            }
+            else    // left turn.
+                while (opModeIsActive() && getAngle() < degrees) {}
 
-        setMotorPowers(leftPower,rightPower);
+            setMotorPowers(0,0);
+            dheading = heading - getAngle();
+            sleep(1000);
+            resetAngle();
 
-        // rotate until turn is completed.
-        if (degrees < 0)
-        {
-            // On right turn we have to get off zero first.
-            while (opModeIsActive() && getAngle() == 0) {}
+        } while (opModeIsActive() && !isStopRequested() && getRuntime() < 30 && dheading <= 5);
 
-            while (opModeIsActive() && getAngle() > degrees) {}
-        }
-        else    // left turn.
-            while (opModeIsActive() && getAngle() < degrees) {}
-
-        setMotorPowers(0,0);
-        sleep(1000);
-        resetAngle();
     }
 
+    //GET COLOR OF MINERAL
     public float[] getAutoColor() {
         Color.RGBToHSV((int) (goldSensor.red() * SCALE_FACTOR),
                 (int) (goldSensor.green() * SCALE_FACTOR),
@@ -236,6 +244,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         return hsvValues;
     }
 
+    //CHECK IF MINERAL IS GOLD
     public boolean isGold(){
         if ((getAutoColor()[0] > 30 && getAutoColor()[0] < 50) && (getAutoColor()[1] > .35)) {
             telemetry.addData("Gold ", "Detected");
@@ -248,11 +257,22 @@ public class AutoLinearOpMode extends LinearOpMode{
         }
     }
 
+    //KNOCK OFF GOLD
     public void knockGold(){
         //move servo
         telemetry.addData("status ", "knocking gold");
         telemetry.update();
         sleep(2000);
+    }
+
+    //SET WAIT TIME IN AUTO
+    public int getWait(){
+        int seconds = 0;
+        do{
+            if (gamepad1.x)
+                seconds++;
+        }while (!gamepad1.y && getRuntime() < 10);
+        return seconds;
     }
 
     @Override

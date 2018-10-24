@@ -10,36 +10,41 @@ public class AutoCrater extends AutoLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        runtime.reset();
+
         init(hardwareMap);
 
-        //Use gamepad buttons to determine wait time
+        int waitTime = getWait();
 
-
-      //  telemetry.addData("Wait time: ", "WAIT TIME HERE");
-        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Wait time: ", waitTime);
         telemetry.update();
 
         boolean hit = false;
 
         waitForStart();
            //move forward
-           driveDistance(0.3,10);
+           driveDistance(0.1,12);
+           sleep(1000);
             //Turn 90
            rotate(90,0.1);
+           sleep(1000);
             //Back up
-           driveDistance(0.3, -7);
+           driveDistance(0.1, -7);
+            sleep(1000);
             if(isGold() && !hit)
                 knockGold();
                 hit = true;
-            driveDistance(0.3, 7);
+            driveDistance(0.1, 7);
+            sleep(1000);
             if(isGold() && !hit)
                 knockGold();
                 hit = true;
-            driveDistance(0.3, 7);
+            driveDistance(0.1, 7);
+            sleep(1000);
             if(isGold() && !hit)
                 knockGold();
                 hit = true;
-
+            wait(waitTime);
             telemetry.addData("status ", "done");
         //turn towards wall
             /*rotate(55, 0.3);
