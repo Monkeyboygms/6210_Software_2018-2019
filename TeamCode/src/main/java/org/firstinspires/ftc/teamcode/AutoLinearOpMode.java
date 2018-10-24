@@ -271,7 +271,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         do{
             if (gamepad1.x)
                 seconds++;
-        }while (!gamepad1.y && getRuntime() < 10);
+        }while (!gamepad1.y && runtime.time() < 10);
         return seconds;
     }
 

@@ -10,14 +10,12 @@ public class AutoCrater extends AutoLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
-        runtime.reset();
-
         init(hardwareMap);
 
-        int waitTime = getWait();
+       /* int waitTime = getWait();
 
         telemetry.addData("Wait time: ", waitTime);
-        telemetry.update();
+        telemetry.update();*/
 
         boolean hit = false;
 
@@ -44,7 +42,7 @@ public class AutoCrater extends AutoLinearOpMode {
             if(isGold() && !hit)
                 knockGold();
                 hit = true;
-            wait(waitTime);
+            //wait(waitTime);
             telemetry.addData("status ", "done");
         //turn towards wall
             /*rotate(55, 0.3);
