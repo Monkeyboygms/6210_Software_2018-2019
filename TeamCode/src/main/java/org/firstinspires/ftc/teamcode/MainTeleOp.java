@@ -44,7 +44,7 @@ public class MainTeleOp extends TeleOpMode {
                 leftPower = leftPower * 2;
                 rightPower = rightPower * 2;
             }
-            
+
             setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
