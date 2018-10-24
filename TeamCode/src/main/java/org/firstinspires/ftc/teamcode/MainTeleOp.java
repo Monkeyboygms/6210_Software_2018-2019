@@ -36,13 +36,9 @@ public class MainTeleOp extends TeleOpMode {
                 rightPower = 0;
             }
 
-            if (gamepad1.x) {
+            if (gamepad1.right_bumper) {
                 leftPower = leftPower / 2;
                 rightPower = rightPower / 2;
-            }
-            if (gamepad1.y) {
-                leftPower = leftPower * 2;
-                rightPower = rightPower * 2;
             }
 
             setMotorPowers(leftPower, rightPower);
