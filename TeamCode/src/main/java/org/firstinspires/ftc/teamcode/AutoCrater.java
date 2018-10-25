@@ -26,9 +26,10 @@ public class AutoCrater extends AutoLinearOpMode {
             //Turn 90
            rotate(90,0.1);
            sleep(1000);
-            //Back up
+            //Back up to line up with the last mineral
            driveDistance(0.1, -7);
             sleep(1000);
+            //Move forward checking for gold mineral
             if(isGold() && !hit)
                 knockGold();
                 hit = true;
@@ -42,6 +43,19 @@ public class AutoCrater extends AutoLinearOpMode {
             if(isGold() && !hit)
                 knockGold();
                 hit = true;
+            //Drive up next to the wall
+            driveDistance(0.1, 5);
+            sleep(1000);
+            //turn parallel to the wall
+            rotate(-30, 0.1);
+            sleep(1000 );
+            //Move forward into the depot
+            driveDistance(0.1, 24);
+            sleep(1000);
+            //Back up into the crater
+            driveDistance(0.1, 32);
+
+
             //wait(waitTime);
             telemetry.addData("status ", "done");
         //turn towards wall
