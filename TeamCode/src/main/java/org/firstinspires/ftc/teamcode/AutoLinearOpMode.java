@@ -62,7 +62,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         RB  = map.dcMotor.get("RB");
         imu            = map.get(BNO055IMU.class, "imu");
         goldSensor     = map.get(ColorSensor.class, "colorRange");
-        sensorDistance = map.get(DistanceSensor.class, "colorRange");
+        sensorDistance = map.get(DistanceSensor.class, "distance");
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
