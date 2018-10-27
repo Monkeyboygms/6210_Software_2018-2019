@@ -62,7 +62,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         RB  = map.dcMotor.get("RB");
         imu            = map.get(BNO055IMU.class, "imu");
         goldSensor     = map.get(ColorSensor.class, "colorRange");
-        sensorDistance = map.get(DistanceSensor.class, "colorRange");
+        sensorDistance = map.get(DistanceSensor.class, "distance");
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -199,6 +199,11 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         do {
             resetAngle();
+
+            telemetry.addData("imu heading", lastAngles.firstAngle);
+            telemetry.addData("global heading", globalAngle);
+            telemetry.update();
+
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
             heading = heading - dheading;
             reduction = Math.abs(dheading/heading);
@@ -233,6 +238,48 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         } while (opModeIsActive() && !isStopRequested() && getRuntime() < 30 && dheading <= 5);
 
+        /*
+
+        runtime.reset();
+        double leftPower = 0;
+        double rightPower = 0;
+        double heading = degrees;
+
+            resetAngle();
+
+            telemetry.addData("imu heading", lastAngles.firstAngle);
+            telemetry.addData("global heading", globalAngle);
+            telemetry.update();
+
+            // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
+
+            if (heading < 0)
+            {   // turn right.
+                leftPower = -power;
+                rightPower = power;
+            }
+            else if (heading > 0)
+            {   // turn left.
+                leftPower = power;
+                rightPower = -power;
+            }
+
+            setMotorPowers(leftPower,rightPower);
+
+            // rotate until turn is completed.
+            if (degrees < 0)
+            {
+                // On right turn we have to get off zero first.
+                while (opModeIsActive() && getAngle() == 0) {}
+
+                while (opModeIsActive() && getAngle() > degrees) {}
+            }
+            else    // left turn.
+                while (opModeIsActive() && getAngle() < degrees) {}
+
+            stopMotors();
+            sleep(1000);
+            resetAngle();*/
     }
 
     //GET COLOR OF MINERAL

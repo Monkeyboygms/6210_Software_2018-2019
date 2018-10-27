@@ -16,6 +16,8 @@ public class MainTeleOp extends TeleOpMode {
 
         double leftPower = 0, rightPower = 0, scale = 1;
 
+        boolean halfSpeed = false;
+
         telemetry.addData("Mode: ", "Waiting for start");
         telemetry.update();
 
@@ -37,14 +39,18 @@ public class MainTeleOp extends TeleOpMode {
             }
 
             if (gamepad1.right_bumper) {
+                halfSpeed = true;
                 leftPower = leftPower / 2;
                 rightPower = rightPower / 2;
+            }else{
+                halfSpeed = false;
             }
 
             setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower);
+            telemetry.addData("Half Speed", halfSpeed);
             telemetry.update();
         }
     }
