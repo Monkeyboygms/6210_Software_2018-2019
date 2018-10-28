@@ -2,8 +2,6 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-
 
 @Autonomous(name="GyroLine", group = "Sensor")
 
@@ -29,7 +27,7 @@ public class GyroLine extends AutoLinearOpMode {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
 
-            telemetry.addData("1 imu heading", lastAngles.firstAngle);
+            telemetry.addData("1 imu heading", oldAngle.firstAngle);
             telemetry.addData("2 global heading", globalAngle);
             telemetry.addData("3 correction", correction);
             telemetry.update();

@@ -5,7 +5,6 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -21,7 +20,6 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-import static java.lang.Double.doubleToLongBits;
 import static java.lang.Double.isNaN;
 
 public class AutoLinearOpMode extends LinearOpMode{
@@ -39,7 +37,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     DistanceSensor sensorDistance = null;
 
     //gyro variables
-    Orientation lastAngles;
+    Orientation oldAngle;
     double globalAngle;
 
 
@@ -81,7 +79,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         //SET UP GYRO
 
-        lastAngles = new Orientation();
+        oldAngle = new Orientation();
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.mode                 = BNO055IMU.SensorMode.IMU;
@@ -168,68 +166,67 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     //RESET ANGLE
     public void resetAngle() {
-        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        globalAngle = 0;
+        oldAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        //globalAngle = 0;
     }
 
     //GET CURRENT IMU HEADING
     public double getAngle() {
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation currentAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+        double deltaAngle = currentAngle.firstAngle - oldAngle.firstAngle;
 
-        if (deltaAngle < -180)
-            deltaAngle += 360;
-        else if (deltaAngle > 180)
-            deltaAngle -= 360;
+        if (deltaAngle < 0)
+            deltaAngle *= -1;
+        else if (deltaAngle > 0)
+            deltaAngle = 360 - deltaAngle;
 
-        globalAngle += deltaAngle;
-        lastAngles = angles;
-        return globalAngle;
+        //globalAngle += deltaAngle;
+        //oldAngle = currentAngle;
+        return deltaAngle;
     }
 
     //ROTATE USING GYRO
-    public void rotate(int degrees, double power) {
+    public void rotate(int target, double power) {
         runtime.reset();
         double reduction = 1;
         double leftPower = 0;
         double rightPower = 0;
-        double heading = degrees;
-        double dheading = 0;
+        //double heading = degrees;
+        double dheading = target;
 
         do {
             resetAngle();
 
-            telemetry.addData("imu heading", lastAngles.firstAngle);
-            telemetry.addData("global heading", globalAngle);
+            telemetry.addData("imu heading", getAngle());
             telemetry.update();
 
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
-            heading = heading - dheading;
-            reduction = Math.abs(dheading/heading);
-            if (heading < 0)
-            {   // turn right.
-                leftPower = -power;
-                rightPower = power;
-            }
-            else if (heading > 0)
+            dheading = oldAngle.firstAngle - degrees;
+            //reduction = Math.abs(dheading/heading);
+            if (dheading > 180)
             {   // turn left.
                 leftPower = power;
                 rightPower = -power;
+            }
+            else if (dheading < 180)
+            {   // turn right.
+                leftPower = -power;
+                rightPower = power;
             }
 
             setMotorPowers(leftPower * reduction,rightPower * reduction);
 
             // rotate until turn is completed.
-            if (degrees < 0)
+            if (dheading > 0)
             {
                 // On right turn we have to get off zero first.
                 while (opModeIsActive() && getAngle() == 0) {}
 
-                while (opModeIsActive() && getAngle() > degrees) {}
+                while (opModeIsActive() && getAngle() < target) {}
             }
             else    // left turn.
-                while (opModeIsActive() && getAngle() < degrees) {}
+                while (opModeIsActive() && getAngle() > target) {}
 
             setMotorPowers(0,0);
             dheading = heading - getAngle();
@@ -247,7 +244,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 
             resetAngle();
 
-            telemetry.addData("imu heading", lastAngles.firstAngle);
+            telemetry.addData("imu heading", oldAngle.firstAngle);
             telemetry.addData("global heading", globalAngle);
             telemetry.update();
 
