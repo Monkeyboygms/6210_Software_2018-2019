@@ -22,11 +22,51 @@ public class AutoDepot extends AutoLinearOpMode {
         telemetry.addData("Status", "Initialized");
         telemetry.update();
 
+        boolean hit = false;
+
         waitForStart();
 
-        // --------------If the cube is on the left side--------------
-        //Turn towards cube
-        rotate(20, .3);
+        //move forward
+        driveDistance(0.1,12);
+        sleep(1000);
+        //Turn 90
+        rotate(90,0.1);
+        sleep(1000);
+        //Back up to line up with the last mineral
+        driveDistance(0.1, -7);
+        sleep(1000);
+        //Move forward checking for gold mineral
+        if(isGold() && !hit)
+            knockGold();
+        hit = true;
+        driveDistance(0.1, 7);
+        sleep(1000);
+        if(isGold() && !hit)
+            knockGold();
+        hit = true;
+        driveDistance(0.1, 7);
+        sleep(1000);
+        if(isGold() && !hit)
+            knockGold();
+        hit = true;
+        //Drive up next to the wall
+        driveDistance(0.1, 5);
+        sleep(1000);
+        //turn parallel to the wall and facing the depot
+        rotate(-120, 0.1);
+        sleep(1000 );
+        //Move forward into the depot
+        driveDistance(0.1, 24);
+        sleep(1000);
+        //Back up into the crater
+        driveDistance(-0.1, 32);
+        telemetry.addData("status ", "done");
+
+
+
+
+
+       /* rotate(20, .3);
         sleep(3000);
         //Move and Push cube
         driveDistance(0.3, 10);
