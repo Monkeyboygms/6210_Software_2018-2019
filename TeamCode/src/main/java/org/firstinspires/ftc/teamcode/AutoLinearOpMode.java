@@ -202,7 +202,7 @@ public class AutoLinearOpMode extends LinearOpMode{
             telemetry.update();
 
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
-            dheading = oldAngle.firstAngle - degrees;
+            dheading = oldAngle.firstAngle - target;
             //reduction = Math.abs(dheading/heading);
             if (dheading > 180)
             {   // turn left.
@@ -229,7 +229,7 @@ public class AutoLinearOpMode extends LinearOpMode{
                 while (opModeIsActive() && getAngle() > target) {}
 
             setMotorPowers(0,0);
-            dheading = heading - getAngle();
+            dheading = target - getAngle();
             sleep(1000);
             resetAngle();
 
