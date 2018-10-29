@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 
 @Autonomous(name="AutoCrater", group = "auto")
 //@Disabled
