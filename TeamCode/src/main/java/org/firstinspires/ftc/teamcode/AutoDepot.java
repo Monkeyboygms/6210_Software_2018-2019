@@ -56,10 +56,10 @@ public class AutoDepot extends AutoLinearOpMode {
         rotate(-120, 0.1);
         sleep(1000 );
         //Move forward into the depot
-        driveDistance(0.1, 24);
+        driveDistance(0.1, 30);
         sleep(1000);
         //Back up into the crater
-        driveDistance(-0.1, 32);
+        driveDistance(-0.1, 40);
         telemetry.addData("status ", "done");
 
 
