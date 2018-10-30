@@ -202,7 +202,7 @@ public class AutoLinearOpMode extends LinearOpMode{
             telemetry.update();
 
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
-            dheading = oldAngle.firstAngle - target;
+            dheading = target - oldAngle.firstAngle;
             reduction = Math.abs(dheading/target);
             if (dheading > 180)
             {   // turn left.
@@ -236,16 +236,13 @@ public class AutoLinearOpMode extends LinearOpMode{
                 }
 
                 while (opModeIsActive() && getAngle() > target) {
-
+                    idle();
                 }
             }
-
-            setMotorPowers(0,0);
-            dheading = target - getAngle();
+            stopMotors();
             sleep(1000);
-            resetAngle();
 
-        } while (opModeIsActive() && !isStopRequested() && getRuntime() < 30 && dheading <= 5);
+        } while (opModeIsActive() && dheading <= 5); // Add in runtime limit later
 
         /*
 
@@ -315,7 +312,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     //KNOCK OFF GOLD
     public void knockGold(){
-        goldHitter.setPosition(0.75);
+        goldHitter.setPosition(0.75); // Set servo position
         telemetry.addData("status ", "knocked gold");
         telemetry.update();
     }
