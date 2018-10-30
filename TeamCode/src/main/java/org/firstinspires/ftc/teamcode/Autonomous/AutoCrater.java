@@ -13,60 +13,37 @@ public class AutoCrater extends AutoLinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         init(hardwareMap);
-
-       /* int waitTime = getWait();
-
-        telemetry.addData("Wait time: ", waitTime);
-        telemetry.update();*/
-
+        int startPos = 0;
         boolean hit = false;
 
         waitForStart();
-           //move forward
-           driveDistance(0.1,12);
+           driveDistance(0.1,12); //move forward
            sleep(1000);
-            //Turn 90
-           rotate(90,0.1);
+           rotate(90,0.2); //Turn 90
            sleep(1000);
-            //Back up to line up with the last mineral
-           driveDistance(0.1, -7);
-            sleep(1000);
-            //Move forward checking for gold mineral
-            if(isGold() && !hit)
-                knockGold();
-                hit = true;
-            driveDistance(0.1, 7);
-            sleep(1000);
-            if(isGold() && !hit)
-                knockGold();
-                hit = true;
-            driveDistance(0.1, 7);
-            sleep(1000);
-            if(isGold() && !hit)
-                knockGold();
-                hit = true;
-            //Drive up next to the wall
-            driveDistance(0.1, 5);
-            sleep(1000);
-            //turn parallel to the wall
-            rotate(-30, 0.1);
-            sleep(1000 );
-            //Move forward into the depot
-            driveDistance(0.1, 24);
-            sleep(1000);
-            //Back up into the crater
-            driveDistance(-0.1, 32);
-            telemetry.addData("status ", "done");
-
-            //wait(waitTime);
-
-            //turn towards wall
-            //rotate(55, 0.3);
-            //move towards wall
-            //driveDistance(0.3, 7);
-            //rotate(50, 0.1);
-            //turn towards depot
-           // rotate(37, 0.3);
+           driveDistance(0.1, -7); //Back up to line up with the last mineral
+           sleep(1000);
+           startPos = LF.getCurrentPosition();
+           int dist = LF.getCurrentPosition() - startPos;
+           while (!hit && (dist < (25/encoderToInches))){  //Move forward checking for gold mineral, if found, knock and exit while loop
+               setMotorPowers(0.1,0.1);
+               if (isGold()){
+                   knockGold();
+                   hit = true;
+                   telemetry.addData("gold knocked:", true);
+               }else{
+                   telemetry.addData("gold knocked:", false);
+               }
+               dist = LF.getCurrentPosition() - startPos;
+           }
+           driveDistance(0.1, 25-dist); //Drive up next to the wall
+           sleep(1000);
+           rotate(-30, 0.1); //turn parallel to the wall
+           sleep(1000 );
+           driveDistance(0.1, 24); //Move forward into the depot
+           sleep(1000);
+           driveDistance(-0.1, 32);  //Back up into the crater
+           telemetry.addData("Status ", " auto done");
         }
     }
 

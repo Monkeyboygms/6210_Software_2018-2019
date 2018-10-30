@@ -15,9 +15,8 @@ public class GyroTeleOp extends AutoLinearOpMode {
         while (opModeIsActive()) {
 
             resetAngle();
-            telemetry.addData("Z Axis: ", oldAngle.firstAngle);
-            telemetry.addData("Y Axis: ", oldAngle.secondAngle);
-            telemetry.addData("X Axis: ", oldAngle.thirdAngle);
+            telemetry.addData("Raw angle: ", oldAngle.firstAngle);
+            telemetry.addData("Converted 360 angle: ", getAngle());
             telemetry.update();
         }
     }

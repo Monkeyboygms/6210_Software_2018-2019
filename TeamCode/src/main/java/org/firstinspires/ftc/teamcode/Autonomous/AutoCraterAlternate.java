@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
-@Autonomous(name="AutoDepot", group = "auto")
+@Autonomous(name="AutoCraterAlternate", group = "auto")
 //@Disabled
 public class AutoCraterAlternate extends AutoLinearOpMode {
 

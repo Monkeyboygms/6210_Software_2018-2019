@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
-@Autonomous(name = "ServoTest", group = "Sensor")
+@TeleOp(name = "ServoTest", group = "Sensor")
 //@Disabled
 public class ServoTest extends AutoLinearOpMode{
 
@@ -14,7 +15,15 @@ public class ServoTest extends AutoLinearOpMode{
 
         waitForStart();
 
-        goldHitter.setPosition(90);
+        runtime.reset();
+
+        while (opModeIsActive() && !isStopRequested()){
+            if(Math.abs(gamepad1.left_stick_y) > 0){
+                goldHitter.setPosition(gamepad1.left_stick_y);
+                telemetry.addData("Pos: ", gamepad1.left_stick_y);
+                telemetry.update();
+            }
+        }
 
         telemetry.addData("Status", "Finished");
         telemetry.update();

@@ -11,6 +11,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
@@ -32,6 +33,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor RF;
     public DcMotor LB;
     public DcMotor RB;
+    Servo goldHitter;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
     DistanceSensor sensorDistance = null;
@@ -58,6 +60,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         RF  = map.dcMotor.get("RF");
         LB  = map.dcMotor.get("LB");
         RB  = map.dcMotor.get("RB");
+        goldHitter     = hardwareMap.servo.get("goldHitter");
         imu            = map.get(BNO055IMU.class, "imu");
         goldSensor     = map.get(ColorSensor.class, "colorRange");
         sensorDistance = map.get(DistanceSensor.class, "distance");
@@ -167,7 +170,6 @@ public class AutoLinearOpMode extends LinearOpMode{
     //RESET ANGLE
     public void resetAngle() {
         oldAngle = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        //globalAngle = 0;
     }
 
     //GET CURRENT IMU HEADING
@@ -181,8 +183,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         else if (deltaAngle > 0)
             deltaAngle = 360 - deltaAngle;
 
-        //globalAngle += deltaAngle;
-        //oldAngle = currentAngle;
         return deltaAngle;
     }
 
@@ -192,7 +192,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         double reduction = 1;
         double leftPower = 0;
         double rightPower = 0;
-        //double heading = degrees;
+
         double dheading = target;
 
         do {
@@ -203,7 +203,7 @@ public class AutoLinearOpMode extends LinearOpMode{
 
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
             dheading = oldAngle.firstAngle - target;
-            //reduction = Math.abs(dheading/heading);
+            reduction = Math.abs(dheading/target);
             if (dheading > 180)
             {   // turn left.
                 leftPower = power;
@@ -218,15 +218,27 @@ public class AutoLinearOpMode extends LinearOpMode{
             setMotorPowers(leftPower * reduction,rightPower * reduction);
 
             // rotate until turn is completed.
-            if (dheading > 0)
+            if (dheading > 0 && dheading < 180)
             {
                 // On right turn we have to get off zero first.
-                while (opModeIsActive() && getAngle() == 0) {}
+                while (opModeIsActive() && getAngle() == 0) {
+                    idle();
+                }
 
-                while (opModeIsActive() && getAngle() < target) {}
+                while (opModeIsActive() && getAngle() < target) {
+                    idle();
+                }
             }
-            else    // left turn.
-                while (opModeIsActive() && getAngle() > target) {}
+            else if(dheading > 0 && dheading > 180){
+                // left turn.
+                while (opModeIsActive() && getAngle() == 0) {
+                    idle();
+                }
+
+                while (opModeIsActive() && getAngle() > target) {
+
+                }
+            }
 
             setMotorPowers(0,0);
             dheading = target - getAngle();
@@ -303,10 +315,9 @@ public class AutoLinearOpMode extends LinearOpMode{
 
     //KNOCK OFF GOLD
     public void knockGold(){
-        //move servo
-        telemetry.addData("status ", "knocking gold");
+        goldHitter.setPosition(0.75);
+        telemetry.addData("status ", "knocked gold");
         telemetry.update();
-        sleep(2000);
     }
 
     //SET WAIT TIME IN AUTO
