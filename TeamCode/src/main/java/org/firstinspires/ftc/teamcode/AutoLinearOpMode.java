@@ -33,7 +33,10 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor RF;
     public DcMotor LB;
     public DcMotor RB;
+    public DcMotor liftR;
+    public DcMotor liftL;
     Servo goldHitter;
+    Servo boxServo;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
     DistanceSensor sensorDistance = null;
@@ -60,10 +63,13 @@ public class AutoLinearOpMode extends LinearOpMode{
         RF  = map.dcMotor.get("RF");
         LB  = map.dcMotor.get("LB");
         RB  = map.dcMotor.get("RB");
+        liftL  = map.dcMotor.get("liftL");
+        liftR  = map.dcMotor.get("liftR");
         goldHitter     = hardwareMap.servo.get("goldHitter");
-        imu            = map.get(BNO055IMU.class, "imu");
+        boxServo     = hardwareMap.servo.get("boxServo");
+        imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
         goldSensor     = map.get(ColorSensor.class, "colorRange");
-        sensorDistance = map.get(DistanceSensor.class, "distance");
+
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -120,6 +126,12 @@ public class AutoLinearOpMode extends LinearOpMode{
         sleep(seconds * 1000);
     }
 
+    // TIME BASED MOVEMENT
+    public void turnTime(double power, long seconds){
+        setMotorPowers(-power, power);
+        sleep(seconds * 1000);
+    }
+
     // SET RUNMODE TO DRIVE MOTORS
     public void setMode(DcMotor.RunMode runMode) throws InterruptedException {
         LF.setMode(runMode);
@@ -143,15 +155,15 @@ public class AutoLinearOpMode extends LinearOpMode{
 
         distance = -1 * distance * encoderToInches;
 
-        LF.setTargetPosition((int)distance);
-        LB.setTargetPosition((int)distance);
-        RF.setTargetPosition((int)distance);
-        RB.setTargetPosition((int)distance);
+        LF.setTargetPosition(LF.getCurrentPosition() + (int)distance);
+        LB.setTargetPosition(LB.getCurrentPosition() + (int)distance);
+        RF.setTargetPosition(RF.getCurrentPosition() + (int)distance);
+        RB.setTargetPosition(RB.getCurrentPosition() + (int)distance);
 
         setMode(DcMotor.RunMode.RUN_TO_POSITION);
         setMotorPowers(power, power);
 
-        while (LF.isBusy() && RF.isBusy() && LB.isBusy() && RB.isBusy()){
+        while (LF.isBusy() && RF.isBusy() && LB.isBusy() && RB.isBusy() && opModeIsActive() && !isStopRequested()){
             idle();
         }
         stopMotors();
@@ -314,6 +326,18 @@ public class AutoLinearOpMode extends LinearOpMode{
     public void knockGold(){
         goldHitter.setPosition(0.75); // Set servo position
         telemetry.addData("status ", "knocked gold");
+        telemetry.update();
+    }
+
+    public void openBox(){
+        boxServo.setPosition(0.75); // Set servo position
+        telemetry.addData("status ", "box open");
+        telemetry.update();
+    }
+
+    public void closeBox(){
+        boxServo.setPosition(-0.75); // Set servo position
+        telemetry.addData("status ", "box closed");
         telemetry.update();
     }
 

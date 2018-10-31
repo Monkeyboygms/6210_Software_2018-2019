@@ -5,14 +5,14 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @TeleOp(name="MainTeleOp", group="teleop")
 //@Disabled
-public class MainTeleOp extends TeleOpMode {
+public class MainTeleOp extends AutoLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
         init(hardwareMap);
 
-        setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         double leftPower = 0, rightPower = 0, scale = 1;
 
