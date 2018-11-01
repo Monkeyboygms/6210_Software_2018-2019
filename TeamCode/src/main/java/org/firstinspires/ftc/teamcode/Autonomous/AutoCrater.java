@@ -42,11 +42,14 @@ public class AutoCrater extends AutoLinearOpMode {
            sleep(1000 );
            driveDistance(0.1, 24); //Move forward into the depot
            sleep(1000);
-          // openBox();
+           // openBox();
            driveDistance(0.2, 3);
+           sleep(500);
+           // closeBox();
            driveDistance(-0.2, 3);
-          // closeBox();
-           driveDistance(-0.1, 32);  //Back up into the crater
+           sleep(500);
+           //Back up into the crater
+           driveDistance(-0.1, 32);
            telemetry.addData("Status ", " auto done");
         }
     }
