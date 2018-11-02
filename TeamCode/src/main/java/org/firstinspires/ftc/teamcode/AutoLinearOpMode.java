@@ -204,7 +204,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         double reduction = 1;
         double leftPower = 0;
         double rightPower = 0;
-
+        target = target - 90;
         double dheading = target;
 
         do {
