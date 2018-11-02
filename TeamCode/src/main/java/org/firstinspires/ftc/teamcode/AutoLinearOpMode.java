@@ -230,7 +230,7 @@ public class AutoLinearOpMode extends LinearOpMode{
             setMotorPowers(leftPower * reduction,rightPower * reduction);
 
             // rotate until turn is completed.
-            if (dheading > 0 && dheading < 180)
+            if (dheading > 0 && dheading > 180)
             {
                 // On right turn we have to get off zero first.
                 while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
@@ -241,7 +241,7 @@ public class AutoLinearOpMode extends LinearOpMode{
                     idle();
                 }
             }
-            else if(dheading > 0 && dheading > 180){
+            else if(dheading > 0 && dheading < 180){
                 // left turn.
                 while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
                     idle();
