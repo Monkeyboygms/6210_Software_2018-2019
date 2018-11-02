@@ -204,7 +204,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         double reduction = 1;
         double leftPower = 0;
         double rightPower = 0;
-        target = target - 90;
         double dheading = target;
 
         do {
@@ -216,12 +215,12 @@ public class AutoLinearOpMode extends LinearOpMode{
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
             dheading = target - oldAngle.firstAngle;
          //   reduction = Math.abs(dheading/target);
-            if (dheading > 180)
+            if (dheading < 180)
             {   // turn left.
                 leftPower = power;
                 rightPower = -power;
             }
-            else if (dheading < 180)
+            else if (dheading > 180)
             {   // turn right.
                 leftPower = -power;
                 rightPower = power;
@@ -230,7 +229,7 @@ public class AutoLinearOpMode extends LinearOpMode{
             setMotorPowers(leftPower * reduction,rightPower * reduction);
 
             // rotate until turn is completed.
-            if (dheading > 0 && dheading > 180)
+            if (dheading > 0 && dheading < 180)
             {
                 // On right turn we have to get off zero first.
                 while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
@@ -241,7 +240,7 @@ public class AutoLinearOpMode extends LinearOpMode{
                     idle();
                 }
             }
-            else if(dheading > 0 && dheading < 180){
+            else if(dheading > 0 && dheading > 180){
                 // left turn.
                 while (opModeIsActive() && !isStopRequested() && getAngle() == 0) {
                     idle();
