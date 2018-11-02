@@ -28,7 +28,7 @@ public class AutoCrater extends AutoLinearOpMode {
            while (!hit && (dist < (25/encoderToInches))){  //Move forward checking for gold mineral, if found, knock and exit while loop
                setMotorPowers(0.1,0.1);
                if (isGold()){
-                   knockGold();
+                   //knockGold();
                    hit = true;
                    telemetry.addData("gold knocked:", true);
                }else{
