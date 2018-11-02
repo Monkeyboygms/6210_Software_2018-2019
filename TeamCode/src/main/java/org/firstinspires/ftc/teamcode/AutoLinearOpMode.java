@@ -252,7 +252,7 @@ public class AutoLinearOpMode extends LinearOpMode{
                 }
             }
             stopMotors();
-            sleep(1000);
+            
 
         } while (opModeIsActive() && dheading <= 5); // Add in runtime limit later
 
