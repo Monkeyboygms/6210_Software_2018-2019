@@ -19,9 +19,9 @@ public class AutoCrater extends AutoLinearOpMode {
         waitForStart();
            driveDistance(0.1,12); //move forward
            sleep(1000);
-           rotate(90,0.2); //Turn 90
+           rotate(-90,0.2); //Turn left
            sleep(1000);
-           driveDistance(0.1, -7); //Back up to line up with the last mineral
+           driveDistance(-0.1, 7); //Back up to line up with the last mineral
            sleep(1000);
            startPos = LF.getCurrentPosition();
            int dist = LF.getCurrentPosition() - startPos;
@@ -36,17 +36,20 @@ public class AutoCrater extends AutoLinearOpMode {
                }
                dist = LF.getCurrentPosition() - startPos;
            }
-           driveDistance(0.1, 25-dist); //Drive up next to the wall
+           driveDistance(0.1, 32-dist); //Drive up next to the wall
            sleep(1000);
            rotate(-30, 0.1); //turn parallel to the wall
            sleep(1000 );
            driveDistance(0.1, 24); //Move forward into the depot
            sleep(1000);
-          // openBox();
+           // openBox();
            driveDistance(0.2, 3);
+           sleep(500);
+           // closeBox();
            driveDistance(-0.2, 3);
-          // closeBox();
-           driveDistance(-0.1, 32);  //Back up into the crater
+           sleep(500);
+           //Back up into the crater
+           driveDistance(-0.1, 32);
            telemetry.addData("Status ", " auto done");
         }
     }
