@@ -13,18 +13,24 @@ public class LiftTest extends AutoLinearOpMode {
         // TEST AND FIX VALUES
 
         init(hardwareMap);
-        double power = 0.2;
-        while (opModeIsActive()) {
-            if(gamepad1.left_bumper){
+
+        double power = 0.1;
+        while (opModeIsActive() && !isStopRequested()) {
+            if(gamepad1.x){
                 power *= -1;
                 telemetry.addData("status: ", "retracting");
-            }else if(gamepad1.right_bumper){
+                telemetry.update();
+                liftL.setPower(power);
+                liftR.setPower(-power);
+            }else if(gamepad1.y){
                 power *= 1;
                 telemetry.addData("status: ", "extending");
+                telemetry.update();
+                liftL.setPower(power);
+                liftR.setPower(-power);
             }
-            liftL.setPower(power);
-            liftR.setPower(power);
-            telemetry.update();
+
+
         }
     }
 }

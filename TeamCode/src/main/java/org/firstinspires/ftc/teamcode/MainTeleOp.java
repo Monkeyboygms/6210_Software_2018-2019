@@ -14,7 +14,7 @@ public class MainTeleOp extends AutoLinearOpMode {
 
         //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        double leftPower = 0, rightPower = 0, scale = 1;
+        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 0.2;
 
         boolean halfSpeed = false;
 
@@ -44,6 +44,20 @@ public class MainTeleOp extends AutoLinearOpMode {
                 rightPower = rightPower / 2;
             }else{
                 halfSpeed = false;
+            }
+
+            if(gamepad1.x){
+                liftPower *= -1;
+                telemetry.addData("status: ", "retracting");
+                telemetry.update();
+                liftL.setPower(liftPower);
+                liftR.setPower(-liftPower);
+            }else if(gamepad1.y){
+                liftPower *= 1;
+                telemetry.addData("status: ", "extending");
+                telemetry.update();
+                liftL.setPower(liftPower);
+                liftR.setPower(-liftPower);
             }
 
             setMotorPowers(leftPower, rightPower);
