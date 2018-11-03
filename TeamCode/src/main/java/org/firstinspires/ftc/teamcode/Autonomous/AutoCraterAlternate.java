@@ -9,7 +9,7 @@ import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 import org.firstinspires.ftc.teamcode.RandomTests.StrykeHardwareMap;
 
 @Autonomous(name="AutoCraterAlternate", group = "auto")
-//@Disabled
+@Disabled
 public class AutoCraterAlternate extends AutoLinearOpMode {
 
     @Override
