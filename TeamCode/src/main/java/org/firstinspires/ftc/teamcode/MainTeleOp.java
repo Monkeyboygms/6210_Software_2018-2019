@@ -58,6 +58,9 @@ public class MainTeleOp extends AutoLinearOpMode {
                 telemetry.update();
                 liftL.setPower(liftPower);
                 liftR.setPower(-liftPower);
+            }else{
+                liftL.setPower(0);
+                liftR.setPower(0);
             }
 
             setMotorPowers(leftPower, rightPower);
