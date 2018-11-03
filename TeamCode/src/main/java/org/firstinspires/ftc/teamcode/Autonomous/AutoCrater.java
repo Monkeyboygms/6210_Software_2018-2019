@@ -21,11 +21,11 @@ public class AutoCrater extends AutoLinearOpMode {
            sleep(1000);
            rotate(315,0.3); //Turn left
            sleep(1000);
-           driveDistance(-0.2, 9); //Back up to line up with the last mineral
-           sleep(1000);
-           startPos = LF.getCurrentPosition();
-           int dist = LF.getCurrentPosition() - startPos;
-          /* while (!hit && (dist < (25/encoderToInches))){  //Move forward checking for gold mineral, if found, knock and exit while loop
+          // driveDistance(-0.2, 9); //Back up to line up with the last mineral
+           //sleep(1000);
+           //startPos = LF.getCurrentPosition();
+           /*int dist = LF.getCurrentPosition() - startPos;
+           while (!hit && (dist < (25/encoderToInches))){  //Move forward checking for gold mineral, if found, knock and exit while loop
                setMotorPowers(0.1,0.1);
                if (isGold()){
                    //knockGold();
@@ -38,10 +38,10 @@ public class AutoCrater extends AutoLinearOpMode {
            }*/
            //driveDistance(0.2, 20-dist); //Drive up next to the wall
         //driveDistance(0.2, 20);
-        driveDistance(0.3, 24);
+        driveDistance(0.3, 25);
         sleep(1000);
-           /*rotate(-30, 0.3); //turn parallel to the wall
-           sleep(1000 );
+        rotate(-30, 0.3); //turn parallel to the wall
+           /*sleep(1000 );
            driveDistance(0.3, 24); //Move forward into the depot
            sleep(1000);
            openBox();
