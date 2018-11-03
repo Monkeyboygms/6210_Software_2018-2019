@@ -20,9 +20,9 @@ public class AutoCrater extends AutoLinearOpMode {
            driveDistance(0.2,12); //move forward
            sleep(1000);
            rotate(90,0.2); //Turn left
-           sleep(1000);
-           driveDistance(-0.2, 7); //Back up to line up with the last mineral
-           sleep(1000);
+           //sleep(1000);
+           //driveDistance(-0.2, 7); //Back up to line up with the last mineral
+           //sleep(1000);
            startPos = LF.getCurrentPosition();
            int dist = LF.getCurrentPosition() - startPos;
           /* while (!hit && (dist < (25/encoderToInches))){  //Move forward checking for gold mineral, if found, knock and exit while loop
@@ -36,20 +36,21 @@ public class AutoCrater extends AutoLinearOpMode {
                }
                dist = LF.getCurrentPosition() - startPos;
            }*/
-           driveDistance(0.2, 20-dist); //Drive up next to the wall
-           sleep(1000);
-           rotate(30, 0.1); //turn parallel to the wall
+           //driveDistance(0.2, 20-dist); //Drive up next to the wall
+        driveDistance(0.2, 20);
+        sleep(1000);
+           rotate(-30, 0.1); //turn parallel to the wall
            sleep(1000 );
            driveDistance(0.2, 24); //Move forward into the depot
            sleep(1000);
-           // openBox();
-           driveDistance(0.2, 3);
+           openBox();
+           //driveDistance(0.2, 3);
            sleep(500);
-           // closeBox();
-           driveDistance(-0.2, 3);
+           //closeBox();
+           //driveDistance(-0.2, 3);
            sleep(500);
            //Back up into the crater
-           driveDistance(-0.1, 32);
+           driveDistance(-0.3, 32);
            telemetry.addData("Status ", " auto done");
         }
     }

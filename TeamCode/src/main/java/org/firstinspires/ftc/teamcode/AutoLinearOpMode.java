@@ -326,7 +326,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     public void openBox(){
-        boxServo.setPosition(0.75); // Set servo position
+        boxServo.setPosition(1); // Set servo position
         telemetry.addData("status ", "box open");
         telemetry.update();
     }
