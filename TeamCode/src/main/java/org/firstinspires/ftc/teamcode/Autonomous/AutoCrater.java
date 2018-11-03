@@ -52,8 +52,7 @@ public class AutoCrater extends AutoLinearOpMode {
            sleep(500);
            closeBox();
            driveDistance(-0.2, 3);
-           sleep(500);
-           */
+           sleep(500);*/
            //Back up into the crater
         driveDistance(0.5, -44);
         telemetry.addData("Status ", " auto done");
