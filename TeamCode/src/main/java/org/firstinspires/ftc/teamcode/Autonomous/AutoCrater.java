@@ -17,9 +17,9 @@ public class AutoCrater extends AutoLinearOpMode {
         boolean hit = false;
 
         waitForStart();
-           driveDistance(0.2,12); //move forward
+           driveDistance(0.3,12); //move forward
            sleep(1000);
-           rotate(90,0.2); //Turn left
+           rotate(90,0.3); //Turn left
            //sleep(1000);
            //driveDistance(-0.2, 7); //Back up to line up with the last mineral
            //sleep(1000);
@@ -37,11 +37,12 @@ public class AutoCrater extends AutoLinearOpMode {
                dist = LF.getCurrentPosition() - startPos;
            }*/
            //driveDistance(0.2, 20-dist); //Drive up next to the wall
-        driveDistance(0.2, 20);
+        //driveDistance(0.2, 20);
+        driveTime(0.3, 5);
         sleep(1000);
-           rotate(-30, 0.1); //turn parallel to the wall
+           rotate(-30, 0.3); //turn parallel to the wall
            sleep(1000 );
-           driveDistance(0.2, 24); //Move forward into the depot
+           driveDistance(0.3, 24); //Move forward into the depot
            sleep(1000);
            openBox();
            //driveDistance(0.2, 3);
