@@ -34,14 +34,27 @@ public class AutoDepot extends AutoLinearOpMode {
         rotate(90,0.1);
         sleep(1000);
         //Back up to line up with the last mineral
-        driveDistance(0.1, -7);
+        driveDistance(-0.1, -7);
         sleep(1000);
         //Move forward checking for gold mineral
+        /*if(isGold() && !hit)
+            knockGold();
+        hit = true;
+        driveDistance(0.1, 7);
+        sleep(1000);
+        if(isGold() && !hit)
+            knockGold();
+        hit = true;
+        driveDistance(0.1, 7);
+        sleep(1000);
+        if(isGold() && !hit)
+            knockGold();
+        hit = true;*/
         //Drive up next to the wall
-        driveDistance(0.1, 5);
+        driveDistance(0.1, 25);
         sleep(1000);
         //turn parallel to the wall and facing the depot
-        rotate(-120, 0.1);
+        rotate(120, 0.1);
         sleep(1000 );
         //Move forward into the depot
         driveDistance(0.1, 30);
