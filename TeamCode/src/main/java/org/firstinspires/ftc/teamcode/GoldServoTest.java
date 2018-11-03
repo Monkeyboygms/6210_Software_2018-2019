@@ -15,7 +15,7 @@ public class GoldServoTest extends AutoLinearOpMode{
 
         waitForStart();
 
-        goldHitter.setPosition(0);
+        /*goldHitter.setPosition(0);
         telemetry.addData("Pos: ", 0);
         telemetry.update();
         sleep(2000);
@@ -26,7 +26,7 @@ public class GoldServoTest extends AutoLinearOpMode{
         goldHitter.setPosition(90);
         telemetry.addData("Pos: ", 1);
         telemetry.update();
-        sleep(2000);
+        sleep(2000);*/
 
         telemetry.addData("Status", "Finished");
         telemetry.update();

@@ -37,19 +37,6 @@ public class AutoDepot extends AutoLinearOpMode {
         driveDistance(0.1, -7);
         sleep(1000);
         //Move forward checking for gold mineral
-        if(isGold() && !hit)
-            knockGold();
-        hit = true;
-        driveDistance(0.1, 7);
-        sleep(1000);
-        if(isGold() && !hit)
-            knockGold();
-        hit = true;
-        driveDistance(0.1, 7);
-        sleep(1000);
-        if(isGold() && !hit)
-            knockGold();
-        hit = true;
         //Drive up next to the wall
         driveDistance(0.1, 5);
         sleep(1000);

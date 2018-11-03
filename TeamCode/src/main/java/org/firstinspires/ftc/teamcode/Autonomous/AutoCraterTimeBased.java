@@ -24,16 +24,6 @@ public class AutoCraterTimeBased extends AutoLinearOpMode {
            sleep(1000);
            startPos = LF.getCurrentPosition();
            int dist = LF.getCurrentPosition() - startPos;
-           while (getRuntime() < 7){  //Move forward checking for gold mineral, if found, knock and exit while loop
-               setMotorPowers(0.1,0.1);
-               if (isGold()){
-                   knockGold();
-                   hit = true;
-                   telemetry.addData("gold knocked:", true);
-               }else{
-                   telemetry.addData("gold knocked:", false);
-               }
-           }
            driveTime(0.2, 3); //Drive up next to the wall
            sleep(1000);
            turnTime(-0.2, 3); //turn parallel to the wall
