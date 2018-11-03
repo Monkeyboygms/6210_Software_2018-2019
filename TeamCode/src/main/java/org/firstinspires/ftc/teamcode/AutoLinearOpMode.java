@@ -35,7 +35,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor RB;
     public DcMotor liftR;
     public DcMotor liftL;
-    Servo goldHitter;
+    //Servo goldHitter;
     Servo boxServo;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
@@ -65,7 +65,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         RB  = map.dcMotor.get("RB");
         liftL  = map.dcMotor.get("liftL");
         liftR  = map.dcMotor.get("liftR");
-        goldHitter     = hardwareMap.servo.get("goldHitter");
+        //goldHitter     = hardwareMap.servo.get("goldHitter");
         boxServo     = hardwareMap.servo.get("boxServo");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
         goldSensor     = map.get(ColorSensor.class, "colorRange");
@@ -215,12 +215,12 @@ public class AutoLinearOpMode extends LinearOpMode{
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
             dheading = target - oldAngle.firstAngle;
          //   reduction = Math.abs(dheading/target);
-            if (dheading < 180)
+            if (dheading > 180)
             {   // turn left.
                 leftPower = power;
                 rightPower = -power;
             }
-            else if (dheading > 180)
+            else if (dheading < 180)
             {   // turn right.
                 leftPower = -power;
                 rightPower = power;
@@ -290,10 +290,10 @@ public class AutoLinearOpMode extends LinearOpMode{
             }
             else    // left turn.
                 while (opModeIsActive() && getAngle() < degrees) {}
-
+*/
             stopMotors();
             sleep(1000);
-            resetAngle();*/
+            resetAngle();
     }
 
     //GET COLOR OF MINERAL
@@ -319,11 +319,11 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     //KNOCK OFF GOLD
-    public void knockGold(){
+    /*public void knockGold(){
         goldHitter.setPosition(0.75); // Set servo position
         telemetry.addData("status ", "knocked gold");
         telemetry.update();
-    }
+    }*/
 
     public void openBox(){
         boxServo.setPosition(1); // Set servo position

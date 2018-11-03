@@ -14,7 +14,7 @@ public class MainTeleOp extends AutoLinearOpMode {
 
         //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 0.2;
+        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 1;
 
         boolean halfSpeed = false;
 
