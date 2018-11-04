@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.View;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -35,6 +36,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor RB;
     public DcMotor liftR;
     public DcMotor liftL;
+    public DcMotor intake;
     //Servo goldHitter;
     Servo boxServo;
     public BNO055IMU imu;
@@ -65,6 +67,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         RB  = map.dcMotor.get("RB");
         liftL  = map.dcMotor.get("liftL");
         liftR  = map.dcMotor.get("liftR");
+        intake           = map.dcMotor.get("intake");
         //goldHitter     = hardwareMap.servo.get("goldHitter");
         boxServo     = hardwareMap.servo.get("boxServo");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
@@ -335,6 +338,17 @@ public class AutoLinearOpMode extends LinearOpMode{
         boxServo.setPosition(-0.75); // Set servo position
         telemetry.addData("status ", "box closed");
         telemetry.update();
+    }
+
+    public void expel(long time){
+        intake.setPower(1);
+        sleep(time);
+        intake.setPower(0);
+    }
+    public void takeIn(long time){
+        intake.setPower(-1);
+        sleep(time);
+        intake.setPower(0);
     }
 
     //SET WAIT TIME IN AUTO

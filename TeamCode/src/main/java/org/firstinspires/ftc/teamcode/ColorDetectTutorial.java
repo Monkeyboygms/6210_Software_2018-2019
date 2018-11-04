@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import java.util.Arrays;
 
 @TeleOp (name = "ColorTutorial", group = "Sensor")
-//@Disabled
+@Disabled
 public class ColorDetectTutorial extends AutoLinearOpMode{
 
     @Override

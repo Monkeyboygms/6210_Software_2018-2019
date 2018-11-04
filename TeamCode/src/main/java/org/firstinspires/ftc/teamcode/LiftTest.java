@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="LiftTest", group="teleop")
-//@Disabled
+@Disabled
 public class LiftTest extends AutoLinearOpMode {
 
 

@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 
 @Autonomous(name="EncoderTest", group = "auto")
 
-//@Disabled
+@Disabled
 
 public class EncoderTest extends AutoLinearOpMode {
 

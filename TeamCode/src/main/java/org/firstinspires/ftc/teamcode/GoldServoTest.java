@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @Autonomous(name = "GoldServoTest", group = "Sensor")
-//@Disabled
+@Disabled
 public class GoldServoTest extends AutoLinearOpMode{
 
     @Override
@@ -24,7 +25,7 @@ public class GoldServoTest extends AutoLinearOpMode{
         telemetry.update();
         sleep(2000);
         goldHitter.setPosition(90);
-        telemetry.addData("Pos: ", 1);
+        telemetry.addData("Pos: ", 90);
         telemetry.update();
         sleep(2000);*/
 

@@ -1,9 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name="Gyro", group="sensor")
-//@Disabled
+@Disabled
 public class GyroTeleOp extends AutoLinearOpMode {
 
 

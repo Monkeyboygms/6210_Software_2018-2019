@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @Autonomous(name="GyroLine", group = "Sensor")
 
-//@Disabled
+@Disabled
 
 public class GyroLine extends AutoLinearOpMode {
 

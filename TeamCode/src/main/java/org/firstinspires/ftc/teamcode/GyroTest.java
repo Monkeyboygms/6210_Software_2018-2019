@@ -1,11 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 
 @Autonomous(name="TestTurn", group = "Sensor")
 
-//@Disabled
+@Disabled
 
 public class GyroTest extends AutoLinearOpMode {
 
