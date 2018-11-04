@@ -63,6 +63,13 @@ public class MainTeleOp extends AutoLinearOpMode {
                 liftR.setPower(0);
             }
 
+            if(gamepad1.left_trigger > 0.05){
+                takeIn(1);
+            }
+            if(gamepad1.left_trigger > 0.05){
+                expel(1);
+            }
+
             setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString());
