@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 
-@Autonomous(name="AutoCrater", group = "auto")
+@Autonomous(name="AutoCrater_Intake", group = "auto")
 //@Disabled
 public class AutoCrater_Intake extends AutoLinearOpMode {
 

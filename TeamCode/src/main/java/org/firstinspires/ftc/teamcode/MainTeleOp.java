@@ -14,7 +14,7 @@ public class MainTeleOp extends AutoLinearOpMode {
 
         //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 1;
+        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 1, intakePower = 1;
 
         boolean halfSpeed = false;
 
@@ -62,13 +62,25 @@ public class MainTeleOp extends AutoLinearOpMode {
                 liftL.setPower(0);
                 liftR.setPower(0);
             }
-
-            if(gamepad1.left_trigger > 0.05){
-                takeIn(1);
+            if(gamepad1.a){
+                telemetry.addData("status: ", "intaking");
+                telemetry.update();
+                intake.setPower(-1);
+            }else if(gamepad1.b){
+                telemetry.addData("status: ", "expelling");
+                telemetry.update();
+                intake.setPower(1);
+            }else{
+                intake.setPower(0);
             }
-            if(gamepad1.left_trigger > 0.05){
-                expel(1);
+/*
+            if(gamepad1.a){
+                takeIn(3000);
             }
+            if(gamepad1.b){
+                expel(3000);
+            }
+ */
 
             setMotorPowers(leftPower, rightPower);
 

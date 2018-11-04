@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 
-@Autonomous(name="AutoDepot", group = "auto")
+@Autonomous(name="AutoDepot_Intake", group = "auto")
 //@Disabled
 public class AutoDepot_Intake extends AutoLinearOpMode {
 
