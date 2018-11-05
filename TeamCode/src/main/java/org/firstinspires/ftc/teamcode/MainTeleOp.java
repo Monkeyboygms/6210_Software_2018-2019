@@ -46,13 +46,13 @@ public class MainTeleOp extends AutoLinearOpMode {
                 halfSpeed = false;
             }
 
-            if(gamepad2.right_stick_y > 0.05){
+            if(gamepad2.left_stick_y < -0.05){
                 liftPower *= -1;
                 telemetry.addData("status: ", "retracting");
                 telemetry.update();
                 liftL.setPower(liftPower);
                 liftR.setPower(-liftPower);
-            }else if(gamepad2.right_stick_y < -0.05){
+            }else if(gamepad2.left_stick_y > 0.05){
                 liftPower *= 1;
                 telemetry.addData("status: ", "extending");
                 telemetry.update();
@@ -66,12 +66,24 @@ public class MainTeleOp extends AutoLinearOpMode {
                 telemetry.addData("status: ", "intaking");
                 telemetry.update();
                 intake.setPower(-1);
-            }else if(gamepad2.left_bumper){
+            }else if(gamepad2.right_bumper){
                 telemetry.addData("status: ", "expelling");
                 telemetry.update();
                 intake.setPower(1);
             }else{
                 intake.setPower(0);
+            }
+
+            if(gamepad2.right_stick_y > 0.05){
+                deployment.setPower(1);
+            }
+
+            else if(gamepad2.right_stick_y < -0.05){
+                deployment.setPower(-1);
+            }
+
+            else{
+                deployment.setPower(0);
             }
 /*
             if(gamepad1.a){

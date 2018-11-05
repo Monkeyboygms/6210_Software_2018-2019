@@ -37,6 +37,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor liftR;
     public DcMotor liftL;
     public DcMotor intake;
+    public DcMotor deployment;
     //Servo goldHitter;
     Servo boxServo;
     public BNO055IMU imu;
@@ -68,6 +69,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         liftL  = map.dcMotor.get("liftL");
         liftR  = map.dcMotor.get("liftR");
         intake           = map.dcMotor.get("intake");
+        deployment       = map.dcMotor.get("deployment");
         //goldHitter     = hardwareMap.servo.get("goldHitter");
         boxServo     = hardwareMap.servo.get("boxServo");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
@@ -349,6 +351,15 @@ public class AutoLinearOpMode extends LinearOpMode{
         intake.setPower(-1);
         sleep(time);
         intake.setPower(0);
+    }
+
+    //DEPLOYING AND RETRACTING INTAKE METHODS IF WE NEED THEM
+    public void deploy(){
+        deployment.setPower(1);
+    }
+
+    public void  pullBack(){
+        deployment.setPower(-1);
     }
 
     //SET WAIT TIME IN AUTO
