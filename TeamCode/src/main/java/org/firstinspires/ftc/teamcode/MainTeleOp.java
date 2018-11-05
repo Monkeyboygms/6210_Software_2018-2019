@@ -46,13 +46,13 @@ public class MainTeleOp extends AutoLinearOpMode {
                 halfSpeed = false;
             }
 
-            if(gamepad1.x){
+            if(gamepad2.right_stick_y > 0.05){
                 liftPower *= -1;
                 telemetry.addData("status: ", "retracting");
                 telemetry.update();
                 liftL.setPower(liftPower);
                 liftR.setPower(-liftPower);
-            }else if(gamepad1.y){
+            }else if(gamepad2.right_stick_y < -0.05){
                 liftPower *= 1;
                 telemetry.addData("status: ", "extending");
                 telemetry.update();
@@ -62,11 +62,11 @@ public class MainTeleOp extends AutoLinearOpMode {
                 liftL.setPower(0);
                 liftR.setPower(0);
             }
-            if(gamepad1.a){
+            if(gamepad2.left_bumper){
                 telemetry.addData("status: ", "intaking");
                 telemetry.update();
                 intake.setPower(-1);
-            }else if(gamepad1.b){
+            }else if(gamepad2.left_bumper){
                 telemetry.addData("status: ", "expelling");
                 telemetry.update();
                 intake.setPower(1);
