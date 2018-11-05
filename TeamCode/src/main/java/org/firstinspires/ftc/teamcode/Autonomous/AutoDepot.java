@@ -19,7 +19,8 @@ public class AutoDepot extends AutoLinearOpMode {
         waitForStart();
         driveDistance(0.2,25); //move forward
         sleep(1000);
-        openBox();
+        deploy(1000);
+        expel(2000);
         rotate(232,0.2); //Turn left
         sleep(1000);
         // driveDistance(-0.2, 9); //Back up to line up with the last mineral

@@ -44,7 +44,7 @@ public class AutoCrater extends AutoLinearOpMode {
         sleep(1000 );
         driveDistance(0.3, 28); //Move forward into the depot
         sleep(1000);
-        openBox();
+        //openBox();
         sleep(1000);
         driveDistance(1,-2);
         sleep(1000);

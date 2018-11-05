@@ -17,7 +17,9 @@ public class AutoDepot_Intake extends AutoLinearOpMode {
         boolean hit = false;
 
         waitForStart();
+        //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
         driveDistance(0.2,25); //move forward
+        deploy(1000);//CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         expel(2000); //Expel mineral
         sleep(2500);
         rotate(232,0.2); //Turn left

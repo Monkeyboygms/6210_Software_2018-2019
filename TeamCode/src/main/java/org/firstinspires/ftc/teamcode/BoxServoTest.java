@@ -14,7 +14,7 @@ public class BoxServoTest extends AutoLinearOpMode{
 
         waitForStart();
 
-        boxServo.setPosition(1);
+        //boxServo.setPosition(1);
         telemetry.addData("Pos: ", 1);
         telemetry.update();
 

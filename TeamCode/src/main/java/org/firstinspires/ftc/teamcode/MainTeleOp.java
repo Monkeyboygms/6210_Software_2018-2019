@@ -14,7 +14,7 @@ public class MainTeleOp extends AutoLinearOpMode {
 
         //setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 1, intakePower = 1;
+        double leftPower = 0, rightPower = 0, scale = 1, liftPower = 0, intakePower = 1;
 
         boolean halfSpeed = false;
 
@@ -27,17 +27,20 @@ public class MainTeleOp extends AutoLinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
 
+            //left motor
             if(Math.abs(gamepad1.left_stick_y) > 0.05){
                 leftPower = gamepad1.left_stick_y * scale;
             }else{
                 leftPower = 0;
             }
+            //right motor
             if(Math.abs(gamepad1.right_stick_y) > 0.05){
                 rightPower = gamepad1.right_stick_y * scale;
             }else{
                 rightPower = 0;
             }
 
+            //halfspeed
             if (gamepad1.right_bumper) {
                 halfSpeed = true;
                 leftPower = leftPower / 2;
@@ -46,14 +49,16 @@ public class MainTeleOp extends AutoLinearOpMode {
                 halfSpeed = false;
             }
 
+            //lift down
             if(gamepad2.left_stick_y < -0.05){
-                liftPower *= -1;
+                liftPower = gamepad2.left_stick_y;
                 telemetry.addData("status: ", "retracting");
                 telemetry.update();
                 liftL.setPower(liftPower);
                 liftR.setPower(-liftPower);
+            //lift up
             }else if(gamepad2.left_stick_y > 0.05){
-                liftPower *= 1;
+                liftPower = gamepad2.left_stick_y;
                 telemetry.addData("status: ", "extending");
                 telemetry.update();
                 liftL.setPower(liftPower);
@@ -62,10 +67,13 @@ public class MainTeleOp extends AutoLinearOpMode {
                 liftL.setPower(0);
                 liftR.setPower(0);
             }
+
+            //intake
             if(gamepad2.left_bumper){
                 telemetry.addData("status: ", "intaking");
                 telemetry.update();
                 intake.setPower(-1);
+            //expel
             }else if(gamepad2.right_bumper){
                 telemetry.addData("status: ", "expelling");
                 telemetry.update();
@@ -74,25 +82,16 @@ public class MainTeleOp extends AutoLinearOpMode {
                 intake.setPower(0);
             }
 
+            //lift intake
             if(gamepad2.right_stick_y > 0.05){
                 deployment.setPower(1);
-            }
-
-            else if(gamepad2.right_stick_y < -0.05){
+            //lower intake
+            }else if(gamepad2.right_stick_y < -0.05){
                 deployment.setPower(-1);
             }
-
             else{
                 deployment.setPower(0);
             }
-/*
-            if(gamepad1.a){
-                takeIn(3000);
-            }
-            if(gamepad1.b){
-                expel(3000);
-            }
- */
 
             setMotorPowers(leftPower, rightPower);
 

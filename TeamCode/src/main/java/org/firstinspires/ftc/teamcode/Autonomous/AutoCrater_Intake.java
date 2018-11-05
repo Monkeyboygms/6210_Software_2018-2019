@@ -17,6 +17,7 @@ public class AutoCrater_Intake extends AutoLinearOpMode {
         boolean hit = false;
 
         waitForStart();
+        //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
         driveDistance(0.2,10); //move forward
         sleep(1000);
         rotate(290,0.2); //Turn left
@@ -42,8 +43,9 @@ public class AutoCrater_Intake extends AutoLinearOpMode {
         sleep(1000);
         rotate(323, 0.2); //turn parallel to the wall
         sleep(1000 );
-        driveDistance(0.3, 28); //Move forward into the depot
+        driveDistance(0.3, 20); //Move forward into the depot
         //Expel marker
+        deploy(1000); //CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         expel(2000);
         sleep(2500);
         driveDistance(1,-2); //SHOULD WE GET RID OF THIS?

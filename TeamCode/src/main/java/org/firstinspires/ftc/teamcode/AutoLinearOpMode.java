@@ -39,7 +39,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor intake;
     public DcMotor deployment;
     //Servo goldHitter;
-    Servo boxServo;
+    //Servo boxServo;
     public BNO055IMU imu;
     ColorSensor goldSensor = null;
     DistanceSensor sensorDistance = null;
@@ -71,7 +71,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         intake           = map.dcMotor.get("intake");
         deployment       = map.dcMotor.get("deployment");
         //goldHitter     = hardwareMap.servo.get("goldHitter");
-        boxServo     = hardwareMap.servo.get("boxServo");
+        //boxServo     = hardwareMap.servo.get("boxServo");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
         goldSensor     = map.get(ColorSensor.class, "colorRange");
 
@@ -86,7 +86,6 @@ public class AutoLinearOpMode extends LinearOpMode{
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        goldSensor.enableLed(true); // Turn light on
 
         int relativeLayoutId = map.appContext.getResources().getIdentifier("RelativeLayout", "id", map.appContext.getPackageName());
         final View relativeLayout = ((Activity) map.appContext).findViewById(relativeLayoutId);
@@ -176,13 +175,13 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     // GET DISTANCE TO OBJECT USING RANGE SENSOR
-    public double getDist() {
+    /*public double getDist() {
         double dist = sensorDistance.getDistance(DistanceUnit.INCH);
         while (dist > 1000 || isNaN(dist) && opModeIsActive()) {
             dist = sensorDistance.getDistance(DistanceUnit.INCH);
         }
         return dist;
-    }
+    }*/
 
     //RESET ANGLE
     public void resetAngle() {
@@ -302,7 +301,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     //GET COLOR OF MINERAL
-    public float[] getAutoColor() {
+   public float[] getAutoColor() {
         Color.RGBToHSV((int) (goldSensor.red() * SCALE_FACTOR),
                 (int) (goldSensor.green() * SCALE_FACTOR),
                 (int) (goldSensor.blue() * SCALE_FACTOR),
@@ -311,7 +310,7 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     //CHECK IF MINERAL IS GOLD
-    public boolean isGold(){
+   public boolean isGold(){
         if ((getAutoColor()[0] > 30 && getAutoColor()[0] < 50) && (getAutoColor()[1] > .35)) {
             telemetry.addData("Gold ", "Detected");
             telemetry.update();
@@ -330,17 +329,17 @@ public class AutoLinearOpMode extends LinearOpMode{
         telemetry.update();
     }*/
 
-    public void openBox(){
+   /* public void openBox(){
         boxServo.setPosition(1); // Set servo position
         telemetry.addData("status ", "box open");
         telemetry.update();
     }
 
     public void closeBox(){
-        boxServo.setPosition(-0.75); // Set servo position
+        boxServo.setPosition(1); // Set servo position
         telemetry.addData("status ", "box closed");
         telemetry.update();
-    }
+    }*/
 
     public void expel(long time){
         intake.setPower(1);
@@ -354,12 +353,14 @@ public class AutoLinearOpMode extends LinearOpMode{
     }
 
     //DEPLOYING AND RETRACTING INTAKE METHODS IF WE NEED THEM
-    public void deploy(){
+    public void deploy(long time){
         deployment.setPower(1);
+        sleep(time);
     }
 
-    public void  pullBack(){
+    public void pullBack(long time){
         deployment.setPower(-1);
+        sleep(time);
     }
 
     //SET WAIT TIME IN AUTO
