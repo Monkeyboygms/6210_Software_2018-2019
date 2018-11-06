@@ -41,8 +41,8 @@ public class AutoLinearOpMode extends LinearOpMode{
     //Servo goldHitter;
     //Servo boxServo;
     public BNO055IMU imu;
-    ColorSensor goldSensor = null;
-    DistanceSensor sensorDistance = null;
+    //ColorSensor goldSensor = null;
+    //DistanceSensor sensorDistance = null;
 
     //gyro variables
     Orientation oldAngle;
@@ -73,7 +73,7 @@ public class AutoLinearOpMode extends LinearOpMode{
         //goldHitter     = hardwareMap.servo.get("goldHitter");
         //boxServo     = hardwareMap.servo.get("boxServo");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
-        goldSensor     = map.get(ColorSensor.class, "colorRange");
+       // goldSensor     = map.get(ColorSensor.class, "colorRange");
 
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -300,7 +300,7 @@ public class AutoLinearOpMode extends LinearOpMode{
             resetAngle();
     }
 
-    //GET COLOR OF MINERAL
+   /* //GET COLOR OF MINERAL
    public float[] getAutoColor() {
         Color.RGBToHSV((int) (goldSensor.red() * SCALE_FACTOR),
                 (int) (goldSensor.green() * SCALE_FACTOR),
@@ -320,7 +320,7 @@ public class AutoLinearOpMode extends LinearOpMode{
             telemetry.update();
             return false;
         }
-    }
+    }*/
 
     //KNOCK OFF GOLD
     /*public void knockGold(){
