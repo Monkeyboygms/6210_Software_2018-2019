@@ -18,11 +18,16 @@ public class AutoDepot_Intake extends AutoLinearOpMode {
 
         waitForStart();
         //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
-        driveDistance(0.2,25); //move forward
-        deploy(1000);//CHANGE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        expel(2000); //Expel mineral
-        sleep(2500);
-        rotate(232,0.2); //Turn left
+        driveDistance(0.2,20); //move forward
+        deploy(200); //EDIT time
+        sleep(1000);
+        expel(1000);
+        sleep(1000);
+        pullBack(500); //EDIT time
+        sleep(1000);
+        driveDistance(0.2, 10);
+        sleep(100);
+        rotate(335, 0.2); //Turn left
         sleep(1000);
         // driveDistance(-0.2, 9); //Back up to line up with the last mineral
         //sleep(1000);
@@ -42,7 +47,7 @@ public class AutoDepot_Intake extends AutoLinearOpMode {
         //driveDistance(0.2, 20-dist); //Drive up next to the wall
         //driveDistance(0.2, 20);
         //Back up into the crater
-        driveDistance(0.5, -40);
+        //driveDistance(0.5, 40);
         telemetry.addData("Status ", " auto done");
     }
 }

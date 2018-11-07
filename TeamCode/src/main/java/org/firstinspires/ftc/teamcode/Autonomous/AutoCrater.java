@@ -17,8 +17,9 @@ public class AutoCrater extends AutoLinearOpMode {
         boolean hit = false;
 
         waitForStart();
-           driveDistance(0.2,10); //move forward
-           sleep(1000);
+
+        driveDistance(0.2,22); //move forward
+           /*sleep(1000);
            rotate(290,0.2); //Turn left
            sleep(1000);
           // driveDistance(-0.2, 9); //Back up to line up with the last mineral
@@ -35,7 +36,7 @@ public class AutoCrater extends AutoLinearOpMode {
                    telemetry.addData("gold knocked:", false);
                }
                dist = LF.getCurrentPosition() - startPos;
-           }*/
+           }
            //driveDistance(0.2, 20-dist); //Drive up next to the wall
         //driveDistance(0.2, 20);
         driveDistance(0.2, 24);
@@ -49,6 +50,7 @@ public class AutoCrater extends AutoLinearOpMode {
         driveDistance(1,-2);
         sleep(1000);
         driveDistance(0.5, -44);            //Back up into the crater
+        */
         telemetry.addData("Status ", " auto done");
         }
     }

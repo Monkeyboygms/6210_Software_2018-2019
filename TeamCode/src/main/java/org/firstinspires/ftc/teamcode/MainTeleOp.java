@@ -84,10 +84,10 @@ public class MainTeleOp extends AutoLinearOpMode {
 
             //lift intake
             if(gamepad2.right_stick_y > 0.05){
-                deployment.setPower(0.3);
+                deployment.setPower(0.5);
             //lower intake
             }else if(gamepad2.right_stick_y < -0.05){
-                deployment.setPower(-0.3);
+                deployment.setPower(-0.4);
             }
             else{
                 deployment.setPower(0);

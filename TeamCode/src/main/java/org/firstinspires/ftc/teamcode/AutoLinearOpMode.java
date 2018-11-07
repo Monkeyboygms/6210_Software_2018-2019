@@ -342,19 +342,19 @@ public class AutoLinearOpMode extends LinearOpMode{
     }*/
 
     public void expel(long time){
-        intake.setPower(1);
+        intake.setPower(-1);
         sleep(time);
         intake.setPower(0);
     }
     public void takeIn(long time){
-        intake.setPower(-1);
+        intake.setPower(1);
         sleep(time);
         intake.setPower(0);
     }
 
     //DEPLOYING AND RETRACTING INTAKE METHODS IF WE NEED THEM
     public void deploy(long time){
-        deployment.setPower(1);
+        deployment.setPower(0.5);
         sleep(time);
     }
 
