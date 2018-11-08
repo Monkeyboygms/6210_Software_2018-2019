@@ -86,6 +86,14 @@ public class AutoLinearOpMode extends LinearOpMode{
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
+        // TODO: One way to "hold" the deployment drawbridge in place, but needs encoder wired up
+        deployment.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+/*
+        deployment.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        deployment.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        deployment.setTargetPosition(100); // Something small, no movement
+*/
+
 
         int relativeLayoutId = map.appContext.getResources().getIdentifier("RelativeLayout", "id", map.appContext.getPackageName());
         final View relativeLayout = ((Activity) map.appContext).findViewById(relativeLayoutId);
@@ -213,7 +221,10 @@ public class AutoLinearOpMode extends LinearOpMode{
         do {
             resetAngle();
 
-            telemetry.addData("imu heading", getAngle());
+            telemetry.addData("imu heading", "Delta Angle %.2f, Old Angle %.2f, Current Angle %.2f, Target angle %d",
+                    getAngle(), oldAngle.firstAngle,
+                    imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle,
+                    target);
             telemetry.update();
 
             // getAngle() returns + when rotating counter clockwise (left) and - when rotating clockwise (right).
