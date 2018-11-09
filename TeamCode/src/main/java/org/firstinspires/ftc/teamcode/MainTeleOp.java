@@ -84,7 +84,7 @@ public class MainTeleOp extends AutoLinearOpMode {
 
             //lift intake
             if(gamepad2.right_stick_y > 0.05){
-                deployment.setPower(-0.3);
+                deployment.setPower(-0.5);
             //lower intake
             }else if(gamepad2.right_stick_y < -0.05){
                 deployment.setPower(0.3);
@@ -99,6 +99,7 @@ public class MainTeleOp extends AutoLinearOpMode {
                     .addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower)
                     .addData("Half Speed", halfSpeed)
                     .addData("Deployment", "Power %.2f - Position %d", deployment.getPower(), deployment.getCurrentPosition());
+            telemetry.addData("status: ", deployment.getCurrentPosition());
             telemetry.update();
         }
     }

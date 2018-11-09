@@ -44,15 +44,18 @@ public class AutoCrater extends AutoLinearOpMode {
         //driveDistance(0.2, 20);
         driveDistance(0.1, 24);
         sleep(1000);
-        rotate(323, 0.1); //turn parallel to the wall
+        rotate(335, 0.1); //turn parallel to the wall
         sleep(1000 );
-        driveDistance(0.2, 28); //Move forward into the depot
+        driveDistance(0.2, 15); //Move forward into the depot
         sleep(1000);
         //openBox();
+        deployment.setTargetPosition(30);
         sleep(1000);
-        driveDistance(1,-2);
+        expel(1000);
         sleep(1000);
-        driveDistance(0.5, -44);            //Back up into the crater
+        deployment.setTargetPosition(0);
+        sleep(1000);
+        driveDistance(0.5, -40);            //Back up into the crater
         telemetry.addData("Status ", " auto done");
         }
     }
