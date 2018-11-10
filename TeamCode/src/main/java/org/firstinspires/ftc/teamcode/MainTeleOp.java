@@ -50,7 +50,7 @@ public class MainTeleOp extends AutoLinearOpMode {
             }
 
             //lift down
-            if(gamepad2.left_stick_y < -0.05){
+            /*if(gamepad2.left_stick_y < -0.05){
                 liftPower = gamepad2.left_stick_y;
                 telemetry.addData("status: ", "retracting");
                 telemetry.update();
@@ -66,7 +66,7 @@ public class MainTeleOp extends AutoLinearOpMode {
             }else{
                 liftL.setPower(0);
                 liftR.setPower(0);
-            }
+            }*/
 
             //intake
             if(gamepad2.left_bumper){

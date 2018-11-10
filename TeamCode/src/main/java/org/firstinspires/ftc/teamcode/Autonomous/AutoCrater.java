@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 
 @Autonomous(name="AutoCrater", group = "auto")
-//@Disabled
+@Disabled
 public class AutoCrater extends AutoLinearOpMode {
 
     @Override

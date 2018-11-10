@@ -20,9 +20,13 @@ public class AutoDepot_Intake extends AutoLinearOpMode {
         //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
         driveDistance(0.2,33); //move forward
         sleep(1000);
+        rotate(20,0.2); //Turn left
+        sleep(1000);
+        driveDistance(0.1, -5);
+        sleep(500);
         expel(3000);
         sleep(3000);
-        rotate(40,0.2); //Turn left
+        rotate(220, 0.2);
         sleep(1000);
             //driveDistance(0.2, 2);
             //sleep(500);
@@ -57,7 +61,7 @@ public class AutoDepot_Intake extends AutoLinearOpMode {
             //sleep(2000);
         //pullBack(500); //EDIT time
         //deployment.setTargetPosition(0);
-            driveDistance(0.2, -40);//Back up into the crater
+            driveDistance(0.3, 45);//Back up into the crater
         telemetry.addData("Status ", " auto done");
     }
 }
