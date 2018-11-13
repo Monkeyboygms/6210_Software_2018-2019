@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 
-@Autonomous(name="MecanumAutoCrater", group = "auto")
+@Autonomous(name="MecanumAutoDepot", group = "auto")
 //@Disabled
 public class MecanumAutoDepot extends AutoLinearOpMode {
 

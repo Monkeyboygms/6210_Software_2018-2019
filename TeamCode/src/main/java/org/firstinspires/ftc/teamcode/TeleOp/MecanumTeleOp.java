@@ -48,7 +48,7 @@ public class MecanumTeleOp extends AutoLinearOpMode {
                     //.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower)
                     //.addData("Half Speed", halfSpeed)
                     //.addData("Deployment", "Power %.2f - Position %d", deployment.getPower(), deployment.getCurrentPosition());
-            telemetry.addData("status: ", deployment.getCurrentPosition());
+           // telemetry.addData("status: ", deployment.getCurrentPosition());
             telemetry.update();
         }
     }

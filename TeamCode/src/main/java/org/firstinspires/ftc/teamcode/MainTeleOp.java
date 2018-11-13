@@ -69,7 +69,7 @@ public class MainTeleOp extends AutoLinearOpMode {
             }*/
 
             //intake
-            if(gamepad2.left_bumper){
+            /*if(gamepad2.left_bumper){
                 telemetry.addData("status: ", "intaking");
                 telemetry.update();
                 intake.setPower(-1);
@@ -91,15 +91,15 @@ public class MainTeleOp extends AutoLinearOpMode {
             }
             else{
                 deployment.setPower(0);
-            }
+            }*/
 
             setMotorPowers(leftPower, rightPower);
 
             telemetry.addData("Status", "Run Time: " + runtime.toString())
                     .addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower)
-                    .addData("Half Speed", halfSpeed)
-                    .addData("Deployment", "Power %.2f - Position %d", deployment.getPower(), deployment.getCurrentPosition());
-            telemetry.addData("status: ", deployment.getCurrentPosition());
+                    .addData("Half Speed", halfSpeed);
+                   // .addData("Deployment", "Power %.2f - Position %d", deployment.getPower(), deployment.getCurrentPosition());
+            //telemetry.addData("status: ", deployment.getCurrentPosition());
             telemetry.update();
         }
     }
