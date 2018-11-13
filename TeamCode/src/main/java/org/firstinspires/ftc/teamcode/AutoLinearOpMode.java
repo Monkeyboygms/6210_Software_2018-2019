@@ -374,18 +374,20 @@ public class AutoLinearOpMode extends LinearOpMode{
         sleep(time);
     }
 
-    public void strafeLeft(int distance){
+    public void strafeLeftTime(int time){
         LF.setPower(-1);
         RF.setPower(1);
         LB.setPower(1);
         RB.setPower(-1);
+        sleep(time *1000);
     }
 
-    public void strafeRight(int distance){
+    public void strafeRightTime(int time){
         LF.setPower(-1);
         RF.setPower(1);
         LB.setPower(1);
         RB.setPower(-1);
+        sleep(time *1000);
     }
 
     //SET WAIT TIME IN AUTO
