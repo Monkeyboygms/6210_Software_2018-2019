@@ -34,19 +34,22 @@ public class AutoLinearOpMode extends LinearOpMode{
     public DcMotor RF;
     public DcMotor LB;
     public DcMotor RB;
+    public BNO055IMU imu;
+    /*
     public DcMotor liftR;
     public DcMotor liftL;
     public DcMotor intake;
     public DcMotor deployment;
-    //Servo goldHitter;
-    //Servo boxServo;
-    public BNO055IMU imu;
-    //ColorSensor goldSensor = null;
-    //DistanceSensor sensorDistance = null;
+    Servo goldHitter;
+    Servo boxServo;
 
+    ColorSensor goldSensor = null;
+    DistanceSensor sensorDistance = null;
+*/
     //gyro variables
     Orientation oldAngle;
     double globalAngle;
+
 
 
     static final double     COUNTS_PER_MOTOR_REV    = 1120 ;    // REV Motor Encoder
@@ -66,14 +69,14 @@ public class AutoLinearOpMode extends LinearOpMode{
         RF  = map.dcMotor.get("RF");
         LB  = map.dcMotor.get("LB");
         RB  = map.dcMotor.get("RB");
-        liftL  = map.dcMotor.get("liftL");
+        imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
+      /*  liftL  = map.dcMotor.get("liftL");
         liftR  = map.dcMotor.get("liftR");
         intake           = map.dcMotor.get("intake");
         deployment       = map.dcMotor.get("deployment");
-        //goldHitter     = hardwareMap.servo.get("goldHitter");
-        //boxServo     = hardwareMap.servo.get("boxServo");
-        imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
-       // goldSensor     = map.get(ColorSensor.class, "colorRange");
+        goldHitter     = hardwareMap.servo.get("goldHitter");
+        boxServo     = hardwareMap.servo.get("boxServo");
+        goldSensor     = map.get(ColorSensor.class, "colorRange"); */
 
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
@@ -87,8 +90,10 @@ public class AutoLinearOpMode extends LinearOpMode{
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         // TODO: One way to "hold" the deployment drawbridge in place, but needs encoder wired up
+
+        /*
         deployment.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-/*
+
         deployment.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         deployment.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         deployment.setTargetPosition(100); // Something small, no movement
@@ -180,6 +185,22 @@ public class AutoLinearOpMode extends LinearOpMode{
         }
         stopMotors();
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+    }
+
+    public void strafeLeftTime(int time){
+        LF.setPower(-1);
+        RF.setPower(1);
+        LB.setPower(1);
+        RB.setPower(-1);
+        sleep(time *1000);
+    }
+
+    public void strafeRightTime(int time){
+        LF.setPower(-1);
+        RF.setPower(1);
+        LB.setPower(1);
+        RB.setPower(-1);
+        sleep(time *1000);
     }
 
     // GET DISTANCE TO OBJECT USING RANGE SENSOR
@@ -334,60 +355,44 @@ public class AutoLinearOpMode extends LinearOpMode{
     }*/
 
     //KNOCK OFF GOLD
-    /*public void knockGold(){
-        goldHitter.setPosition(0.75); // Set servo position
-        telemetry.addData("status ", "knocked gold");
-        telemetry.update();
-    }*/
+    public void knockGold(){
+       // goldHitter.setPosition(0.75); // Set servo position
+        //telemetry.addData("status ", "knocked gold");
+        //telemetry.update();
+    }
 
-   /* public void openBox(){
-        boxServo.setPosition(1); // Set servo position
-        telemetry.addData("status ", "box open");
-        telemetry.update();
+   public void openBox(){
+        //boxServo.setPosition(1); // Set servo position
+        //telemetry.addData("status ", "box open");
+        //telemetry.update();
     }
 
     public void closeBox(){
-        boxServo.setPosition(1); // Set servo position
-        telemetry.addData("status ", "box closed");
-        telemetry.update();
-    }*/
+        //boxServo.setPosition(1); // Set servo position
+       // telemetry.addData("status ", "box closed");
+        //telemetry.update();
+    }
 
-    public void expel(long time){
-        intake.setPower(-1);
-        sleep(time);
-        intake.setPower(0);
+   public void expel(long time){
+       // intake.setPower(-1);
+       // sleep(time);
+      //  intake.setPower(0);
     }
     public void takeIn(long time){
-        intake.setPower(1);
-        sleep(time);
-        intake.setPower(0);
+        //intake.setPower(1);
+       // sleep(time);
+        //intake.setPower(0);
     }
 
     //DEPLOYING AND RETRACTING INTAKE METHODS IF WE NEED THEM
     public void deploy(long time){
-        deployment.setPower(0.5);
-        sleep(time);
+        //deployment.setPower(0.5);
+        //sleep(time);
     }
 
     public void pullBack(long time){
-        deployment.setPower(-1);
-        sleep(time);
-    }
-
-    public void strafeLeftTime(int time){
-        LF.setPower(-1);
-        RF.setPower(1);
-        LB.setPower(1);
-        RB.setPower(-1);
-        sleep(time *1000);
-    }
-
-    public void strafeRightTime(int time){
-        LF.setPower(-1);
-        RF.setPower(1);
-        LB.setPower(1);
-        RB.setPower(-1);
-        sleep(time *1000);
+        //deployment.setPower(-1);
+        //sleep(time);
     }
 
     //SET WAIT TIME IN AUTO
