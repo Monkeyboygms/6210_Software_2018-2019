@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 
 @Autonomous(name="AutoCrater", group = "auto")
-@Disabled
+//@Disabled
 public class AutoCrater extends AutoLinearOpMode {
 
     @Override
@@ -21,9 +21,9 @@ public class AutoCrater extends AutoLinearOpMode {
         // TODO: Then just need to use deployment.setTargetPosition(Deploy|Start); and it will move back and forth to wherever it needs
         // TODO: It will also hold it in place nicely, whereas now even setting to "BRAKE" doesn't stop it
         //deployment.setPower(0.5); // RUN_TO_POSITION == 100, so will hold in place until needed
-           driveDistance(0.1,10); //move forward
+           driveDistance(0.3,20); //move forward
            sleep(1000);
-           rotate(290,0.1); //Turn left
+         /*  rotate(290,0.1); //Turn left
            sleep(1000);
           // driveDistance(-0.2, 9); //Back up to line up with the last mineral
            //sleep(1000);
@@ -39,7 +39,7 @@ public class AutoCrater extends AutoLinearOpMode {
                    telemetry.addData("gold knocked:", false);
                }
                dist = LF.getCurrentPosition() - startPos;
-           }*/
+           }
            //driveDistance(0.2, 20-dist); //Drive up next to the wall
         //driveDistance(0.2, 20);
         driveDistance(0.1, 24);
@@ -55,7 +55,7 @@ public class AutoCrater extends AutoLinearOpMode {
         sleep(1000);
         deployment.setTargetPosition(0);
         sleep(1000);
-        driveDistance(0.5, -40);            //Back up into the crater
+        driveDistance(0.5, -40);            //Back up into the crater*/
         telemetry.addData("Status ", " auto done");
         }
     }
