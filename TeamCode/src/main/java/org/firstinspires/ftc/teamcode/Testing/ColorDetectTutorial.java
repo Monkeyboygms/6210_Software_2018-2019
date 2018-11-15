@@ -1,18 +1,20 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
 import java.util.Arrays;
 
 @TeleOp (name = "ColorTutorial", group = "Sensor")
 @Disabled
-public class ColorDetectTutorial extends AutoLinearOpMode{
+public class ColorDetectTutorial extends MecanumLinearOpMode{
 
     @Override
     public void runOpMode() {
 
-        init(hardwareMap);
+        init(hardwareMap, false);
 
         waitForStart();
 

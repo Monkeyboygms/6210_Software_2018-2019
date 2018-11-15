@@ -3,15 +3,16 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
+import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
 @Autonomous(name="MecanumAutoDepot", group = "auto")
 //@Disabled
-public class MecanumAutoDepot extends AutoLinearOpMode {
+public class MecanumAutoDepot extends MecanumLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        init(hardwareMap);
+        init(hardwareMap, true);
         int startPos = 0;
         boolean hit = false;
 

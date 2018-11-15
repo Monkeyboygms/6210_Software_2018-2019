@@ -3,17 +3,16 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
+import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
 @Autonomous(name="MecanumAutoCrater", group = "auto")
 //@Disabled
-public class MecanumAutoCrater extends AutoLinearOpMode {
+public class MecanumAutoCrater extends MecanumLinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
 
-        init(hardwareMap);
-        int startPos = 0;
-        boolean hit = false;
+        init(hardwareMap, true);
 
         waitForStart();
         //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
@@ -29,7 +28,7 @@ public class MecanumAutoCrater extends AutoLinearOpMode {
         sleep(1000);
         driveDistance(0.2, 23/*minus whatever the distance we strafed was*/); //Drive up next to wall
         sleep(1000);
-        rotate(335, 0.2); //turn parallel to the wall
+        //rotate(0.2, 335); //turn parallel to the wall
         sleep(1000 );
         driveDistance(0.2, 20); //Move forward into the depot
         //Deploy marker

@@ -1,21 +1,24 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.Testing;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+
+import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
+import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
 
 @Autonomous(name="GyroLine", group = "Sensor")
 
 @Disabled
 
-public class GyroLine extends AutoLinearOpMode {
+public class GyroLine extends MecanumLinearOpMode {
 
     double power, correction;
 
     @Override
     public void runOpMode() {
 
-        init(hardwareMap);
+        init(hardwareMap, true);
 
         waitForStart();
 
@@ -28,8 +31,8 @@ public class GyroLine extends AutoLinearOpMode {
             // Use gyro to drive in a straight line.
             correction = checkDirection();
 
-            telemetry.addData("1 imu heading", oldAngle.firstAngle);
-            telemetry.addData("2 global heading", globalAngle);
+            telemetry.addData("1 imu heading", getYaw());
+            telemetry.addData("2 global heading", getYaw());
             telemetry.addData("3 correction", correction);
             telemetry.update();
 
@@ -42,10 +45,10 @@ public class GyroLine extends AutoLinearOpMode {
 
             stopMotors();
 
-            rotate(-90, power);
+            //rotate(-90, power);
 
             // turn 90 degrees left.
-            rotate(90, power);
+            //rotate(90, power);
         }
 
         stopMotors();
@@ -56,7 +59,7 @@ public class GyroLine extends AutoLinearOpMode {
     {
         double correction, angle, gain = .10;
 
-        angle = getAngle();
+        angle = getYaw();
 
         if (angle == 0)
             correction = 0;             // no adjustment.
