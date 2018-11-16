@@ -190,10 +190,10 @@ public class MecanumLinearOpMode extends LinearOpMode{
             RB.setPower(-1);
             sleep(time);
         }else {
-            LF.setPower(-1);
-            RF.setPower(1);
-            LB.setPower(1);
-            RB.setPower(-1);
+            LF.setPower(1);
+            RF.setPower(-1);
+            LB.setPower(-1);
+            RB.setPower(1);
         }
         sleep(time);
     }
