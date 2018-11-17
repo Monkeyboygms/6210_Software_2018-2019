@@ -15,6 +15,7 @@ public class MecanumTest extends MecanumLinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         init(hardwareMap, false);
+        waitForStart();
 
         while (opModeIsActive() && !isStopRequested()) {
 
