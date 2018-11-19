@@ -315,7 +315,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
     public int findGold(int timeLimit){
 
-        int pos = 0;
+        int pos = 3;
 
         while (runtime.seconds() < timeLimit){
 
@@ -325,14 +325,11 @@ public class MecanumLinearOpMode extends LinearOpMode{
             if (detector.getXPosition() > 0 && detector.getXPosition() < 250){
                 telemetry.addData("Left", 1);
                 pos = 1;
-            }else if (detector.getXPosition() > 250 && detector.getXPosition() < 350){
+            }else if (detector.getXPosition() > 250 && detector.getXPosition() < 600){
                 telemetry.addData("Middle", 2);
                 pos = 2;
-            }else if (detector.getXPosition() > 350 && detector.getXPosition() < 600) {
-                telemetry.addData("Right", 3);
-                pos = 3;
             }else{
-                telemetry.addData("No gold detected", 0);
+                telemetry.addData("Right", 3);
             }
 
             telemetry.update();
@@ -344,7 +341,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         detector.disable();
     }
 
-    public void sample(int limit) throws InterruptedException {
+    /*public void sample(int limit) throws InterruptedException {
         if (findGold(limit) == 0){
             telemetry.addData("Do nothing for now", ""); // Maybe just move forward
         }else if (findGold(limit) == 1){
@@ -369,7 +366,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
             driveDistance(-0.5, 10);
         }
         sleep(1000);
-    }
+    }*/
 
     public boolean checkAlign(){
         return detector.getAligned();
