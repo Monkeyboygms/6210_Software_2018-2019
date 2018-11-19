@@ -15,25 +15,48 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         init(hardwareMap, true);
 
         waitForStart();
-        //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
-        driveDistance(0.2,10); //move forward
-        sleep(1000);
-        //Strafe Right
-        //Scan (if block found move forward then back to original position)
-        //Strafe Left if scan = false
-        //Scan (if block found move forward then back to original position)
-        //Strafe Left if scan = false (again)
-        //Scan (if block found move forward then back to original position)
-        //turn towards wall (subtract distance of strafes when calculating distance
-        sleep(1000);
-        driveDistance(0.2, 23/*minus whatever the distance we strafed was*/); //Drive up next to wall
-        sleep(1000);
-        //rotate(0.2, 335); //turn parallel to the wall
-        sleep(1000 );
-        driveDistance(0.2, 20); //Move forward into the depot
-        //Deploy marker
-        sleep(2000);
-        driveDistance(0.5, -45);//Back up into the crater
+
+        int gold = findGold(10);
+        telemetry.addData("gold is at", gold);
+        telemetry.addData("align is ", checkAlign());
+        telemetry.update();
+        sleep(5000);
+        driveDistance(-0.3,5);
+        switch (gold){
+            case 2:
+                driveDistance(-0.3, 10);
+                sleep(1000);
+                driveDistance(0.3,12);
+                break;
+            case 1:
+                while (!checkAlign() && !isStopRequested()){
+                    LF.setPower(0.3);
+                    RF.setPower(-0.3);
+                    LB.setPower(-0.3);
+                    RB.setPower(0.3);
+                }
+                driveDistance(-0.3, 10);
+                sleep(1000);
+                driveDistance(0.3,12);
+                break;
+            case 3:
+                while (!checkAlign() && !isStopRequested()){
+                    LF.setPower(-0.3);
+                    RF.setPower(0.3);
+                    LB.setPower(0.3);
+                    RB.setPower(-0.3);
+                }
+                driveDistance(-0.3, 10);
+                sleep(1000);
+                driveDistance(0.3,12);
+                break;
+        }
+        disableDetector();
+        rotate(0.2, 90, true, 5);
+        //sleep(1000);
+        //driveDistance(0.5, 15);
+        //strafe(5, false);
+
         telemetry.addData("Status ", " auto done");
     }
 }

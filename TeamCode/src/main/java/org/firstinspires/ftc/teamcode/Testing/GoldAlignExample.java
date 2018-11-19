@@ -52,7 +52,7 @@ public class GoldAlignExample extends OpMode
 
         // Set up detector
         detector = new GoldAlignDetector(); // Create detector
-        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+        detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 1, false); // Initialize it with the app context and camera
         detector.useDefaults(); // Set detector to use default settings
 
         // Optional tuning
@@ -94,11 +94,11 @@ public class GoldAlignExample extends OpMode
     public void loop() {
         telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
         telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
-        if (detector.getXPosition() > 0 && detector.getXPosition() < 150){
+        if (detector.getXPosition() > 0 && detector.getXPosition() < 250){
             telemetry.addData("Left", 0);
-        }else if (detector.getXPosition() > 150 && detector.getXPosition() < 450){
+        }else if (detector.getXPosition() > 250 && detector.getXPosition() < 350){
             telemetry.addData("Middle", 1);
-        }else if (detector.getXPosition() > 450 && detector.getXPosition() < 600) {
+        }else if (detector.getXPosition() > 350 && detector.getXPosition() < 600) {
             telemetry.addData("Right", 2);
         }else{
             telemetry.addData("No gold detected", null);

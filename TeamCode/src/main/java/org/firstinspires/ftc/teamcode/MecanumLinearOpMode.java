@@ -42,6 +42,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
     public double encoderToInches = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION)/(WHEEL_DIAMETER_INCHES * Math.PI); //Multiply desired distance (inches)
 
+
     private GoldAlignDetector detector;
 
     // INITIALIZE
@@ -66,6 +67,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        resetEncoders();
 
         //SET UP GYRO
         if (auto) {
@@ -86,12 +88,17 @@ public class MecanumLinearOpMode extends LinearOpMode{
                 sleep(50);
                 idle();
             }
+
             telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
             telemetry.update();
 
             // Set up detector
+
+            telemetry.addData("Mode", "setting up detector...");
+            telemetry.update();
+
             detector = new GoldAlignDetector(); // Create detector
-            detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance()); // Initialize it with the app context and camera
+            detector.init(hardwareMap.appContext, CameraViewDisplay.getInstance(), 1, false); // Initialize it with the app context and camera
             detector.useDefaults(); // Set detector to use default settings
 
             // Optional tuning
@@ -129,7 +136,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         sleep(seconds);
     }
 
-    // TIME BASED MOVEMENT
+    // TIME BASED TURNING
     public void turnTime(double power, boolean right, long seconds){
         if (right)
             setMotorPowers(power, -power);
@@ -157,12 +164,65 @@ public class MecanumLinearOpMode extends LinearOpMode{
     }
 
     public int getEncoderAvg(){
-        int avg = (LF.getCurrentPosition() + RF.getCurrentPosition() + LB.getCurrentPosition() + RB.getCurrentPosition())/4;
+        //divided by three for now because RB encoder returns 0
+        int avg = (Math.abs(LF.getCurrentPosition()) + Math.abs(RF.getCurrentPosition()) + Math.abs(LB.getCurrentPosition()) + Math.abs(RB.getCurrentPosition()))/3;
         return avg;
     }
 
+    public void resetEncoders(){
+        RF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+        RB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+        LF.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+        LB.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+
+        RF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
+        RB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
+        LF.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
+        LB.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
+    }
+
+    // ENCODER BASED MOVEMENT - FIXED
+
+    public void driveDistance(double power, double distance) throws InterruptedException{
+        resetEncoders();
+
+        while (getEncoderAvg() < distance * encoderToInches && !isStopRequested()){
+            setMotorPowers(power, power);
+        }
+
+        stopMotors();
+    }
+
+    public void strafeDistance(double power, double distance, boolean right) throws InterruptedException{
+        resetEncoders();
+        while (getEncoderAvg() < distance * 55 && !isStopRequested()){
+            if (right){
+                LF.setPower(-power);
+                RF.setPower(power);
+                LB.setPower(power);
+                RB.setPower(-power);
+            }else {
+                LF.setPower(power);
+                RF.setPower(-power);
+                LB.setPower(-power);
+                RB.setPower(power);
+            }
+        }
+        stopMotors();
+    }
+
     // ENCODER BASED MOVEMENT
-    public void driveDistance(double power, double distance) throws InterruptedException {
+    /**
+     public void driveDistance(double power, double distance) throws InterruptedException {
+
         setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         distance = -1 * distance * encoderToInches;
@@ -180,23 +240,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         }
         stopMotors();
         setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-    }
-
-    public void strafe(long time, boolean right){
-        if (right){
-            LF.setPower(-1);
-            RF.setPower(1);
-            LB.setPower(1);
-            RB.setPower(-1);
-            sleep(time);
-        }else {
-            LF.setPower(1);
-            RF.setPower(-1);
-            LB.setPower(-1);
-            RB.setPower(1);
-        }
-        sleep(time);
-    }
+    }**/
 
     //UPDATE ANGLE
     public void updateValues() {
@@ -208,6 +252,37 @@ public class MecanumLinearOpMode extends LinearOpMode{
         updateValues();
         return angles.firstAngle;
     }
+
+    //ROTATE USING GYRO
+    public void rotateP(double targetAngleChange, boolean turnRight, int timeout) {
+
+        runtime.reset();
+
+        double initAngle = getYaw();
+        telemetry.addData("Initial Angle", initAngle);
+        telemetry.update();
+
+        double currAngleChange = getYaw() - initAngle;
+        telemetry.addData("CurrAngleChange", currAngleChange);
+        telemetry.update();
+
+        while ((Math.abs(getYaw() - initAngle) < targetAngleChange) && opModeIsActive() && (runtime.seconds() < timeout)) {
+            currAngleChange = getYaw() - initAngle;
+            double kP = .5/90;
+            double power = .1 + currAngleChange * kP;
+            if (turnRight){
+                setMotorPowers(power,-power);
+            }else {
+                setMotorPowers(-power, power);
+            }
+
+            telemetry.addData("Angle left", targetAngleChange - currAngleChange);
+            telemetry.update();
+
+        }
+        stopMotors();
+    }
+
 
     //ROTATE USING GYRO
     public void rotate(double power, double targetAngleChange, boolean turnRight, int timeout) {
@@ -223,7 +298,6 @@ public class MecanumLinearOpMode extends LinearOpMode{
         telemetry.update();
 
         while ((Math.abs(getYaw() - initAngle) < targetAngleChange) && opModeIsActive() && (runtime.seconds() < timeout)) {
-
             if (turnRight){
                 setMotorPowers(power,-power);
             }else {
@@ -248,47 +322,68 @@ public class MecanumLinearOpMode extends LinearOpMode{
             telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
             telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
 
-            if (detector.getXPosition() > 0 && detector.getXPosition() < 150){
+            if (detector.getXPosition() > 0 && detector.getXPosition() < 250){
                 telemetry.addData("Left", 1);
-                pos += 1;
-            }else if (detector.getXPosition() > 150 && detector.getXPosition() < 450){
+                pos = 1;
+            }else if (detector.getXPosition() > 250 && detector.getXPosition() < 350){
                 telemetry.addData("Middle", 2);
-                pos += 2;
-            }else if (detector.getXPosition() > 450 && detector.getXPosition() < 600) {
+                pos = 2;
+            }else if (detector.getXPosition() > 350 && detector.getXPosition() < 600) {
                 telemetry.addData("Right", 3);
-                pos += 3;
+                pos = 3;
             }else{
                 telemetry.addData("No gold detected", 0);
             }
 
             telemetry.update();
         }
-        detector.disable();
         return pos;
     }
 
-    /*public void sample(int limit) throws InterruptedException {
-        driveDistance(0.5,10);
-        if (findGold(limit) == 0){
-            telemetry.addData("Do nothing for now", "");
-        }else if (findGold(limit) == 1){
-            strafe(5, false);
-        }else if (findGold(limit) == 2){
-            driveDistance(0.5,15);
-        }else if (findGold(limit) == 3){
-            strafe(5, true);
-        }
+    public void disableDetector(){
+        detector.disable();
     }
 
-    //SET WAIT TIME IN AUTO
-   public int getWait(){
+    public void sample(int limit) throws InterruptedException {
+        if (findGold(limit) == 0){
+            telemetry.addData("Do nothing for now", ""); // Maybe just move forward
+        }else if (findGold(limit) == 1){
+            driveDistance(0.5, 7);
+            sleep(1000);
+            //strafe(5, false,0.3);
+            sleep(1000);
+            driveDistance(0.5, 10);
+            sleep(1000);
+            driveDistance(-0.5, 10);
+        }else if (findGold(limit) == 2){
+            driveDistance(0.5,15);
+            sleep(1000);
+            driveDistance(-0.5, 10);
+        }else if (findGold(limit) == 3){
+            driveDistance(0.5, 7);
+            sleep(1000);
+            //strafe(5, true,0.3);
+            sleep(1000);
+            driveDistance(0.5, 10);
+            sleep(1000);
+            driveDistance(-0.5, 10);
+        }
+        sleep(1000);
+    }
+
+    public boolean checkAlign(){
+        return detector.getAligned();
+    }
+
+   //SET WAIT TIME IN AUTO
+   /**public int getWait(){
         int seconds = 0;
         do{
             if (gamepad1.x)
                 seconds++;
         }while (!gamepad1.y && runtime.time() < 10);
         return seconds;
-    }*/
+    }**/
 
     @Override
     public void runOpMode() throws InterruptedException {
