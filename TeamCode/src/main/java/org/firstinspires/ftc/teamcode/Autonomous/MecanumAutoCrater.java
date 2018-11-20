@@ -16,18 +16,33 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
 
         waitForStart();
 
-        driveDistance(-0.3, 2);
-        int gold = findGold(10);
+        driveDistance(-0.3, 0.5);
+        int gold = findGold(5);
+        double angleOff = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        sleep(5000);
-        driveDistance(-0.3,8);
+
+        driveDistance(-0.3,5.5);
         switch (gold){
             case 2:
-                driveDistance(-0.3, 10);
+                while (!checkAlign() && !isStopRequested()){
+                    if (getXpos() < 400) {
+                        LF.setPower(0.3);
+                        RF.setPower(-0.3);
+                        LB.setPower(-0.3);
+                        RB.setPower(0.3);
+                    }else{
+                        LF.setPower(-0.3);
+                        RF.setPower(0.3);
+                        LB.setPower(0.3);
+                        RB.setPower(-0.3);
+                    }
+                }
+                angleOff = getYaw();
+                driveDistance(-0.3, 3.5);
                 sleep(1000);
-                driveDistance(0.3,8);
+                driveDistance(0.3,5);
                 break;
             case 1:
                 while (!checkAlign() && !isStopRequested()){
@@ -36,26 +51,31 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                     LB.setPower(-0.3);
                     RB.setPower(0.3);
                 }
-                driveDistance(-0.3, 10);
+                angleOff = getYaw();
+                driveDistance(-0.3, 3.5);
                 sleep(1000);
-                driveDistance(0.3,8);
+                driveDistance(0.3,5);
                 break;
             case 3:
                 while (!checkAlign() && !isStopRequested()){
                     LF.setPower(-0.3);
-                    RF.setPower(0.3 );
+                    RF.setPower(0.3);
                     LB.setPower(0.3);
                     RB.setPower(-0.3);
                 }
-                driveDistance(-0.3, 10);
+                angleOff = getYaw();
+                driveDistance(-0.3, 3.5);
                 sleep(1000);
-                driveDistance(0.3,8);
+                driveDistance(0.3,5);
                 break;
         }
         disableDetector();
-        rotate(0.2, 90, true, 5);
-        //sleep(1000);
-        //driveDistance(0.5, 15);
+        telemetry.addData("turn amount", 90 - angleOff);
+        telemetry.update();
+        sleep(1000);
+        rotate(0.2, 90 - angleOff, true, 5);
+        sleep(1000);
+        driveDistance(-0.5, 10);
         //strafe(5, false);
 
         telemetry.addData("Status ", " auto done");

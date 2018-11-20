@@ -289,6 +289,8 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
         runtime.reset();
 
+        targetAngleChange -= 5;
+
         double initAngle = getYaw();
         telemetry.addData("Initial Angle", initAngle);
         telemetry.update();
@@ -335,6 +337,10 @@ public class MecanumLinearOpMode extends LinearOpMode{
             telemetry.update();
         }
         return pos;
+    }
+
+    public double getXpos(){
+        return detector.getXPosition();
     }
 
     public void disableDetector(){
