@@ -1,8 +1,5 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.app.Activity;
-import android.view.View;
-
 import com.disnodeteam.dogecv.CameraViewDisplay;
 import com.disnodeteam.dogecv.DogeCV;
 import com.disnodeteam.dogecv.detectors.roverrukus.GoldAlignDetector;
@@ -11,12 +8,10 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class MecanumLinearOpMode extends LinearOpMode{
@@ -30,8 +25,9 @@ public class MecanumLinearOpMode extends LinearOpMode{
     public DcMotor LB;
     public DcMotor RB;
     public BNO055IMU imu;
-    // public DcMotor liftR;
-    //public DcMotor liftL;
+    public DcMotor liftR;
+    public DcMotor liftL;
+    public Servo marker;
 
     //gyro variables
     Orientation angles;
@@ -53,6 +49,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         RF  = map.dcMotor.get("RF");
         LB  = map.dcMotor.get("LB");
         RB  = map.dcMotor.get("RB");
+        marker = map.servo.get("marker");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
      // liftL  = map.dcMotor.get("liftL");
      // liftR  = map.dcMotor.get("liftR");
@@ -62,6 +59,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
         RB.setDirection(DcMotorSimple.Direction.FORWARD);
         LB.setDirection(DcMotorSimple.Direction.REVERSE);
+
 
         LF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -114,6 +112,8 @@ public class MecanumLinearOpMode extends LinearOpMode{
             detector.ratioScorer.perfectRatio = 1.0; // Ratio adjustment
 
             detector.enable(); // Start the detector!
+
+            findGoldCrater(2);
 
             telemetry.addData("detector", "enabled");
             telemetry.update();
@@ -194,7 +194,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
     public void driveDistance(double power, double distance) throws InterruptedException{
         resetEncoders();
 
-        while (getEncoderAvg() < distance * encoderToInches && !isStopRequested()){
+        while (!isStopRequested() && getEncoderAvg() < distance * encoderToInches && !isStopRequested()){
             setMotorPowers(power, power);
         }
 
@@ -289,6 +289,8 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
         runtime.reset();
 
+        targetAngleChange -= 5;
+
         double initAngle = getYaw();
         telemetry.addData("Initial Angle", initAngle);
         telemetry.update();
@@ -313,7 +315,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
     //GOLD SAMPLING
 
-    public int findGold(int timeLimit){
+    public int findGoldCrater(int timeLimit){
 
         int pos = 3;
 
@@ -337,14 +339,50 @@ public class MecanumLinearOpMode extends LinearOpMode{
         return pos;
     }
 
+    public int findGoldDepot(int timeLimit){
+
+        int pos = 1;
+
+        while (runtime.seconds() < timeLimit){
+
+            telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
+            telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
+
+            if (detector.getXPosition() > 0 && detector.getXPosition() < 250){
+                telemetry.addData("Middle", 2);
+                pos = 1;
+            }else if (detector.getXPosition() > 250 && detector.getXPosition() < 600){
+                telemetry.addData("Right", 3);
+                pos = 2;
+            }else{
+                telemetry.addData("Left", 1);
+            }
+
+            telemetry.update();
+        }
+        return pos;
+    }
+
+    public double getXpos(){
+        return detector.getXPosition();
+    }
+
+    public void resetTime(){
+        runtime.reset();
+    }
+
+    public double getTime(){
+        return runtime.seconds();
+    }
+
     public void disableDetector(){
         detector.disable();
     }
 
     /*public void sample(int limit) throws InterruptedException {
-        if (findGold(limit) == 0){
+        if (findGoldCrater(limit) == 0){
             telemetry.addData("Do nothing for now", ""); // Maybe just move forward
-        }else if (findGold(limit) == 1){
+        }else if (findGoldCrater(limit) == 1){
             driveDistance(0.5, 7);
             sleep(1000);
             //strafe(5, false,0.3);
@@ -352,11 +390,11 @@ public class MecanumLinearOpMode extends LinearOpMode{
             driveDistance(0.5, 10);
             sleep(1000);
             driveDistance(-0.5, 10);
-        }else if (findGold(limit) == 2){
+        }else if (findGoldCrater(limit) == 2){
             driveDistance(0.5,15);
             sleep(1000);
             driveDistance(-0.5, 10);
-        }else if (findGold(limit) == 3){
+        }else if (findGoldCrater(limit) == 3){
             driveDistance(0.5, 7);
             sleep(1000);
             //strafe(5, true,0.3);
