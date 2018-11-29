@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
 @Autonomous(name="MecanumAutoDepot", group = "auto")
@@ -13,23 +12,67 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         init(hardwareMap, true);
-        int startPos = 0;
-        boolean hit = false;
-
-
 
         waitForStart();
-        //The robot will have to make multiple turns to get out of the latch. We have been testing next to the latch to have our measurements as accurate to when we delatch as possible.
-        driveDistance(0.2,10); //move forward
+
+        driveDistance(-0.3, 1);
+        int gold = findGoldDepot(5);
+        double angleOff = 0;
+        double storex = getXpos();
+        telemetry.addData("gold is at", gold);
+        telemetry.addData("align is ", checkAlign());
+        telemetry.update();
+        driveDistance(-0.3,5.5);
+        resetTime();
+        switch (gold){
+            case 2:
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){
+                    if (getXpos() > 400){
+                        LF.setPower(-0.3);
+                        RF.setPower(0.3);
+                        LB.setPower(0.3);
+                        RB.setPower(-0.3);
+                    }else{
+                        LF.setPower(0.3);
+                        RF.setPower(-0.3);
+                        LB.setPower(-0.3);
+                        RB.setPower(0.3);
+                    }
+                }
+                driveDistance(-0.3, 3.5);
+                sleep(1000);
+                driveDistance(0.3,5);
+                break;
+            case 1:
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){
+                    LF.setPower(-0.3);
+                    RF.setPower(0.3);
+                    LB.setPower(0.3);
+                    RB.setPower(-0.3);
+                }
+                driveDistance(-0.3, 3.5);
+                sleep(1000);
+                driveDistance(0.3,5);
+                break;
+            case 3:
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){
+                    LF.setPower(0.3);
+                    RF.setPower(-0.3 );
+                    LB.setPower(-0.3);
+                    RB.setPower(0.3);
+                }
+                driveDistance(-0.3, 3.5);
+                sleep(1000);
+                driveDistance(0.3,5);
+                break;
+        }
+        angleOff = getYaw(); //I update angleOff here instead of right after hitting block
+        disableDetector();
+        rotate(0.2, 90 - angleOff, true, 5);
         sleep(1000);
-        //Strafe Right
-        //Scan (if block found move forward, turn towards depot, move slightly, deploy marker, move into depot, turn left 90, move into enemy crater
-        //Strafe Left if scan = false
-        //Scan (if block found move forward and into depot, deploy marker, turn left towards crater, move into crater
-        //Strafe Left if scan = false
-        //Scan (if block found move forward, turn towards depot, move slightly, deploy marker, move into depot, reverse into crater
-        sleep(2000);
-        driveDistance(0.5, -45);//Back up into the crater
+        //driveDistance(0.5, 15);
+        //strafe(5, false);
+
         telemetry.addData("Status ", " auto done");
     }
 }
