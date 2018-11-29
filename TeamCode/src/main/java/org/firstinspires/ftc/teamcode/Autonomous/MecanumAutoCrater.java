@@ -22,7 +22,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        driveDistance(-0.3,4);
+        driveDistance(-0.3,7);
         resetTime();
         switch (gold){
             case 2:
@@ -39,9 +39,18 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                         RB.setPower(-0.3);
                     }
                 }
+                //hits the cube
                 driveDistance(-0.3, 3.5);
                 sleep(1000);
-                driveDistance(0.3,8);
+                driveDistance(0.3,5.5);
+                sleep(1000);
+
+                // rotates and moves to the wall
+                angleOff = getYaw();
+                disableDetector();
+                rotate(0.2, 90 - angleOff, true, 5);
+                sleep(1000);
+                driveDistance(-0.3, 23);
                 break;
             case 1:
                 while (!checkAlign() && !isStopRequested() && getTime() < 4){
@@ -50,9 +59,18 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                     LB.setPower(-0.3);
                     RB.setPower(0.3);
                 }
+                //hits the cube
                 driveDistance(-0.3, 3.5);
                 sleep(1000);
-                driveDistance(0.3,5);
+                driveDistance(0.3,5.5);
+                sleep(1000);
+
+                // rotates and moves to the wall
+                angleOff = getYaw();
+                disableDetector();
+                rotate(0.2, 90 - angleOff, true, 5);
+                sleep(1000);
+                driveDistance(-0.3, 13);
                 break;
             case 3:
                 while (!checkAlign() && !isStopRequested() && getTime() < 4){
@@ -61,19 +79,28 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                     LB.setPower(0.3);
                     RB.setPower(-0.3);
                 }
+                //hits the cube
                 driveDistance(-0.3, 3.5);
                 sleep(1000);
-                driveDistance(0.3,8);
+                driveDistance(0.3,5.5);
+                sleep(1000);
+
+                // rotates and moves to the wall
+                angleOff = getYaw();
+                disableDetector();
+                rotate(0.2, 90 - angleOff, true, 5);
+                sleep(1000);
+                driveDistance(-0.3, 25);
                 break;
         }
-        angleOff = getYaw(); //I update angleOff here instead of right after hitting block
-        disableDetector();
-        rotate(0.2, 90 - angleOff, true, 5);
-        sleep(1000);
+        //angleOff = getYaw(); //I update angleOff here instead of right after hitting block
+        //disableDetector();
+        //rotate(0.2, 90 - angleOff, true, 5);
+        //sleep(1000);
         //driveDistance(0.5, 15);
         //strafe(5, false);
 
-        telemetry.addData("St atus ", " auto done");
+        telemetry.addData("Status ", " auto done");
     }
 }
 

@@ -338,7 +338,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         }
         return pos;
     }
-
+//Why is findGoldDepot different from findGoldCrater?
     public int findGoldDepot(int timeLimit){
 
         int pos = 1;
@@ -354,7 +354,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
             }else if (detector.getXPosition() > 250 && detector.getXPosition() < 600){
                 telemetry.addData("Right", 3);
                 pos = 2;
-            }else{
+            }else if (!(detector.getXPosition() > 0 && detector.getXPosition() < 600)){
                 telemetry.addData("Left", 1);
             }
 
