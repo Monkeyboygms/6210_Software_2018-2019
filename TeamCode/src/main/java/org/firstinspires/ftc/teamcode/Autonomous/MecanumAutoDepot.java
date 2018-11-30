@@ -15,10 +15,9 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
 
         waitForStart();
 
-        driveDistance(-0.3, 1);
-        int gold = findGoldDepot(5);
+        driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        int gold = findGoldDepot(5); //GET GOLD POSITION
         double angleOff = 0;
-        double storex = getXpos();
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
@@ -26,7 +25,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         resetTime();
         switch (gold){
             case 2:
-                while (!checkAlign() && !isStopRequested() && getTime() < 4){
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD IN CENTER, ADJUST
                     if (getXpos() > 400){
                         LF.setPower(-0.3);
                         RF.setPower(0.3);
@@ -39,40 +38,39 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                         RB.setPower(0.3);
                     }
                 }
-                driveDistance(-0.3, 3.5);
+                driveDistance(-0.3, 5); //PUSH
                 sleep(1000);
-                driveDistance(0.3,5);
                 break;
             case 1:
-                while (!checkAlign() && !isStopRequested() && getTime() < 4){
-                    LF.setPower(-0.3);
-                    RF.setPower(0.3);
-                    LB.setPower(0.3);
-                    RB.setPower(-0.3);
-                }
-                driveDistance(-0.3, 3.5);
-                sleep(1000);
-                driveDistance(0.3,5);
-                break;
-            case 3:
-                while (!checkAlign() && !isStopRequested() && getTime() < 4){
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON LEFT, MOVE LEFT
                     LF.setPower(0.3);
-                    RF.setPower(-0.3 );
+                    RF.setPower(-0.3);
                     LB.setPower(-0.3);
                     RB.setPower(0.3);
                 }
-                driveDistance(-0.3, 3.5);
+                driveDistance(-0.3, 5); //PUSH
                 sleep(1000);
-                driveDistance(0.3,5);
+                break;
+            case 3:
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON RIGHT, MOVE RIGHT
+                    LF.setPower(-0.3);
+                    RF.setPower(0.3 );
+                    LB.setPower(0.3);
+                    RB.setPower(-0.3);
+                }
+                driveDistance(-0.3, 5); // PUSH
+                sleep(1000);
                 break;
         }
-        angleOff = getYaw(); //I update angleOff here instead of right after hitting block
+        angleOff = getYaw(); //UPDATE ANGLE
         disableDetector();
-        rotate(0.2, 90 - angleOff, true, 5);
-        sleep(1000);
-        //driveDistance(0.5, 15);
-        //strafe(5, false);
-
+        driveDistance(-0.5, 5); //MOVE TOWARD DEPOT
+        rotate(0.2, 45, true, 5); //TURN SO TEAM MARKER FACESDEPOT
+        driveDistance(-0.5, 5); //DRIVE TO WALL
+        strafeDistance(0.5, 5, false); //STRAFE TOWARD DEPOT
+        marker.setPosition(180); //DROP TEAM MARKER
+        marker.setPosition(0); //LIFT STICK
+        strafeDistance(1, 30, true); //PARK ON CRATER
         telemetry.addData("Status ", " auto done");
     }
 }

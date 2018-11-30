@@ -25,8 +25,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
     public DcMotor LB;
     public DcMotor RB;
     public BNO055IMU imu;
-    public DcMotor liftR;
-    public DcMotor liftL;
+    public DcMotor lift;
     public Servo marker;
 
     //gyro variables
@@ -51,9 +50,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         RB  = map.dcMotor.get("RB");
         marker = map.servo.get("marker");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
-     // liftL  = map.dcMotor.get("liftL");
-     // liftR  = map.dcMotor.get("liftR");
-
+        lift  = map.dcMotor.get("lift");
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -65,6 +62,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         RF.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         LB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         RB.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         resetEncoders();
 
         //SET UP GYRO
