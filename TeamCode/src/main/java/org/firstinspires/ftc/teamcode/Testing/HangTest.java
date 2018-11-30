@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import org.firstinspires.ftc.teamcode.AutoLinearOpMode;
 import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
-@Autonomous(name = "HangFrontTest", group = "Hang")
+@TeleOp(name = "HangTest", group = "Hang")
 //@Disabled
 public class HangTest extends MecanumLinearOpMode {
 
@@ -17,11 +17,10 @@ public class HangTest extends MecanumLinearOpMode {
         init(hardwareMap, false);
         waitForStart();
 
-        while (opModeIsActive() && !isStopRequested() ) {
-
-            LF.setPower(1);
-            RF.setPower(1);
+        while (opModeIsActive() && !isStopRequested()) {
+            lift.setPower(gamepad1.left_stick_y * 0.5);
+            telemetry.addData("Lift pos", lift.getCurrentPosition());
+            telemetry.update();
         }
-
     }
 }
