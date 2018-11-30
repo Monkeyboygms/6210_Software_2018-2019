@@ -26,16 +26,16 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         switch (gold){
             case 2:
                 while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD IN CENTER, ADJUST
-                    if (getXpos() > 400){
-                        LF.setPower(-0.3);
-                        RF.setPower(0.3);
-                        LB.setPower(0.3);
-                        RB.setPower(-0.3);
-                    }else{
+                    if (getXpos() < 400){
                         LF.setPower(0.3);
                         RF.setPower(-0.3);
                         LB.setPower(-0.3);
                         RB.setPower(0.3);
+                    }else{
+                        LF.setPower(-0.3);
+                        RF.setPower(0.3);
+                        LB.setPower(0.3);
+                        RB.setPower(-0.3);
                     }
                 }
                 driveDistance(-0.3, 5); //PUSH

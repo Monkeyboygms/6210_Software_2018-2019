@@ -33,7 +33,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                         LB.setPower(-0.3);
                         RB.setPower(0.3);
                     }else{
-                        LF.setPower(-0.3);                                               
+                        LF.setPower(-0.3);
                         RF.setPower(0.3);
                         LB.setPower(0.3);
                         RB.setPower(-0.3);
@@ -41,7 +41,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH GOLD
                 sleep(1000);
-                driveDistance(0.3,5); //BACK UP
+                driveDistance(0.3,4.5); //BACK UP
                 x = 10;
                 break;
             case 1:
@@ -53,7 +53,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
-                driveDistance(0.3,5);
+                driveDistance(0.3,4.5);
                 x = 20;
                 break;
             case 3:
@@ -65,7 +65,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
-                driveDistance(0.3,5);
+                driveDistance(0.3,4.5);
                 break;
         }
         angleOff = getYaw(); //UPDATE ANGLE
