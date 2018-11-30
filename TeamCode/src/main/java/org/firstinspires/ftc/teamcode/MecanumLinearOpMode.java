@@ -377,46 +377,9 @@ public class MecanumLinearOpMode extends LinearOpMode{
         detector.disable();
     }
 
-    /*public void sample(int limit) throws InterruptedException {
-        if (findGoldCrater(limit) == 0){
-            telemetry.addData("Do nothing for now", ""); // Maybe just move forward
-        }else if (findGoldCrater(limit) == 1){
-            driveDistance(0.5, 7);
-            sleep(1000);
-            //strafe(5, false,0.3);
-            sleep(1000);
-            driveDistance(0.5, 10);
-            sleep(1000);
-            driveDistance(-0.5, 10);
-        }else if (findGoldCrater(limit) == 2){
-            driveDistance(0.5,15);
-            sleep(1000);
-            driveDistance(-0.5, 10);
-        }else if (findGoldCrater(limit) == 3){
-            driveDistance(0.5, 7);
-            sleep(1000);
-            //strafe(5, true,0.3);
-            sleep(1000);
-            driveDistance(0.5, 10);
-            sleep(1000);
-            driveDistance(-0.5, 10);
-        }
-        sleep(1000);
-    }*/
-
     public boolean checkAlign(){
         return detector.getAligned();
     }
-
-   //SET WAIT TIME IN AUTO
-   /**public int getWait(){
-        int seconds = 0;
-        do{
-            if (gamepad1.x)
-                seconds++;
-        }while (!gamepad1.y && runtime.time() < 10);
-        return seconds;
-    }**/
 
     @Override
     public void runOpMode() throws InterruptedException {
