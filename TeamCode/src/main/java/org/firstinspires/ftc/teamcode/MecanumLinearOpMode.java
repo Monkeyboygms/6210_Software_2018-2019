@@ -111,7 +111,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
             detector.enable(); // Start the detector!
 
-            findGoldCrater(2);
+            findGold(2);
 
             telemetry.addData("detector", "enabled");
             telemetry.update();
@@ -313,7 +313,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
     //GOLD SAMPLING
 
-    public int findGoldCrater(int timeLimit){
+    public int findGold(int timeLimit){
 
         int pos = 3;
 
@@ -322,7 +322,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
             telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
             telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
 
-            if (detector.getXPosition() > 0 && detector.getXPosition() < 250){
+            if (detector.getXPosition() < 250){
                 telemetry.addData("Left", 1);
                 pos = 1;
             }else if (detector.getXPosition() > 250 && detector.getXPosition() < 600){
@@ -336,8 +336,8 @@ public class MecanumLinearOpMode extends LinearOpMode{
         }
         return pos;
     }
-//Why is findGoldDepot different from findGoldCrater?
-    public int findGoldDepot(int timeLimit){
+
+    /**public int findGoldDepot(int timeLimit){
 
         int pos = 1;
 
@@ -352,14 +352,14 @@ public class MecanumLinearOpMode extends LinearOpMode{
             }else if (detector.getXPosition() > 250 && detector.getXPosition() < 600){
                 telemetry.addData("Right", 3);
                 pos = 2;
-            }else if (!(detector.getXPosition() > 0 && detector.getXPosition() < 600)){
+            }else{
                 telemetry.addData("Left", 1);
             }
 
             telemetry.update();
         }
         return pos;
-    }
+    }**/
 
     public double getXpos(){
         return detector.getXPosition();

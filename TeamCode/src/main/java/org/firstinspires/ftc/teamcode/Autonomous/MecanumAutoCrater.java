@@ -16,9 +16,9 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         waitForStart();
 
         driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
-        int gold = findGoldCrater(5); //GET GOLD POSITION
-        int x = 0;
+        int gold = findGold(5); //GET GOLD POSITION
         double angleOff = 0;
+        int x = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
@@ -41,8 +41,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH GOLD
                 sleep(1000);
-                driveDistance(0.3,4.5); //BACK UP
-                x = 10;
+                driveDistance(0.3, 5);
                 break;
             case 1:
                 while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON LEFT, MOVE LEFT TIL ALIGNED
@@ -53,8 +52,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
-                driveDistance(0.3,4.5);
-                x = 20;
+                driveDistance(0.3, 5);
                 break;
             case 3:
                 while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON RIGHT, MOVE RIGHT TIL ALIGNED
@@ -65,7 +63,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
-                driveDistance(0.3,4.5);
+                driveDistance(0.3, 5);
                 break;
         }
         angleOff = getYaw(); //UPDATE ANGLE
