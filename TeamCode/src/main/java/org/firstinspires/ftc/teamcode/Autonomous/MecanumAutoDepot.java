@@ -16,12 +16,12 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         waitForStart();
 
         driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
-        int gold = findGoldDepot(5); //GET GOLD POSITION
+        int gold = findGold(5); //GET GOLD POSITION
         double angleOff = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        driveDistance(-0.3,5.5);
+        driveDistance(-0.3,5.5); //MOVE FORWARD OUT OF LANDER ZONE
         resetTime();
         switch (gold){
             case 2:
@@ -38,27 +38,27 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                         RB.setPower(-0.3);
                     }
                 }
-                driveDistance(-0.3, 5); //PUSH
+                driveDistance(-0.3, 5); //PUSH GOLD
                 sleep(1000);
                 break;
             case 1:
-                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON LEFT, MOVE LEFT
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON LEFT, MOVE LEFT TIL ALIGNED
                     LF.setPower(0.3);
                     RF.setPower(-0.3);
                     LB.setPower(-0.3);
                     RB.setPower(0.3);
                 }
-                driveDistance(-0.3, 5); //PUSH
+                driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
                 break;
             case 3:
-                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON RIGHT, MOVE RIGHT
+                while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD ON RIGHT, MOVE RIGHT TIL ALIGNED
                     LF.setPower(-0.3);
                     RF.setPower(0.3 );
                     LB.setPower(0.3);
                     RB.setPower(-0.3);
                 }
-                driveDistance(-0.3, 5); // PUSH
+                driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
                 break;
         }
