@@ -15,14 +15,12 @@ public class MainTeleOp extends MecanumLinearOpMode {
 
         init(hardwareMap, false);
 
-        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
         double leftPower = 0, rightPower = 0, scale = 1;
 
         boolean halfSpeed = false;
 
         boolean servoDown = false;
+        boolean locked = false;
 
         telemetry.addData("Mode: ", "Waiting for start");
         telemetry.update();
@@ -45,7 +43,7 @@ public class MainTeleOp extends MecanumLinearOpMode {
             }
 
             //halfspeed
-            if (gamepad1.right_trigger > 0) {
+            if (gamepad1.right_trigger > 0.5) {
                 halfSpeed = true;
                 leftPower = leftPower / 2;
                 rightPower = rightPower / 2;
@@ -54,19 +52,36 @@ public class MainTeleOp extends MecanumLinearOpMode {
             }
 
             //lift
-            if (gamepad2.right_bumper && lift.getCurrentPosition() > -3000) {
+            if (gamepad2.right_bumper) {
                 lift.setPower(1);
-            }else if(gamepad2.left_bumper && lift.getCurrentPosition() < 10){
+            }else if(gamepad2.left_bumper){
                 lift.setPower(-1);
             }else{
                 lift.setPower(0);
             }
 
             if (gamepad2.b) {
-                if (servoDown)
+                if (servoDown) {
                     marker.setPosition(0);
-                else
-                    marker.setPosition(180);
+                    sleep(1000);
+                    servoDown = !servoDown;
+                }else {
+                    marker.setPosition(1);
+                    sleep(1000);
+                    servoDown = !servoDown;
+                }
+            }
+
+            if (gamepad2.x) {
+                if (locked) {
+                    lock.setPosition(-1);
+                    sleep(1000);
+                    locked = !locked;
+                }else{
+                    lock.setPosition(1);
+                    sleep(1000);
+                    locked = !locked;
+                }
             }
 
             if (gamepad1.right_bumper){
@@ -75,10 +90,10 @@ public class MainTeleOp extends MecanumLinearOpMode {
                 LB.setPower(1);
                 RB.setPower(-1);
             }else if(gamepad1.left_bumper){
-                    LF.setPower(-1);
-                    RF.setPower(1);
-                    LB.setPower(1);
-                    RB.setPower(-1);
+                    LF.setPower(1);
+                    RF.setPower(-1);
+                    LB.setPower(-1);
+                    RB.setPower(1);
             }
             setMotorPowers(leftPower, rightPower);
 
