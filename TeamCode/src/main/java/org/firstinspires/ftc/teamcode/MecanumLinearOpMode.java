@@ -27,6 +27,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
     public BNO055IMU imu;
     public DcMotor lift;
     public Servo marker;
+    public Servo lock;
 
     //gyro variables
     Orientation angles;
@@ -51,6 +52,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         marker = map.servo.get("marker");
         imu            = map.get(BNO055IMU.class, "imu"); // Check which IMU is being used
         lift  = map.dcMotor.get("lift");
+        lock  = map.servo.get("lock");
 
         LF.setDirection(DcMotorSimple.Direction.REVERSE);
         RF.setDirection(DcMotorSimple.Direction.FORWARD);
@@ -322,13 +324,13 @@ public class MecanumLinearOpMode extends LinearOpMode{
             telemetry.addData("IsAligned" , detector.getAligned()); // Is the bot aligned with the gold mineral?
             telemetry.addData("X Pos" , detector.getXPosition()); // Gold X position.
 
-            if (detector.getXPosition() < 250){
+            if (detector.getXPosition() > 0 && detector.getXPosition() < 250){
                 telemetry.addData("Left", 1);
                 pos = 1;
             }else if (detector.getXPosition() > 250 && detector.getXPosition() < 600){
                 telemetry.addData("Middle", 2);
                 pos = 2;
-            }else{
+            }else {
                 telemetry.addData("Right", 3);
             }
 

@@ -104,6 +104,8 @@ public class GoldAlignExample extends OpMode
             telemetry.addData("No gold detected", null);
         }
 
+        detector.getAdjustedSize().height = 150;
+
        telemetry.update();
 
     }
