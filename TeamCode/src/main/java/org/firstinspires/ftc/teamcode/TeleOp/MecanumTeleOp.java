@@ -28,7 +28,7 @@ public class MecanumTeleOp extends AutoLinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
 
-            //Found this online and at a quick glance it seems good but i will research it more
+            //Found this online and at a quick glance it seems good but I will research it more
             double r = Math.hypot(gamepad1.left_stick_x, gamepad1.left_stick_y);
             double robotAngle = Math.atan2(gamepad1.left_stick_y, gamepad1.left_stick_x) - Math.PI / 4;
             double rightX = gamepad1.right_stick_x;
