@@ -22,6 +22,8 @@ public class MainTeleOp extends MecanumLinearOpMode {
         boolean servoDown = false;
         boolean locked = false;
 
+        double lockpos = 0;
+
         telemetry.addData("Mode: ", "Waiting for start");
         telemetry.update();
 
@@ -60,28 +62,22 @@ public class MainTeleOp extends MecanumLinearOpMode {
                 lift.setPower(0);
             }
 
-            if (gamepad2.b) {
-                if (servoDown) {
-                    marker.setPosition(0);
-                    sleep(1000);
-                    servoDown = !servoDown;
-                }else {
-                    marker.setPosition(1);
-                    sleep(1000);
-                    servoDown = !servoDown;
-                }
+            if (gamepad2.x) {
+                marker.setPosition(0);
+                sleep(1000);
+            }else if (gamepad2.y) {
+                marker.setPosition(1);
+                sleep(1000);
             }
 
-            if (gamepad2.x) {
-                if (locked) {
-                    lock.setPosition(-1);
-                    sleep(1000);
-                    locked = !locked;
-                }else{
-                    lock.setPosition(1);
-                    sleep(1000);
-                    locked = !locked;
-                }
+
+            while (gamepad2.b) {
+                lock.setPosition(lockpos);
+                lockpos+=0.1;
+            }
+            while (gamepad2.a){
+                lock.setPosition(lockpos);
+                lockpos-=0.1;
             }
 
             if (gamepad1.right_bumper){
@@ -99,7 +95,8 @@ public class MainTeleOp extends MecanumLinearOpMode {
 
             telemetry.addData("Motors", "left (%.2f), right (%.2f)", leftPower, rightPower)
                     .addData("Half Speed", halfSpeed)
-                    .addData("Servo down: ", servoDown);
+                    .addData("lock pos: ", lock.getPosition())
+                    .addData("Lift pos", lift.getCurrentPosition());
             telemetry.update();
         }
     }

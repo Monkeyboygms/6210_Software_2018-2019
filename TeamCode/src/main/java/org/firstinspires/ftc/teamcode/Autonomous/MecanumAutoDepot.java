@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
@@ -14,15 +15,25 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         init(hardwareMap, true);
 
         waitForStart();
+        unlatch();
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        sleep(2000);
 
-        strafeDistance(-0.5, 0.75, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        int liftTarget = lift.getCurrentPosition()-600;
+        while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
+            lift.setPower(-1);
+        }
+        lift.setPower(0);
+
+        strafeDistance(-0.5, 2, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        lock.setPosition(0);
         int gold = findGold(5); //GET GOLD POSITION
         int x = 0;
         double angleOff = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        driveDistance(-0.3,6); //MOVE FORWARD OUT OF LANDER ZONE
+        driveDistance(-0.3,10); //MOVE FORWARD OUT OF LANDER ZONE
         resetTime();
         switch (gold){
             case 2:

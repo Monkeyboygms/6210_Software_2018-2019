@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.teamcode.MecanumLinearOpMode;
 
@@ -14,15 +15,25 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         init(hardwareMap, true);
 
         waitForStart();
+        unlatch();
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        sleep(2000);
 
-        driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        int liftTarget = lift.getCurrentPosition()-600;
+        while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
+            lift.setPower(-1);
+        }
+        lift.setPower(0);
+        strafeDistance(-0.5, 2, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        lock.setPosition(0);
+        //driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         int gold = findGold(2); //GET GOLD POSITION
         double angleOff = 0;
         int x = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        driveDistance(-0.3,6); //MOVE FORWARD OUT OF LANDER ZONE
+        driveDistance(-0.3,10); //MOVE FORWARD OUT OF LANDER ZONE
         resetTime();
         switch (gold){
             case 2:
@@ -83,13 +94,13 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         rotate(0.2, 45, false, 5);
         sleep(1000);
         driveDistance(0.4, 0.5);
-        strafeDistance(0.5, 35, true); //STRAFE TO DEPOT
+        strafeDistance(0.5, 30, true); //STRAFE TO DEPOT
         sleep(1000);
         marker.setPosition(1); //DROP TEAM MARKER
         sleep(1000);
         marker.setPosition(0); //LIFT STICK
         sleep(1000);
-        strafeDistance(-0.5, 30, false); //PARK ON CRATER
+        strafeDistance(0.5, 40, false); //PARK ON CRATER
         telemetry.addData("Status ", " auto done");
     }
 }

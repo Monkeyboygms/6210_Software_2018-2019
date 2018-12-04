@@ -189,12 +189,20 @@ public class MecanumLinearOpMode extends LinearOpMode{
         idle();
     }
 
+    public void resetLift(){
+        lift.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        idle();
+
+        lift.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        idle();
+    }
+
     // ENCODER BASED MOVEMENT - FIXED
 
     public void driveDistance(double power, double distance) throws InterruptedException{
         resetEncoders();
 
-        while (!isStopRequested() && getEncoderAvg() < distance * encoderToInches && !isStopRequested()){
+        while (!isStopRequested() && getEncoderAvg() < distance * encoderToInches){
             setMotorPowers(power, power);
         }
 
@@ -381,6 +389,10 @@ public class MecanumLinearOpMode extends LinearOpMode{
 
     public boolean checkAlign(){
         return detector.getAligned();
+    }
+
+    public void unlatch(){
+        lock.setPosition(1);
     }
 
     @Override
