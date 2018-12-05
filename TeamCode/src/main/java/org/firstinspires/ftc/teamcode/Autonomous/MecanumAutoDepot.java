@@ -19,13 +19,15 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         unlatch();
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
-        int liftTarget = lift.getCurrentPosition()-640;
+        int liftTarget = lift.getCurrentPosition()-650;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
         lift.setPower(0);
-        driveDistance(0.3,2);
-        strafeDistance(-0.5, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        //driveDistance(0.3,0.5);
+        double ang = getYaw();
+       // rotate(0.2,-ang,false, 2 );
+        strafeDistance(-0.25, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
         int gold = findGold(5); //GET GOLD POSITION
         int x = 0;
@@ -88,7 +90,9 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         marker.setPosition(1);
         sleep(1000);
         marker.setPosition(0);
-        strafeDistance(0.7, 73,false);
+        strafeDistance(0.7, 36.5,false);
+        driveDistance(-0.4,5);
+        strafeDistance(0.8, 36.5,false);
         sleep(1000);
         telemetry.addData("Status ", " auto done");
     }
