@@ -15,16 +15,17 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         init(hardwareMap, true);
 
         waitForStart();
+        lift.setPower(0.75);
         unlatch();
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
-
-        int liftTarget = lift.getCurrentPosition()-600;
+        int liftTarget = lift.getCurrentPosition()-630;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
         lift.setPower(0);
-        strafeDistance(-0.5, 2, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        driveDistance(0.3,0.2);
+        strafeDistance(-0.3, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
         //driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         int gold = findGold(2); //GET GOLD POSITION

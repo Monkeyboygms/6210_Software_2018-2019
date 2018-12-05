@@ -15,17 +15,17 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         init(hardwareMap, true);
 
         waitForStart();
+        lift.setPower(0.75);
         unlatch();
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
-
-        int liftTarget = lift.getCurrentPosition()-600;
+        int liftTarget = lift.getCurrentPosition()-640;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
         lift.setPower(0);
-
-        strafeDistance(-0.5, 2, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        driveDistance(0.3,2);
+        strafeDistance(-0.5, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
         int gold = findGold(5); //GET GOLD POSITION
         int x = 0;
