@@ -72,12 +72,12 @@ public class MainTeleOp extends MecanumLinearOpMode {
 
 
             while (gamepad2.b) {
-                lock.setPosition(lockpos);
-                lockpos+=0.1;
+                lock.setPosition(0);
+                sleep(1000);
             }
             while (gamepad2.a){
-                lock.setPosition(lockpos);
-                lockpos-=0.1;
+                lock.setPosition(-1);
+                sleep(1000);
             }
 
             if (gamepad1.right_bumper){

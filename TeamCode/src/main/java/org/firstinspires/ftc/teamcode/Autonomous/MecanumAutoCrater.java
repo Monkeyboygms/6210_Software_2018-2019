@@ -13,19 +13,21 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         init(hardwareMap, true);
-
+//h
         waitForStart();
         lift.setPower(0.75);
         unlatch();
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
-        int liftTarget = lift.getCurrentPosition()-630;
+        int liftTarget = lift.getCurrentPosition()-650;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
         lift.setPower(0);
-        driveDistance(0.3,0.2);
-        strafeDistance(-0.3, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        //driveDistance(0.3,0.5);
+        double ang = getYaw();
+        // rotate(0.2,-ang,false, 2 );
+        strafeDistance(-0.25, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
         //driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         int gold = findGold(2); //GET GOLD POSITION
@@ -101,7 +103,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         sleep(1000);
         marker.setPosition(0); //LIFT STICK
         sleep(1000);
-        strafeDistance(0.5, 40, false); //PARK ON CRATER
+        strafeDistance(0.5, 70, false); //PARK ON CRATER
         telemetry.addData("Status ", " auto done");
     }
 }
