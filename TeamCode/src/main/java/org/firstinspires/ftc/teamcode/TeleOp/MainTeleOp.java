@@ -43,7 +43,7 @@ public class MainTeleOp extends MecanumLinearOpMode {
             }else{
                 rightPower = 0;
             }
-
+//h
             //halfspeed
             if (gamepad1.right_trigger > 0.5) {
                 halfSpeed = true;
