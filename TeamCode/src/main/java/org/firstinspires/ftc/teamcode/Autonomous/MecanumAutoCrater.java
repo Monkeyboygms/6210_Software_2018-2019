@@ -12,47 +12,51 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
     @Override
     public void runOpMode() throws InterruptedException {
 
+        double startAng = init(hardwareMap, true);
+
         init(hardwareMap, true);
-//h
+        double dist = 45;
         waitForStart();
         lift.setPower(0.75);
-        unlatch();
+        lock.setPosition(1);
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
-        int liftTarget = lift.getCurrentPosition()-650;
+        int liftTarget = lift.getCurrentPosition()-640;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
         lift.setPower(0);
-        //driveDistance(0.3,0.5);
+        driveDistance(0.3,0.5);
         double ang = getYaw();
         // rotate(0.2,-ang,false, 2 );
-        strafeDistance(-0.25, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        strafeDistance(-0.3, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
-        //driveDistance(-0.3, 0.5); //MOVE A BIT TO TRIGGER CAMERA VIEWING
-        int gold = findGold(2); //GET GOLD POSITION
-        double angleOff = 0;
+        int gold = findGold(5); //GET GOLD POSITION
         int x = 0;
+        double angleOff = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        driveDistance(-0.3,10); //MOVE FORWARD OUT OF LANDER ZONE
+        driveDistance(-0.3,7); //MOVE FORWARD OUT OF LANDER ZONE
         resetTime();
         switch (gold){
             case 2:
                 while (!checkAlign() && !isStopRequested() && getTime() < 4){ //IF GOLD IN CENTER, ADJUST
-                    if (getXpos() < 400){
-                        LF.setPower(0.4);
-                        RF.setPower(-0.4);
-                        LB.setPower(-0.4);
-                        RB.setPower(0.4);
-                    }else{
+                    //if (getXpos() < 400){
+                        //LF.setPower(0.4);
+                        //RF.setPower(-0.4);
+                        //LB.setPower(-0.4);
+                      //  RB.setPower(0.4);
+                    //}else{
                         LF.setPower(-0.4);
                         RF.setPower(0.4);
                         LB.setPower(0.4);
                         RB.setPower(-0.4);
-                    }
+                    //}
                 }
+                sleep(1000);
+                strafeDistance(-0.5, 3, true); // better aligns to not hit other mineral
+                sleep(1000);
                 driveDistance(-0.3, 5); //PUSH GOLD
                 sleep(1000);
                 driveDistance(0.3, 5);
@@ -65,6 +69,8 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                     LB.setPower(-0.4);
                     RB.setPower(0.4);
                 }
+                strafeDistance(-0.25, 3, true); // better aligns to not hit other mineral
+                sleep(1000);
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
                 driveDistance(0.3, 5);
@@ -89,21 +95,28 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 driveDistance(0.3, 5);
                 break;
         }
+
+        driveDistance(0.3, 5.5);
         angleOff = getYaw(); //UPDATE ANGLE
         disableDetector();
-        rotate(0.2, 90 - angleOff, false, 5); //TURN 270 DEGREES RIGHT
+        rotate(0.2, 90 - angleOff, true, 5);
         sleep(1000);
-        driveDistance(0.4, 30-x); // DRIVE  TO WALL
-        rotate(0.2, 45, false, 5);
+        driveDistance(0.5, 18 - x); //MOVE TOWARD WALL
         sleep(1000);
-        driveDistance(0.4, 0.5);
-        strafeDistance(0.5, 30, true); //STRAFE TO DEPOT
+        rotate(0.2, 45, true, 5);
+        driveDistance(0.4, 12);
+        driveDistance(-0.4, 0.5);
+        strafeDistance(0.7, 35,false);
+        driveDistance(0.4,5);
+        marker.setPosition(1);
         sleep(1000);
-        marker.setPosition(1); //DROP TEAM MARKER
+        //marker.setPosition(0);
+        strafeDistance(0.7, 36.5,true); // PARKING
+        driveDistance(0.4,2.5);
+        strafeDistance(0.8, dist,true);
         sleep(1000);
-        marker.setPosition(0); //LIFT STICK
+        lock.setPosition(0);
         sleep(1000);
-        strafeDistance(0.5, 70, false); //PARK ON CRATER
         telemetry.addData("Status ", " auto done");
     }
 }

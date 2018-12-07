@@ -19,7 +19,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         lock.setPosition(1);
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
-        int liftTarget = lift.getCurrentPosition()-650;
+        int liftTarget = lift.getCurrentPosition()-640;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
@@ -40,20 +40,19 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         switch (gold){
             case 2:
                 while (!checkAlign() && !isStopRequested() && getTime() < 6){ //IF GOLD IN CENTER, ADJUST
-                    if (getXpos() < 400){
-                        LF.setPower(0.3);
-                        RF.setPower(-0.3);
-                        LB.setPower(-0.4);
-                        RB.setPower(0.4);
-                    }else{
+                    //if (getXpos() < 400){
+                    //    LF.setPower(0.3);
+                    //    RF.setPower(-0.3);
+                    //    LB.setPower(-0.4);
+                    //    RB.setPower(0.4);
+                    //}else{
                         LF.setPower(-0.4);
                         RF.setPower(0.4);
                         LB.setPower(0.4);
                         RB.setPower(-0.4);
-                    }
+                    //}
                 }
-                sleep(1000);
-                strafeDistance(-0.4, 3, true); // goes a bit left to not hit the right mineral off too
+                strafeDistance(-0.25, 3, true); // goes a bit left to not hit the right mineral off too
                 sleep(1000);
                 driveDistance(-0.3, 5); //PUSH GOLD
                 sleep(1000);
@@ -66,6 +65,8 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                     LB.setPower(-0.4);
                     RB.setPower(0.4);
                 }
+                strafeDistance(-0.25, 3, true);
+                sleep(1000);
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
                 x = 10;
@@ -79,7 +80,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                 }
                 driveDistance(-0.3, 5); //PUSH AND BACK UP
                 sleep(1000);
-                dist -= 15;
+                dist -= 25;
                 break;
         }
         driveDistance(0.3, 5.5);
@@ -88,15 +89,15 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         rotate(0.2, 90 - angleOff, true, 5);
         driveDistance(-0.5, 18 - x); //MOVE TOWARD WALL
         rotate(0.2, 45, false, 5);
-        driveDistance(-0.4, 15);
+        driveDistance(-0.4, 12);
         driveDistance(0.4, 0.5);
-        strafeDistance(0.7, 30,true);
+        strafeDistance(0.7, 35,true);
         driveDistance(-0.4,5);
         marker.setPosition(1);
         sleep(1000);
         //marker.setPosition(0);
         strafeDistance(0.7, 36.5,false); // PARKING
-        driveDistance(-0.4,5);
+        driveDistance(-0.4,2.5);
         strafeDistance(0.8, dist,false);
         sleep(1000);
         lock.setPosition(0);

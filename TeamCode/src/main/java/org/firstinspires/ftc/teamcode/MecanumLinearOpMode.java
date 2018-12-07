@@ -42,7 +42,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
     private GoldAlignDetector detector;
 
     // INITIALIZE
-    public void init(HardwareMap map, boolean auto){
+    public double init(HardwareMap map, boolean auto){
 
         runtime     = new ElapsedTime();
         LF  = map.dcMotor.get("LF");
@@ -120,6 +120,7 @@ public class MecanumLinearOpMode extends LinearOpMode{
         }
         telemetry.addData("Status: ", "Initialized");
         telemetry.update();
+        return getYaw();
     }
 
     //SET POWER TO DRIVE MOTORS
