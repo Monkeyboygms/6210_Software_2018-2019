@@ -53,7 +53,7 @@ public class MainTeleOp extends MecanumLinearOpMode {
                 halfSpeed = false;
             }
 
-            //lift
+            //lift//
             if (gamepad2.right_bumper) {
                 lift.setPower(1);
             }else if(gamepad2.left_bumper){
