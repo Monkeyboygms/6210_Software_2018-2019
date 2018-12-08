@@ -29,15 +29,16 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         driveDistance(0.3,0.5);
         double ang = getYaw();
         // rotate(0.2,-ang,false, 2 );
-        strafeDistance(-0.3, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
+        strafeDistance(-0.3, 6.5, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
-        int gold = findGold(5); //GET GOLD POSITION
+        int gold = findGold(3); //GET GOLD POSITION
+        sleep(1000);
         int x = 0;
         double angleOff = 0;
         telemetry.addData("gold is at", gold);
         telemetry.addData("align is ", checkAlign());
         telemetry.update();
-        driveDistance(-0.3,7); //MOVE FORWARD OUT OF LANDER ZONE
+        driveDistance(-0.3,9); //MOVE FORWARD OUT OF LANDER ZONE
         resetTime();
         switch (gold){
             case 2:
@@ -95,27 +96,26 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 driveDistance(0.3, 5);
                 break;
         }
-
-        driveDistance(0.3, 5.5);
         angleOff = getYaw(); //UPDATE ANGLE
         disableDetector();
-        rotate(0.2, 90 - angleOff, true, 5);
+        rotate(0.2, 90 - angleOff, false, 5);
         sleep(1000);
-        driveDistance(0.5, 18 - x); //MOVE TOWARD WALL
+        driveDistance(0.5, 35 - x); //MOVE TOWARD WALL
         sleep(1000);
-        rotate(0.2, 45, true, 5);
-        driveDistance(0.4, 12);
+       // rotate(0.2, 45, false, 5);
+        driveDistance(0.4, 5);
         driveDistance(-0.4, 0.5);
-        strafeDistance(0.7, 35,false);
+        strafeDistance(0.7, 17,true);
         driveDistance(0.4,5);
+        strafeDistance(0.7, 17,true);
         marker.setPosition(1);
         sleep(1000);
         //marker.setPosition(0);
-        strafeDistance(0.7, 36.5,true); // PARKING
-        driveDistance(0.4,2.5);
-        strafeDistance(0.8, dist,true);
+        strafeDistance(0.7, 17,false);
+        driveDistance(0.4,5);
+        strafeDistance(0.7, 17,false);
         sleep(1000);
-        lock.setPosition(0);
+        lock.setPosition(1);
         sleep(1000);
         telemetry.addData("Status ", " auto done");
     }

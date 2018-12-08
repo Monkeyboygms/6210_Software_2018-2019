@@ -13,7 +13,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
     public void runOpMode() throws InterruptedException {
 
         init(hardwareMap, true);
-        double dist = 45;
+        double dist = 48;
         waitForStart();
         lift.setPower(0.75);
         lock.setPosition(1);
@@ -83,7 +83,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                 dist -= 25;
                 break;
         }
-        driveDistance(0.3, 5.5);
+        driveDistance(0.3, 3);
         angleOff = getYaw(); //UPDATE ANGLE
         disableDetector();
         rotate(0.2, 90 - angleOff, true, 5);
@@ -99,9 +99,6 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         strafeDistance(0.7, 36.5,false); // PARKING
         driveDistance(-0.4,2.5);
         strafeDistance(0.8, dist,false);
-        sleep(1000);
-        lock.setPosition(0);
-        sleep(1000);
         telemetry.addData("Status ", " auto done");
     }
 }
