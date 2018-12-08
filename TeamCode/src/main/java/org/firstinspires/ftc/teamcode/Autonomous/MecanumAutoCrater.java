@@ -58,7 +58,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 sleep(1000);
                 strafeDistance(-0.5, 3, true); // better aligns to not hit other mineral
                 sleep(1000);
-                driveDistance(-0.3, 5); //PUSH GOLD
+                driveDistance(-0.4, 5); //PUSH GOLD
                 sleep(1000);
                 driveDistance(0.3, 5);
                 x = 5;
@@ -72,7 +72,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 }
                 strafeDistance(-0.25, 3, true); // better aligns to not hit other mineral
                 sleep(1000);
-                driveDistance(-0.3, 5); //PUSH AND BACK UP
+                driveDistance(-0.4, 5); //PUSH AND BACK UP
                 sleep(1000);
                 driveDistance(0.3, 5);
                 x = 10;
@@ -91,7 +91,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                     LB.setPower(0.4);
                     RB.setPower(-0.4);
                 }
-                driveDistance(-0.3, 5); //PUSH AND BACK UP
+                driveDistance(-0.4, 5); //PUSH AND BACK UP
                 sleep(1000);
                 driveDistance(0.3, 5);
                 break;
@@ -103,20 +103,17 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         driveDistance(0.5, 35 - x); //MOVE TOWARD WALL
         sleep(1000);
        // rotate(0.2, 45, false, 5);
-        driveDistance(0.4, 5);
-        driveDistance(-0.4, 0.5);
-        strafeDistance(0.7, 17,true);
-        driveDistance(0.4,5);
-        strafeDistance(0.7, 17,true);
+        driveDistance(0.5, 5);
+        driveDistance(-0.5, 0.5);
+        strafeDistance(0.8, 17,true);
+        driveDistance(0.5,5);
+        strafeDistance(0.8, 17,true);
         marker.setPosition(1);
         sleep(1000);
         //marker.setPosition(0);
-        strafeDistance(0.7, 17,false);
-        driveDistance(0.4,5);
-        strafeDistance(0.7, 17,false);
-        sleep(1000);
-        lock.setPosition(1);
-        sleep(1000);
+        strafeDistance(0.8, 36.5,false); // PARKING
+        driveDistance(-0.5,2.5);
+        strafeDistance(0.8, dist,false);
         telemetry.addData("Status ", " auto done");
     }
 }
