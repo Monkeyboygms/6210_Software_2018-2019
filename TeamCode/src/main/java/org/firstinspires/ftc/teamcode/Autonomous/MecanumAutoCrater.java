@@ -77,7 +77,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 driveDistance(0.3, 5);
                 x = 10;
                 break;
-            case 3:
+            case 3://
                 telemetry.addData("status", "about to move right");
                 telemetry.update();
                 sleep(1000);
