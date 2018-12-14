@@ -14,11 +14,13 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
 
         init(hardwareMap, true);
         double dist = 48;
+        double DD = 0;  //DD = Depot Distance and will account for varying distances to the depot depending on the mineral placement
         waitForStart();
-        lift.setPower(0.75);
+        lift.setPower(0.90);
         lock.setPosition(1);
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         sleep(2000);
+        lock.setPosition(0.5); //Stop Servo Movement
         int liftTarget = lift.getCurrentPosition()-640;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
@@ -50,6 +52,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                         RF.setPower(0.4);
                         LB.setPower(0.4);
                         RB.setPower(-0.4);
+                        DD = 9; //The robot is normally 9in short on depot strafe
                     //}
                 }
                 strafeDistance(-0.25, 3, true); // goes a bit left to not hit the right mineral off too
@@ -78,12 +81,11 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
                     LB.setPower(0.4);
                     RB.setPower(-0.4);
                 }
-                driveDistance(-0.3, 5); //PUSH AND BACK UP
+                driveDistance(-0.3, 7); //PUSH AND BACK UP
                 sleep(1000);
-                dist -= 25;
                 break;
         }
-        driveDistance(0.3, 3);
+        driveDistance(0.3, 6.5);
         angleOff = getYaw(); //UPDATE ANGLE
         disableDetector();
         rotate(0.2, 90 - angleOff, true, 5);
@@ -91,9 +93,9 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         rotate(0.2, 45, false, 5);
         driveDistance(-0.4, 12);
         driveDistance(0.4, 0.5);
-        strafeDistance(0.7, 35,true);
+        strafeDistance(0.7, 35 + DD,true);
         driveDistance(-0.4,5);
-        marker.setPosition(1);
+        marker.setPosition(0.41);  //Deploy Marker
         sleep(1000);
         //marker.setPosition(0);
         strafeDistance(0.7, 36.5,false); // PARKING

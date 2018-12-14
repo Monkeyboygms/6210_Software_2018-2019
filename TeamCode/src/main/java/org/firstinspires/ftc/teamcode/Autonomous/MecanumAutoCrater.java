@@ -113,7 +113,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         //marker.setPosition(0);
         strafeDistance(0.8, 36.5,false); // PARKING
         driveDistance(-0.5,2.5);
-        strafeDistance(0.8, dist,false);
+        strafeDistance(0.8, dist+10,false);
         telemetry.addData("Status ", " auto done");
     }
 }
