@@ -17,18 +17,16 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         double DD = 0;  //DD = Depot Distance and will account for varying distances to the depot depending on the mineral placement
         waitForStart();
         lift.setPower(0.90);
-        lock.setPosition(1);
+        lock.setPosition(1);//Unlock Servo
         lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        sleep(2000);
+        sleep(  1000);
         lock.setPosition(0.5); //Stop Servo Movement
         int liftTarget = lift.getCurrentPosition()-640;
         while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
             lift.setPower(-1);
         }
         lift.setPower(0);
-        //driveDistance(0.3,0.5);
         double ang = getYaw();
-       // rotate(0.2,-ang,false, 2 );
         strafeDistance(-0.3, 7, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
         lock.setPosition(0);
         int gold = findGold(5); //GET GOLD POSITION
@@ -101,6 +99,7 @@ public class MecanumAutoDepot extends MecanumLinearOpMode {
         strafeDistance(0.7, 36.5,false); // PARKING
         driveDistance(-0.4,2.5);
         strafeDistance(0.8, dist,false);
+        marker.setPosition(0.2);
         telemetry.addData("Status ", " auto done");
     }
 }
