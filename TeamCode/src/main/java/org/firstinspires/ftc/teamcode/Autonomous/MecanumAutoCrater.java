@@ -17,20 +17,20 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         init(hardwareMap, true);
         double dist = 45;
         waitForStart();
-        lift.setPower(0.75);
-        lock.setPosition(1);
-        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        lift.setPower(0.90);    //LIFT PULLS ROBOT UP (releases tension for easy unlock)
+        lock.setPosition(1);    //UNLOCK LIFT
+        lift.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT); //LET GRAVITY TAKE THE ROBOT DOWN
         sleep(2000);
-        int liftTarget = lift.getCurrentPosition()-640;
-        while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){
+        int liftTarget = lift.getCurrentPosition()-640; //FIND HOW FAR THE LIFT NEEDS TO RETRACT
+        while (!isStopRequested() && lift.getCurrentPosition() > liftTarget){   //RETRACT LIFT
             lift.setPower(-1);
         }
         lift.setPower(0);
-        driveDistance(0.3,0.5);
-        double ang = getYaw();
+        driveDistance(0.3,0.5); //What is this for???
+        double ang = getYaw();  //Why do we need this???
         // rotate(0.2,-ang,false, 2 );
         strafeDistance(-0.3, 6.5, true); //MOVE A BIT TO TRIGGER CAMERA VIEWING
-        lock.setPosition(0);
+        //lock.setPosition(0);  //Don't need to relock
         int gold = findGold(3); //GET GOLD POSITION
         sleep(1000);
         int x = 0;
@@ -58,7 +58,7 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
                 sleep(1000);
                 strafeDistance(-0.5, 3, true); // better aligns to not hit other mineral
                 sleep(1000);
-                driveDistance(-0.4, 5); //PUSH GOLD
+                driveDistance(-0.4, 5); //PUSH AND BACK UP
                 sleep(1000);
                 driveDistance(0.3, 5);
                 x = 5;
@@ -98,23 +98,23 @@ public class MecanumAutoCrater extends MecanumLinearOpMode {
         }
         angleOff = getYaw(); //UPDATE ANGLE
         disableDetector();
-        rotate(0.2, 90 - angleOff, false, 5);
+        rotate(0.2, 90 - angleOff, false, 5);   //ROTATE TOWARD WALL
         sleep(1000);
         driveDistance(0.5, 35 - x); //MOVE TOWARD WALL
         sleep(1000);
        // rotate(0.2, 45, false, 5);
-        driveDistance(0.5, 5);
-        driveDistance(-0.5, 0.5);
-        strafeDistance(0.8, 17,true);
-        driveDistance(0.5,5);
-        strafeDistance(0.8, 17,true);
-        marker.setPosition(0.41);
+        driveDistance(0.5, 5);  //ALIGN WITH WALL (by running into it)
+        driveDistance(-0.5, 0.5);   //MOVE BACK FROM WALL (so we don't get caught on it)
+        strafeDistance(0.8, 17,true);   //STRAFE TOWARD DEPOT
+        driveDistance(0.5,5);   //REALIGN WITH WALL (to avoid hitting a mineral)
+        strafeDistance(0.8, 17,true);   //CONTINUE INTO DEPOT
+        marker.setPosition(0.41);   //DEPLOY MARKER
         sleep(1000);
         //marker.setPosition(0);
-        strafeDistance(0.8, 36.5,false); // PARKING
-        driveDistance(-0.5,2.5);
-        strafeDistance(0.8, dist+10,false);
-        marker.setPosition(0.2);
+        strafeDistance(0.8, 36.5,false);    //STRAFE TOWARD CRATER
+        driveDistance(-0.5,2.5);    //REALIGN WITH WALL (so we don't hit our alliance partner's mineral)
+        strafeDistance(0.8, dist+10,false); //STRAFE INTO CRATER
+        marker.setPosition(0.2);    //RETRACT MARKER DEPLOYMENT
         telemetry.addData("Status ", " auto done");
     }
 }
